@@ -1,0 +1,9 @@
+{
+  "devDependencies": {
+    "buster": "^0.7.18",
+    "standard": "^8.5.0"
+  },
+  "scripts": {
+    "test": "node ./node_modules/standard/bin/cmd.js && node ./node_modules/buster/bin/buster-test"
+  }
+}
