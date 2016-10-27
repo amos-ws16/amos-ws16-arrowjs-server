@@ -5,3 +5,9 @@
 ## Build Infrastructure
   + Testing: [buster.js](http://docs.busterjs.org/en/latest/)
   + Coding standard: [standard.js](https://github.com/feross/standard)
+
+## Repository Branches
+  + `master`: only tagged releases, i.e. `sprint-xx-release`,
+    `mid-project-release`, `final-release`
+  + `dev`: currently completed features
+  + `feature-id-description`: one branch per feature
