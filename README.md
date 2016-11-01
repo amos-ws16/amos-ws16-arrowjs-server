@@ -1,5 +1,6 @@
 # AI Bot backend
 [![Build Status](https://travis-ci.org/amos-ws16/amos-ws16-aibot.svg?branch=master)](https://travis-ci.org/amos-ws16/amos-ws16-aibot)
+[![Coverage Status](https://coveralls.io/repos/github/amos-ws16/amos-ws16-aibot/badge.svg?branch=feature-tba-scoring)](https://coveralls.io/github/amos-ws16/amos-ws16-aibot?branch=feature-tba-scoring)
 [![Standard - JavaScript Style Guide](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](http://standardjs.com/)
 
 ## Build Infrastructure
