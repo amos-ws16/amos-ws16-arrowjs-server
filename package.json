@@ -1,9 +1,19 @@
 {
+  "name": "arrow",
+  "version": "1.0.0",
+  "license": "AGPL",
   "devDependencies": {
     "buster": "^0.7.18",
-    "standard": "^8.5.0"
+    "coveralls": "^2.11.14",
+    "eslint": "^3.9.0",
+    "eslint-config-standard": "^6.2.1",
+    "eslint-plugin-promise": "^3.3.0",
+    "eslint-plugin-standard": "^2.0.1",
+    "istanbul": "^0.4.5"
   },
   "scripts": {
-    "test": "node ./node_modules/standard/bin/cmd.js && node ./node_modules/buster/bin/buster-test"
+    "test": "eslint **/*.js && buster-test",
+    "cover": "istanbul cover buster-test",
+    "coveralls": "npm run cover -- --report lcovonly && cat ./coverage/lcov.info | coveralls"
   }
 }
