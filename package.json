@@ -1,4 +1,7 @@
 {
+  "name": "arrow",
+  "version": "1.0.0",
+  "license": "AGPL",
   "devDependencies": {
     "buster": "^0.7.18",
     "coveralls": "^2.11.14",

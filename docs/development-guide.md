@@ -44,3 +44,8 @@ github repository by Travis-CI.
 Tests are written with [buster.js](http://docs.busterjs.org/en/latest/). For
 testing of [express.js](http://expressjs.com) based REST functionality use
 [supertest](https://github.com/visionmedia/supertest).
+
+## Working with version control
+
+ + [Keep commits clean](https://www.reviewboard.org/docs/codebase/dev/git/clean-commits/)
+ + [Write good discriptions](https://www.reviewboard.org/docs/codebase/dev/writing-good-descriptions/)
