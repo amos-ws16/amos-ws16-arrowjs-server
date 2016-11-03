@@ -13,7 +13,7 @@
     "test": "eslint **/*.js && buster-test",
     "cover": "istanbul cover buster-test",
     "coveralls": "npm run cover -- --report lcovonly && cat ./coverage/lcov.info | coveralls",
-    "start": "node web-api/index.js"
+    "start": "node bin/start-server.js"
   },
   "dependencies": {
     "express": "^4.14.0"
