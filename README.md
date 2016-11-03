@@ -1,6 +1,6 @@
 # Arrow.js - the correlation engine
-[![Build Status](https://travis-ci.org/amos-ws16/amos-ws16-arrowjs.svg?branch=master)](https://travis-ci.org/amos-ws16/amos-ws16-arrowjs?branch=dev)
-[![Coverage Status](https://coveralls.io/repos/github/amos-ws16/amos-ws16-arrowjs/badge.svg?branch=dev)](https://coveralls.io/github/amos-ws16/amos-ws16-arrowjs?branch=dev)
+[![Build Status](https://travis-ci.org/amos-ws16/amos-ws16-arrowjs.svg?branch=master)](https://travis-ci.org/amos-ws16/amos-ws16-arrowjs?branch=master)
+[![Coverage Status](https://coveralls.io/repos/github/amos-ws16/amos-ws16-arrowjs/badge.svg?branch=master)](https://coveralls.io/github/amos-ws16/amos-ws16-arrowjs?branch=master)
 [![Standard - JavaScript Style Guide](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](http://standardjs.com/)
 
 Check out the [development guide](docs/development-guide.md).
