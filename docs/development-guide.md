@@ -88,6 +88,53 @@ buster.testCase('An async function with async/await', {
 For more information about `async` and `await` see for example
 [here](https://ponyfoo.com/articles/understanding-javascript-async-await).
 
+### Acceptance tests with supertest
+
+Acceptance tests for a HTTP based RESTful API are inherently asynchronous, so
+the testing methods in the previous section apply. Our API is implemented using
+[express.js](http://expressjs.com) which can be tested using
+[supertest](https://github.com/visionmedia/supertest) or
+[supertest-as-promised](https://github.com/WhoopInc/supertest-as-promised) with
+the traditional callback method or the `async`/`await` method respectively.
+Here is a minimal example for both methods:
+
+```javascript
+// Get the express object.
+let app = require('../lib/server.js')
+
+// Callback method.
+let request = require('supertest')
+buster.testCase('GET /api/route', {
+  'should return some information': done => {
+    request(app)
+      .get('/api/route')
+      .expect('Content-Type', /json/)
+      .expect(200)
+      .end(done((err, res) => {
+        // Do assertions on err and res.
+        buster.assert.same(res.body.message, 'Hello World')
+      }))
+  }
+})
+
+// Async/await method.
+let request = require('supertest-as-promised')
+buster.testCase('GET /api/route', {
+  'should return some information': async () => {
+    let res = await request(app)
+      .get('/api/route')
+      .expect('Content-Type', /json/)
+      .expect(200)
+
+    // Do assertions on res. If an error is expected use buster.exception.
+    buster.assert.same(res.body.message, 'Hello World')
+  }
+})
+```
+
+__TODO__: Make sure to reset / freshly provision `app` before each test, i.e.
+in buster's `setUp`/`tearDown` hooks.
+
 ## Working with version control
 
  + [Keep commits clean](https://www.reviewboard.org/docs/codebase/dev/git/clean-commits/)
