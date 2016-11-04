@@ -7,3 +7,9 @@ buster.testCase('A module', {
   }
 })
 
+// Showcase an asynchronous test.
+buster.testCase('ComplicatedAsyncTask', {
+  'should return 42': async () => {
+    buster.assert.same(await myLib.complicatedAsyncTask(), 42)
+  }
+})
