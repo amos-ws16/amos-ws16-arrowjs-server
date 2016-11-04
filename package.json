@@ -16,6 +16,7 @@
     "supertest-as-promised": "^4.0.2"
   },
   "scripts": {
+    "start": "node ./bin/start-server.js",
     "test": "eslint **/*.js && babel-node ./node_modules/.bin/buster-test",
     "cover": "cross-env NODE_ENV=test nyc --reporter=lcov --reporter=text babel-node -- ./node_modules/.bin/buster-test",
     "coveralls": "npm run cover && nyc report --reporter=text-lcov | coveralls"
