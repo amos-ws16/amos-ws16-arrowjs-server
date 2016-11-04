@@ -17,7 +17,7 @@
   "scripts": {
     "test": "eslint **/*.js && babel-node ./node_modules/.bin/buster-test",
     "cover": "cross-env NODE_ENV=test nyc --reporter=lcov --reporter=text babel-node -- ./node_modules/.bin/buster-test",
-    "coveralls": "nyc report --reporter=text-lcov | coveralls"
+    "coveralls": "npm run cover && nyc report --reporter=text-lcov | coveralls"
   },
   "nyc": {
     "sourceMap": false,
