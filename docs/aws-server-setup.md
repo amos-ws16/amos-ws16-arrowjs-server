@@ -17,37 +17,107 @@ Configure a profile, which is stored in the config and credentials files
 
 *~/.aws/credentials*
 
-    $aws configure -profile <NAME>
+    $aws configure -profile <PROFILENAME>
 
 AWS Access Key ID | AWS Secret Access Key | Defail region name | Defaul output format
 
 
 ## Test profiles
 
-    $ aws ec2 describe-instances --profile <NAME>
+    $ aws ec2 describe-instances --profile <PROFILENAME>
 
 *~/.aws/credentials*
 
 *~/.aws/config*
 
-## Key Pairls & Security Groups
+## Key Pairs & Security Groups
 
+generate private key:
 
+        $ openssl genrsa -out my-key.pem 2048
+
+generate public key:
+
+        $ openssl rsa -in my-key.pem -pubout > my-key.pub
+
+import key:
+
+        $ aws ec2 import-key-pair --key-name ec-courseAWSKeyPair --public-key-material “XYZ” --profile <PROFILENAME>
+
+display key:
+
+        $ aws ec2 describe-key-pairs --key-name ec-courseAWSKeyPair --profile <PROFILENAME>
+
+create security group:
+
+        $ aws ec2 create-security-group --group-name <GROUPNAME> --description "<DESCRIPTION>" --profile <PROFILENAME>
+
+describe security group:
+
+        $ aws ec2 describe-security-groups --group-names <GROUPNAME> --profile <PROFILENAME>
+
+adding rules (RDP):
+
+        $ aws ec2 authorize-security-group-ingress --group-name <GROUPNAME> --protocol tcp--port 3389 --cidr your.I.P.Adress/24 --profile <PROFILENAME>
+
+adding rules (SSH):
+
+        $ aws ec2 authorize-security-group-ingress --group-name <GROUPNAME> --protocol tcp--port 22 --cidr your.I.P.Adress/24 --profile <PROFILENAME>
+
+Using default AWS credentials:
+
+        $ export AWS_ACCESS_KEY_ID=<YOURAWSACCESSKEY>
+        $ export AWS_SECRET_ACCESS_KEY=<PUTINYOURAWSSECRETACCESSSKEY>
 
 ## Command Line Options
 
+Profile:
 
+        --profile <PROFILENAME> or default
+
+Region:
+
+        --region <AWSREGION>
+
+
+Ouput:
+
+        --output <OUTPUTFORMAT>
+
+Endpoint: The endpoint to make the call against.
+
+        --endpoint-url <ENDPOINT>
+
+Example command:
+
+        $ aws ec2 describe-instances --profile <NAME> --output json --region eu-central-1
 
 ## Command Structure
 
+        $aws <command> <subcommand> [options and parameters]
+
+## Launching Instance
+
+### Amazon Machine Image (AMI)
+
+"An AMI is a template that contains the software configuration (operating system, application server, and applications) required to launch your instance. You can select an AMI provided by AWS, our user community, or the AWS Marketplace; or you can select one of your own AMIs."
+
+[Amazon Machine Image (AMI)](https://console.aws.amazon.com/ec2/)
+
+<img src="ami.png" alt="Amazon Web Service"/>
 
 
-## Amazon Machine Image (AMI)
+For our application we choose the **Ubuntu Server 16.04**
 
+### Instance Type
 
+"Amazon EC2 provides a wide selection of instance types optimized to fit different use cases. Instances are virtual servers that can run applications. They have varying combinations of CPU, memory, storage, and networking capacity, and give you the flexibility to choose the appropriate mix of resources for your applications."
 
-## Choose the right EC2 Instance Type
+<img src="instancetype.png" alt="Amazon Web Service"/>
 
+For our application we choose the **t2.micro** type.
+
+[Information](https://aws.amazon.com/de/ec2/instance-types/) about choosing the right EC2 Instance Type for your needs.
 
 
 ## Create
