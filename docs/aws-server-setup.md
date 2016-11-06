@@ -104,7 +104,7 @@ Example command:
 
 [Amazon Machine Image (AMI)](https://console.aws.amazon.com/ec2/)
 
-<img src="ami.png" alt="Amazon Web Service"/>
+<img src="assets/ami.png" alt="Amazon Web Service"/>
 
 
 For our application we choose the **Ubuntu Server 16.04**
@@ -113,27 +113,65 @@ For our application we choose the **Ubuntu Server 16.04**
 
 "Amazon EC2 provides a wide selection of instance types optimized to fit different use cases. Instances are virtual servers that can run applications. They have varying combinations of CPU, memory, storage, and networking capacity, and give you the flexibility to choose the appropriate mix of resources for your applications."
 
-<img src="instancetype.png" alt="Amazon Web Service"/>
+<img src="assets/instancetype.png" alt="Amazon Web Service"/>
 
 For our application we choose the **t2.micro** type.
 
 [Information](https://aws.amazon.com/de/ec2/instance-types/) about choosing the right EC2 Instance Type for your needs.
 
 
-## Create
+### Create
+
+    $ aws ec2 run-instances --image-id <IMAGE ID> --count 1 --instance-type <INSTANCETYPE> --key-name <KEYPAIRNAME> --security-groups <SECURITYGROUPNAME>
 
 
+for example:
 
-## Find
-
-
-
-## Shut-down
+    $ aws ec2 run-instances --image-id ami-26c43149 --count 1 --instance-type t1.micro --key-name <KEYPAIRNAME> --<SECURITYGROUPNAME>
 
 
+#### Adding a Name Tag
 
-## Connect
+    $ aws ec2 create-tags --resources <RESOURCE> --tags Key=<NAME>,Value=<VALUE>
 
+#### Adding a [Block Device Mapping](http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/block-device-mapping-concepts.html)
 
+"Each instance that you launch has an associated root device volume, either an Amazon EBS volume or an instance store volume. You can use block device mapping to specify additional EBS volumes or instance store volumes to attach to an instance when it's launched."
+
+For example:
+
+    $ aws ec2 run-instance … --block-device-mappings "[{\"DeviceName\":\"/dev/sdf\",\"Ebs\":{\"VolumeSize\":20,\"DeleteOnTermination\":false}}]"
+
+### Find
+
+    $ aws ec2 describe-instances --filters "Name=instance-type,Values=t2.micro”
+
+### Shut-down 
+
+    $ aws ec2 stop-instances --instance-ids <RESOURCE>
+
+### Connect (SSH/PuTTY/MindTerm)
+
+pre: ssh client | AWS CLI | instance ID | public DNS name | private key | enable inbound SSH
+
+pre lock your private key:
+
+    $ chmod 400 ecAWSprivateKey.pem
+
+connect:
+
+    $ ssh –i /<pathToPrivateKey>/<PrivateKeyFile> user_name@PublicDnsName
+
+example:
+
+    $ ssh -i .aws/ecAWSprivateKey.pem ubuntu@ec2-54-93-182-31.eu-central-1.compute.amazonaws.com
+
+**Linux**: ec2-user **RHEL5**: root/ec2-user **Ubuntu**: ubuntu **Fedora**: fedora/ec2-user **SUSE Linux**: root/ec2-user
+
+transfer:
+
+    $ scp -i /path/my-key-pair.pem /path/SampleFile.txt ec2-user@ec2-198-51-100-1.compute-1.amazonaws.com:~
 
 ## Terminate
+
+    $ aws ec2 terminate-instances --instance-ids <RESOURCE>
