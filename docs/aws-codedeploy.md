@@ -49,4 +49,9 @@ Unter der EC2-Instanz in der AWS Console unter Description muss bei IAM role etw
 
 ## Deployment:
   * Hochladen: aws deploy push --application-name amos-app --s3-location s3://amos-deploy-dev/deployment --source ./
-  * Es erschein ein Command mit dem man dann deployen kann
+  * Es erschein ein Command mit dem man dann deployen kann: in unserem fall sind die folgenden Options:
+
+
+    --application-name amos-app
+    --s3-location bucket=amos-deploy-dev,key=deployment,bundleType=zip,eTAG=<ETAG>
+    --deployment-group-name amos-master
