@@ -2,7 +2,7 @@ version: 0.0
 os: linux
 files:
   - source: .
-    destination: amos-dev
+    destination: /home/ubuntu/amos-dev
 permissions:
   - object: /
     pattern: "**"
