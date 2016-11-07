@@ -17,7 +17,7 @@ Configure a profile, which is stored in the config and credentials files
 
 *~/.aws/credentials*
 
-    $aws configure -profile <PROFILENAME>
+    $aws configure --profile <PROFILENAME>
 
 AWS Access Key ID | AWS Secret Access Key | Defail region name | Defaul output format
 
@@ -60,6 +60,8 @@ adding rules (RDP):
 
         $ aws ec2 authorize-security-group-ingress --group-name <GROUPNAME> --protocol tcp--port 3389 --cidr your.I.P.Adress/24 --profile <PROFILENAME>
 
+Get your public IP address of your local computer using for example [this service](http://checkip.amazonaws.com/).
+
 adding rules (SSH):
 
         $ aws ec2 authorize-security-group-ingress --group-name <GROUPNAME> --protocol tcp--port 22 --cidr your.I.P.Adress/24 --profile <PROFILENAME>
@@ -92,7 +94,7 @@ Example command:
 
         $ aws ec2 describe-instances --profile <NAME> --output json --region eu-central-1
 
-## Command Structure
+### Command Structure
 
         $aws <command> <subcommand> [options and parameters]
 
@@ -127,7 +129,7 @@ For our application we choose the **t2.micro** type.
 
 for example:
 
-    $ aws ec2 run-instances --image-id ami-26c43149 --count 1 --instance-type t1.micro --key-name <KEYPAIRNAME> --<SECURITYGROUPNAME>
+    $ aws ec2 run-instances --image-id ami-26c43149 --count 1 --instance-type t2.micro --key-name <KEYPAIRNAME> --<SECURITYGROUPNAME>
 
 
 #### Adding a Name Tag
@@ -172,6 +174,7 @@ transfer:
 
     $ scp -i /path/my-key-pair.pem /path/SampleFile.txt ec2-user@ec2-198-51-100-1.compute-1.amazonaws.com:~
 
-## Terminate
+### Terminate
 
     $ aws ec2 terminate-instances --instance-ids <RESOURCE>
+
