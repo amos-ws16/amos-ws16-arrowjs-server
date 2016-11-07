@@ -1,0 +1,27 @@
+version: 0.0
+os: linux
+files:
+  - source: .
+    destination: amos-dev
+permissions:
+  - object: /
+    pattern: "**"
+    owner: ubuntu
+    group: ubuntu
+
+hooks:
+  ApplicationStop:
+     - location: deployment-scripts/app-stop.sh
+       timeout: 10
+  BeforeInstall:
+    - location: deployment-scripts/before-install.sh
+      timeout: 10
+  AfterInstall:
+    - location: deployment-scripts/after-install.sh
+      timeout: 1200
+  ApplicationStart:
+    - location: deployment-scripts/app-start.sh
+      timeout: 60
+  ValidateService:
+    - location: deployment-scripts/validate-service.sh
+      timeout: 60
