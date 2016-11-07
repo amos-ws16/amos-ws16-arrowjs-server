@@ -2,6 +2,9 @@
 
 ## Installation
 
+ACHTUNG!!!
+Unter der EC2-Instanz in der AWS Console unter Description muss bei IAM role etwas eingetragen sein, ansonsten muss man leider eine neue EC2-Instanz erstellen mit einer Rolle! Die angegebene Rolle muss auch die sein, die in Schritt 1 bearbeitet wird.
+
 1. Erlaube der EC2-Instanz CodeDeploy zu verwenden
   * gehe unter IAM zu der Role, die der EC2-Instanz zugeordent ist bzw. erstelle eine neue Rolle, falls keine existiert und weise sie der Instanz zu
   * Unter Edit Trust Relationship der Role und passe region (eu-west-1) an:
