@@ -100,10 +100,10 @@ Here is a minimal example for both methods:
 
 ```javascript
 // Get the express object.
-let app = require('../lib/server.js')
+const app = require('../lib/server.js')
 
 // Callback method.
-let request = require('supertest')
+const request = require('supertest')
 buster.testCase('GET /api/route', {
   'should return some information': done => {
     request(app)
@@ -118,7 +118,7 @@ buster.testCase('GET /api/route', {
 })
 
 // Async/await method.
-let request = require('supertest-as-promised')
+const request = require('supertest-as-promised')
 buster.testCase('GET /api/route', {
   'should return some information': async () => {
     let res = await request(app)
