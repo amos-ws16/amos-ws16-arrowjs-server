@@ -52,8 +52,9 @@ testing of [express.js](http://expressjs.com) based REST functionality use
 
 ### Asynchronous tests
 
-There two ways to write asynchronous tests: the traditional way with callbacks
-and the ES7 way with `async` and `await`. First, consider the callback way:
+There are two ways to write asynchronous tests: the traditional way with
+callbacks and the ES7 way with `async` and `await`. First, consider the
+callback way:
 
 ```javascript
 buster.testCase('An async function with callback', {
