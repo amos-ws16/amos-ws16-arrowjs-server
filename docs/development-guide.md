@@ -2,6 +2,11 @@
 
 ## Directory structure
 
+All files should have lowercase names with hypens to separate subwords, see
+also [Node.js best practices @ Heroku Dev](https://devcenter.heroku.com/articles/node-best-practices#stick-with-lowercase).
+
+The directory structure should be organized like this:
+
     <project root>
     ├── bin
     │   └── cli.js
