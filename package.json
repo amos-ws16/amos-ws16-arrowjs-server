@@ -1,6 +1,7 @@
 {
   "name": "arrow",
   "version": "1.0.0",
+  "description": "Description that needs to be changed some time soon",
   "license": "AGPL-3.0",
   "repository": "https://github.com/amos-ws16/amos-ws16-arrowjs",
   "devDependencies": {
@@ -17,7 +18,8 @@
   },
   "scripts": {
     "eslintfix": "eslint --fix **/*.js",
-    "start": "node ./bin/start-server.js",
+    "dev": "cross-env NODE_ENV=development node ./bin/start-server.js",
+    "start": "cross-env NODE_ENV=production node ./bin/start-server.js",
     "test": "eslint **/*.js && buster-test",
     "cover": "cross-env NODE_ENV=test nyc --reporter=lcov --reporter=text buster-test",
     "coveralls": "npm run cover && nyc report --reporter=text-lcov | coveralls"
