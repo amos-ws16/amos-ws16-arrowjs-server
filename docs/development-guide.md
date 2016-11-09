@@ -145,3 +145,23 @@ in buster's `setUp`/`tearDown` hooks.
 
  + [Keep commits clean](https://www.reviewboard.org/docs/codebase/dev/git/clean-commits/)
  + [Write good discriptions](https://www.reviewboard.org/docs/codebase/dev/writing-good-descriptions/)
+
+## Development vs. Production
+
+To make work easier and more comfortable there are two different modes for the code. These are `development`
+mode and `production mode`. `development` mode can be used for e.g. avoiding to use a token to use the API.
+To start the server in `development` mode enter
+
+    $ npm run dev
+
+To run in `production` mode simply type
+
+    $ npm start
+
+The development mode is stored in (and can be accessed by) `process.env.NODE_ENV`.
+
+## Miscellaneous Commands
+
+Automatically fix all files (ESLint):
+
+    $ npm run eslintfix
