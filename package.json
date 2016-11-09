@@ -11,10 +11,12 @@
     "eslint-config-standard": "^6.2.1",
     "eslint-plugin-promise": "^3.3.0",
     "eslint-plugin-standard": "^2.0.1",
+    "istanbul": "^0.4.5",
     "nyc": "^8.4.0",
     "supertest": "^2.0.1"
   },
   "scripts": {
+    "eslintfix": "eslint --fix **/*.js",
     "start": "node ./bin/start-server.js",
     "test": "eslint **/*.js && buster-test",
     "cover": "cross-env NODE_ENV=test nyc --reporter=lcov --reporter=text buster-test",
