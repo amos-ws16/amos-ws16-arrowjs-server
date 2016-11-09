@@ -1,2 +1,3 @@
 #!/bin/bash
-echo "execute after installing amos app"
+cd /home/ubuntu/amos-dev
+npm install
