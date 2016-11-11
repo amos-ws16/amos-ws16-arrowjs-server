@@ -79,6 +79,20 @@ buster.testCase('Score Manager', {
     buster.assert.equals(result[0].scores,
       {'default-plugin': 0.42, 'plugin-a': 1.0, 'plugin-b': 0.5, 'plugin-c': 0.0}
     )
+  },
+
+  'should pass file from blob on to all the plugins': function () {
+    let pluginStub = this.stub()
+    this.scoreManager.registerPlugin('plugin-stub', pluginStub)
+
+    let blob = {
+      file: { data: 'Hello' },
+      tasks: [ { name: 'foo' } ]
+    }
+
+    this.scoreManager.score(blob)
+
+    buster.assert.calledWith(pluginStub, { data: 'Hello' }, { name: 'foo' })
   }
 
 })
