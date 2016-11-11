@@ -141,10 +141,69 @@ buster.testCase('GET /api/route', {
 __TODO__: Make sure to reset / freshly provision `app` before each test, i.e.
 in buster's `setUp`/`tearDown` hooks.
 
+### Mocking/Stubbing dependencies in tests
+
+Unit tests should be self contained. In particular, success or failure of a
+unit test should only depend on the correct functionality of the unit under
+test (UUT) and not on other libraries that are used internally by the UUT as
+dependencies. When such a dependency is taking a long time to do it's task or
+has an asynchronous API potentially using unpredictable data (date, time, HTTP
+requests, etc.) testing will be slow and/or depend on the success or failure of
+those operations. Therefore, such dependencies should be replaced in the tests
+by stubs (or mocks), whose behaviour can be set inside the specific test. This
+way the unit test will test the interaction with the external dependency and
+the unit's behaviour assuming a specific behaviour of external dependency.
+
+When working with buster.js, stubs can be used through
+[buster-sinon](http://docs.busterjs.org/en/latest/modules/buster-sinon/). As an
+example assume you have a function that depends on an external library in
+`my-module.js` and the test in `my-module-test.js`.
+```javascript
+// lib/my-module.js
+const fancyLib = require('fancy-lib')
+
+function doSomethingUseful () {
+  return fancyLib.getFancyWorkDone() + 1
+}
+
+module.exports = { doSomethingUseful }
+```
+
+Now, to test this function in isolation, we need to stub out
+`fancyLib.getFancyWorkDone()`. We only expect our function to return one more
+than whatever that function returned. This is the test:
+```javascript
+// test/my-module-test.js
+const buster = require('buster')
+
+const myModule = require('../lib/my-module')
+const fancyLib = require('fancy-lib')
+
+buster.testCase('My Module', {
+  'should return one more than fancy-lib': function () {
+    this.stub(fancyLib, 'getFancyWorkDone').returns(1)
+
+    let result = myModule.doSomethingUseful()
+
+    buster.assert.equals(result, 2)
+  }
+})
+```
+
+In this example buster.js replaces the `getFancyWorkDone` function of the
+`fancyLib` library with a test double that can be configured to anything, i.e.
+return 1. When the test case is done, it restores the function to it's original
+definition so that every test case is independent from every other test case.
+The stub has many methods to query how it was used in the test, for example how
+many times and with which arguments the function was called. For more
+information see the
+[buster-sinon](http://docs.busterjs.org/en/latest/modules/buster-sinon/) and
+[Sinon.js](http://sinonjs.org/docs/) documentations.
+
 ## Working with version control
 
  + [Keep commits clean](https://www.reviewboard.org/docs/codebase/dev/git/clean-commits/)
- + [Write good discriptions](https://www.reviewboard.org/docs/codebase/dev/writing-good-descriptions/)
+ + [Write good descriptions](https://www.reviewboard.org/docs/codebase/dev/writing-good-descriptions/)
 
 ## Development vs. Production
 
