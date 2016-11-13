@@ -1,9 +1,11 @@
 const buster = require('buster')
 const ScoreManager = require('../lib/score-manager')
+const ScoreCombiner = require('../lib/score-combiner')
 
 buster.testCase('Score Manager', {
   setUp: function () {
-    this.scoreManager = new ScoreManager()
+    this.meanCombiner = new ScoreCombiner.Mean()
+    this.scoreManager = new ScoreManager(this.meanCombiner)
     this.scoreManager.registerPlugin('default-plugin', () => 0.42)
   },
 
@@ -93,6 +95,54 @@ buster.testCase('Score Manager', {
     this.scoreManager.score(blob)
 
     buster.assert.calledWith(pluginStub, { data: 'Hello' }, { name: 'foo' })
+  }
+
+})
+
+buster.testCase('Score Manager with ScoreCombiner', {
+  'score manager should take a score combiner as an input': function () {
+    buster.assert.exception(() => new ScoreManager().score())
+  },
+
+  'return an overall score which is the mean value for one task': function () {
+    var meanCombiner = new ScoreCombiner.Mean()
+    var scoreManager = new ScoreManager(meanCombiner)
+    scoreManager.registerPlugin('plugin-a', (file, task) => 0.3)
+    scoreManager.registerPlugin('plugin-b', (file, task) => 0.6)
+    scoreManager.registerPlugin('plugin-c', (file, task) => 0.9)
+    let blob = {
+      file: {},
+      tasks: [
+        { name: 'foo' }
+      ]
+    }
+    var result = scoreManager.score(blob)
+    buster.assert.near(result[0].score, 0.6, 1e-3)
+  },
+
+  'different ScoreCombiners can be used': function () {
+    var largestCombiner = new ScoreCombiner.Largest()
+    var largestScoreManager = new ScoreManager(largestCombiner)
+    largestScoreManager.registerPlugin('plugin-a', (file, task) => 0.3)
+    largestScoreManager.registerPlugin('plugin-b', (file, task) => 0.6)
+
+    var meanCombiner = new ScoreCombiner.Mean()
+    var meanScoreManager = new ScoreManager(meanCombiner)
+    meanScoreManager.registerPlugin('plugin-a', (file, task) => 0.3)
+    meanScoreManager.registerPlugin('plugin-b', (file, task) => 0.6)
+
+    let blob = {
+      file: {},
+      tasks: [
+        { name: 'foo' }
+      ]
+    }
+
+    var largestResult = largestScoreManager.score(blob)
+    buster.assert.near(largestResult[0].score, 0.6, 1e-3)
+
+    var meanScoreResult = meanScoreManager.score(blob)
+    buster.assert.near(meanScoreResult[0].score, 0.45, 1e-3)
   }
 
 })
