@@ -1,3 +1,5 @@
 #!/bin/bash
-cd /home/ubuntu/amos-dev
+source deployment-scripts/config.cfg
+
+cd $INSTALL_DIR
 npm install

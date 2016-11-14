@@ -1,3 +1,5 @@
 #!/bin/bash
+source deployment-scripts/config.cfg
+
 echo "execute before installing amos app"
-rm -R /home/ubuntu/amos-dev/node_modules
+rm -R $INSTALL_DIR/node_modules
