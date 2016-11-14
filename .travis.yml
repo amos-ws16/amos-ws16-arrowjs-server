@@ -18,7 +18,7 @@ deploy:
     secret_access_key:
       secure: oZ/L8gwrTMQiFDVya0oTqVsNJDoVm+FH+rdFJVr4QWzDvdZRgIYpAIB1IQ4+8ZxPwjZuueN3WUMTex/2lDrTfsBM8w9b19Hpay5wTMCnlPueFHLNq81ZXqvJNzOqWc/AGxCpQ25Q3JbH3niLTP0lP89fRC/g1wEEgXA7LsoD0H16fgJQHedh9P0xQ6XS9mW9IkW18tKACnenaSCEI+QadmLJmwA4mWn4HdtUICAGL7OwD8n3/url62FNyv6szuQ5+ib304s0cjUyeu2IJIxEGMXVdTOWSkprs9NZIOaBob/kDavUbRZLbILxgEVNhIcZHjoIwtWMDIVh3YPh2zQg8P4xwlwLe2qnrC8rVR5pTqeNWdCnOoBtwfqDD+IkoMAVJoceNnTTFslmquUqKkVH+MnbkH49+THcTTDmLa1s6SwNUFgPFJBVyplUmj3tHul7K26qPt3MO33W44rbrBmjzQKqRx/XdK0DcM+rmtaUSk7QDd1CR72psdWdvMFwl01+Hj/TnZgfvvjbfKyYCM9keNxOHQ7KO0RuQbdKwmDPxootbZhuXZP03yS9qoyzEFHwmGQ4F6YQGmDZSrwwQN7bzKCVO7QajMF9yX8W7pmqo6a4jXwSxl/hfzUP+54o1tKM4uXP93V966cxJgUS1Xt6jPMAqbx83fZsha25SgNCh5U=
     bucket: amos-deploy-dev
-    key: deployment-build/latest.zip
+    key: latest.zip
     application: amos-app
     deployment_group: amos-master
     region: eu-west-1
