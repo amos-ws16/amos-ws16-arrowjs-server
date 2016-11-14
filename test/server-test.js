@@ -3,7 +3,7 @@ const request = require('supertest')
 const app = require('../lib/server.js')
 
 const ScoreManager = require('../lib/score-manager')
-const ScoreCombiner = require('../lib/score-combiner')
+const aggregator = require('../lib/score-aggregator')
 const sameTitlePlugin = require('../lib/plugins/same-title-plugin')
 
 buster.testCase('GET /api/welcome', {
@@ -37,7 +37,7 @@ buster.testCase('GET /api/auth', {
 
 buster.testCase('POST /api/score', {
   'should pass data to score manager': (done) => {
-    let manager = new ScoreManager(new ScoreCombiner.Mean())
+    let manager = new ScoreManager(new aggregator.Mean())
     manager.registerPlugin('same-title', sameTitlePlugin)
     app.setScoreManager(manager)
 

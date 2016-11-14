@@ -1,11 +1,11 @@
 const buster = require('buster')
 const ScoreManager = require('../lib/score-manager')
-const ScoreCombiner = require('../lib/score-combiner')
+const aggregator = require('../lib/score-aggregator')
 const sameTitlePlugin = require('../lib/plugins/same-title-plugin')
 
 buster.testCase('Score Manager', {
   setUp: function () {
-    this.meanCombiner = new ScoreCombiner.Mean()
+    this.meanCombiner = new aggregator.Mean()
     this.scoreManager = new ScoreManager(this.meanCombiner)
     this.scoreManager.registerPlugin('default-plugin', () => 0.42)
   },
@@ -113,13 +113,13 @@ buster.testCase('Score Manager', {
   }
 })
 
-buster.testCase('Score Manager with ScoreCombiner', {
+buster.testCase('Score Manager with aggregator', {
   'score manager should take a score combiner as an input': function () {
     buster.assert.exception(() => new ScoreManager().score())
   },
 
   'return an overall score which is the mean value for one task': function () {
-    var meanCombiner = new ScoreCombiner.Mean()
+    var meanCombiner = new aggregator.Mean()
     var scoreManager = new ScoreManager(meanCombiner)
     scoreManager.registerPlugin('plugin-a', (file, task) => 0.3)
     scoreManager.registerPlugin('plugin-b', (file, task) => 0.6)
@@ -135,12 +135,12 @@ buster.testCase('Score Manager with ScoreCombiner', {
   },
 
   'different ScoreCombiners can be used': function () {
-    var largestCombiner = new ScoreCombiner.Largest()
+    var largestCombiner = new aggregator.Largest()
     var largestScoreManager = new ScoreManager(largestCombiner)
     largestScoreManager.registerPlugin('plugin-a', (file, task) => 0.3)
     largestScoreManager.registerPlugin('plugin-b', (file, task) => 0.6)
 
-    var meanCombiner = new ScoreCombiner.Mean()
+    var meanCombiner = new aggregator.Mean()
     var meanScoreManager = new ScoreManager(meanCombiner)
     meanScoreManager.registerPlugin('plugin-a', (file, task) => 0.3)
     meanScoreManager.registerPlugin('plugin-b', (file, task) => 0.6)
@@ -162,7 +162,7 @@ buster.testCase('Score Manager with ScoreCombiner', {
 
 buster.testCase('Score Manager Integration', {
   'should be able to use sameTitlePlugin': function () {
-    let manager = new ScoreManager(new ScoreCombiner.Largest())
+    let manager = new ScoreManager(new aggregator.Largest())
     manager.registerPlugin('same-title', sameTitlePlugin)
 
     let blob = {
