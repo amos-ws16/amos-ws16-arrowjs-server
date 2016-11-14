@@ -10,14 +10,6 @@ permissions:
     group: ubuntu
 
 hooks:
-  ApplicationStop:
-     - location: deployment-scripts/app-stop.sh
-       timeout: 10
-       runas: ubuntu
-  BeforeInstall:
-    - location: deployment-scripts/before-install.sh
-      timeout: 10
-      runas: ubuntu
   AfterInstall:
     - location: deployment-scripts/after-install.sh
       timeout: 100
