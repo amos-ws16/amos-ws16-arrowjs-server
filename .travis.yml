@@ -4,6 +4,7 @@ node_js:
 after_success:
 - npm run coveralls
 before_deploy:
+  - deployment-scripts/before-deploy.sh
   - deployment-scripts/create-zip.sh
 deploy:
   - provider: s3
