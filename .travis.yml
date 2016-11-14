@@ -4,7 +4,6 @@ node_js:
 after_success:
 - npm run coveralls
 deploy:
-  matrix:
   - provider: s3
     access_key_id: AKIAITY5WRYY6KMPHWWA
     bucket: amos-deploy-dev
