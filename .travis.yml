@@ -3,6 +3,8 @@ node_js:
 - node
 after_success:
 - npm run coveralls
+before_deploy:
+  - deployment-scripts/create-zip.sh
 deploy:
   - provider: s3
     access_key_id:
