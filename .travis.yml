@@ -12,6 +12,7 @@ deploy:
     secret_access_key:
       secure: kfF53sQ5f1U9kytxv1IlFLnR7WQwq8YJFMz/20SHjMEpRH5iFZuKlHXxopJnlTPk6sAWWkfZunVD2+3pl5PtZX6fwVUF9BYxykyZ8/acOpL8YfUJmLekDya0R1utG2s8YKCSZYY/oVWVEc7wKvgLy9oB9YtJgWnzMXJ1XurkZpyc6tzRXthB5uETYAh6TRVfai4edxsNq/x7s+gYHKbqmWHil2QLyz9Uf9RkirZ1T4Wkk5NK8so5NeXohUokjh2wCkYIoyjYfxIEwJ974ZuCB/SnF4uDFCBLookUoZ7tp99DZ0xexMH9ZPmRQWAXZtzjAV5J5o2S6OLU46CivegerKodxtCsXchTqCXiGkFtGGbtBoSJO+Y7Q9U1tonmGkeAWU9LlAC0mHFKA6g3NcpmKIy5YVhv01cjIo++0xwH++kgV4frqOaFG/RfUJ5m/pM38CwGKQxhWXbWnWgBXg8Uaf9KhT7vtCvhom3lzwopgG90i2Hgy5UzUo/seJu+74yYbVKeyRVwaGO94voLgap8OrgucwOexRbMVTcrIW4ddVdBX//J711fot87C9byyBY03yEKm8kHlk4vSQ5A+BtBELPfXckKX8okr3SwIJCN6hLlwM6IsVNHiJu2OlLb3wtjGDZqJBrVTB7iLQWYujT4WRXwtRFxk0Rbo0WxWU7n3cQ=
     bucket: amos-deploy-dev
+    skip_cleanup: true
     region: eu-west-1
     local-dir: deployment-build
     on:
