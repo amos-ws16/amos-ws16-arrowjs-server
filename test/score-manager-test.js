@@ -1,6 +1,7 @@
 const buster = require('buster')
 const ScoreManager = require('../lib/score-manager')
 const ScoreCombiner = require('../lib/score-combiner')
+const sameTitlePlugin = require('../lib/plugins/same-title-plugin')
 
 buster.testCase('Score Manager', {
   setUp: function () {
@@ -83,7 +84,7 @@ buster.testCase('Score Manager', {
     )
   },
 
-  'should pass file from blob on to all the plugins': function () {
+  'should pass file from blob on to the plugin': function () {
     let pluginStub = this.stub()
     this.scoreManager.registerPlugin('plugin-stub', pluginStub)
 
@@ -95,8 +96,21 @@ buster.testCase('Score Manager', {
     this.scoreManager.score(blob)
 
     buster.assert.calledWith(pluginStub, { data: 'Hello' }, { name: 'foo' })
-  }
+  },
 
+  'should pass a copy of the task from the blob to the plugin': function () {
+    let pluginStub = this.stub()
+    this.scoreManager.registerPlugin('plugin-stub', pluginStub)
+
+    let blob = {
+      file: { data: 'Hello' },
+      tasks: [ { some_key: 'foo' } ]
+    }
+
+    this.scoreManager.score(blob)
+
+    buster.assert.calledWith(pluginStub, { data: 'Hello' }, { some_key: 'foo' })
+  }
 })
 
 buster.testCase('Score Manager with ScoreCombiner', {
@@ -144,5 +158,23 @@ buster.testCase('Score Manager with ScoreCombiner', {
     var meanScoreResult = meanScoreManager.score(blob)
     buster.assert.near(meanScoreResult[0].score, 0.45, 1e-3)
   }
+})
 
+buster.testCase('Score Manager Integration', {
+  'should be able to use sameTitlePlugin': function () {
+    let manager = new ScoreManager(new ScoreCombiner.Largest())
+    manager.registerPlugin('same-title', sameTitlePlugin)
+
+    let blob = {
+      file: { title: 'location.png' },
+      tasks: [
+        { title: 'location' },
+        { title: 'something_else' }
+      ]
+    }
+
+    let result = manager.score(blob)
+    buster.assert.near(result[0].score, 1.0, 1e-3)
+    buster.assert.near(result[1].score, 0.0, 1e-3)
+  }
 })
