@@ -17,6 +17,7 @@ deploy:
     region: eu-west-1
     local-dir: deployment-build
     on:
+      all_branches: true
       condition: $TRAVIS_BRANCH = feature-32-travis-deployment || $TRAVIS_BRANCH = feature-32-travis-deployment-master
   - provider: codedeploy
     access_key_id:
@@ -30,4 +31,5 @@ deploy:
     region: eu-west-1
     wait-until-deployed: true
     on:
+      all_branches: true
       condition: $TRAVIS_BRANCH = feature-32-travis-deployment || $TRAVIS_BRANCH = feature-32-travis-deployment-master
