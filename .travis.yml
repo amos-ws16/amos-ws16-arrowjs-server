@@ -18,7 +18,7 @@ deploy:
     local-dir: deployment-build
     on:
       all_branches: true
-      condition: $TRAVIS_BRANCH = feature-32-travis-deployment || $TRAVIS_BRANCH = feature-32-travis-deployment-master
+      condition: $TRAVIS_BRANCH = dev || $TRAVIS_BRANCH = master
   - provider: codedeploy
     access_key_id:
       secure: rtsCemp81+EDPH12IoIR8jgcI309jo7ftmNlJ83XPu7TY1nWHE4/IVATRDb/v+jTIx7jQp8clY6BFMJpaNkReuSA3rJFtv/WtDSZp9kJaiIZDCzSowxIHY9DAr3cYgBuCVxm8N3YCG59GRHKvpPl//t9OfKMXMGEEQYgCF+mxVGpsM4RN14utxgV1tweAJ0nWQ4Z14CHmOHKLLhNuFBwKH5ZSRovD4Qc435v5PeaHf54Ru+0xPWCxX4t00qywuNGeyAlwZ6NSwGDVaY6KDuVnhQJiVlrj3ZezG/t5eVUgsxBuSpzhnk9ho/0Z93xjITpoDIVnBSBLH6lg9KyeQn03qt/Y7EoaU/SrWqq+llY3T+5n0FZzYevCxVaj1r1QIVf3zy5ynVUlv7otbWdBWcdaQyy5PVO8zfnmo1pqI8leZbi112NNT8fZpCCrvAZO0hdMR2J5IpyV+qxmd5LK5+pmW4v3xk3aQQp02iZnf4Br78rPzIf8QZaM+uy/yqM65XMHOevWxtkoTVFO4L2YodrsKppakZp5XJeu02YtBoSdWq0bg7jHFBEHBGX8++rJqoyPJg1NdIFx6tINaS9sroJTlwd4nI8b/FvYzU8LWH9PM2vMikrDsbxOdMj8tQGUDBZdVcjaM3UNN7g/mqnuQ7SkxH9T9h6kgXU1OBfq6xdri8=
@@ -31,7 +31,7 @@ deploy:
     region: eu-west-1
     wait-until-deployed: true
     on:
-      branch: feature-32-travis-deployment
+      branch: dev
   - provider: codedeploy
     access_key_id:
       secure: rtsCemp81+EDPH12IoIR8jgcI309jo7ftmNlJ83XPu7TY1nWHE4/IVATRDb/v+jTIx7jQp8clY6BFMJpaNkReuSA3rJFtv/WtDSZp9kJaiIZDCzSowxIHY9DAr3cYgBuCVxm8N3YCG59GRHKvpPl//t9OfKMXMGEEQYgCF+mxVGpsM4RN14utxgV1tweAJ0nWQ4Z14CHmOHKLLhNuFBwKH5ZSRovD4Qc435v5PeaHf54Ru+0xPWCxX4t00qywuNGeyAlwZ6NSwGDVaY6KDuVnhQJiVlrj3ZezG/t5eVUgsxBuSpzhnk9ho/0Z93xjITpoDIVnBSBLH6lg9KyeQn03qt/Y7EoaU/SrWqq+llY3T+5n0FZzYevCxVaj1r1QIVf3zy5ynVUlv7otbWdBWcdaQyy5PVO8zfnmo1pqI8leZbi112NNT8fZpCCrvAZO0hdMR2J5IpyV+qxmd5LK5+pmW4v3xk3aQQp02iZnf4Br78rPzIf8QZaM+uy/yqM65XMHOevWxtkoTVFO4L2YodrsKppakZp5XJeu02YtBoSdWq0bg7jHFBEHBGX8++rJqoyPJg1NdIFx6tINaS9sroJTlwd4nI8b/FvYzU8LWH9PM2vMikrDsbxOdMj8tQGUDBZdVcjaM3UNN7g/mqnuQ7SkxH9T9h6kgXU1OBfq6xdri8=
@@ -44,4 +44,4 @@ deploy:
     region: eu-west-1
     wait-until-deployed: true
     on:
-      branch: feature-32-travis-deployment-master
+      branch: master
