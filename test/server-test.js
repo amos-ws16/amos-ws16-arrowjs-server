@@ -1,10 +1,6 @@
 const buster = require('buster')
 const request = require('supertest')
-const app = require('../lib/server.js')
-
-const ScoreManager = require('../lib/score-manager')
-const aggregator = require('../lib/score-aggregator')
-const sameTitlePlugin = require('../lib/plugins/same-title-plugin')
+const app = require('../lib/server')
 
 buster.testCase('GET /api/welcome', {
   'should return a welcome message': (done) => {
@@ -37,10 +33,6 @@ buster.testCase('GET /api/auth', {
 
 buster.testCase('POST /api/score', {
   'should pass data to score manager': (done) => {
-    let manager = new ScoreManager(new aggregator.Mean())
-    manager.registerPlugin('same-title', sameTitlePlugin)
-    app.setScoreManager(manager)
-
     let blob = {
       file: { title: 'location.png' },
       tasks: [
