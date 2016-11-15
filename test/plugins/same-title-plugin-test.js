@@ -24,5 +24,21 @@ buster.testCase('sameTitlePlugin', {
 
     let result = plugin(file, task)
     buster.assert.equals(result, 1.0)
+  },
+
+  'should return 1.0 when there is a total match and a dot in the task name': function () {
+    let file = { title: 'awesome.location.png' }
+    let task = { title: 'awesome.location' }
+
+    let result = plugin(file, task)
+    buster.assert.equals(result, 1.0)
+  },
+
+  'should return 1.0 when there is a total match and no file extension': function () {
+    let file = { title: 'location' }
+    let task = { title: 'location' }
+
+    let result = plugin(file, task)
+    buster.assert.equals(result, 1.0)
   }
 })
