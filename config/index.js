@@ -12,7 +12,7 @@ function makeScoreManager () {
   return manager
 }
 
-let config = {}
+const config = {}
 config.scoreManager = makeScoreManager()
 config.secretToken = '8cd96c8697d12daf4dfd135aec01fd63ee058ab4'
 
