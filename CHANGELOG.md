@@ -1,7 +1,7 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
-## [Unreleased](https://github.com/amos-ws16/amos-ws16-arrowjs/compare/sprint-03-release...HEAD)
+## [Unreleased](https://github.com/amos-ws16/amos-ws16-arrowjs/compare/sprint-03-release...dev)
 
 ### Added
 - [Changelog](https://github.com/amos-ws16/amos-ws16-arrowjs/blob/master/CHANGELOG.md)
