@@ -1,8 +1,8 @@
 const buster = require('buster')
-const titleContextPlugin = require('../../lib/plugins/title-context-plugin.js')
+const similarTitlePlugin = require('../../lib/plugins/similar-title-plugin.js')
 const stringSimilarity = require('string-similarity')
 
-buster.testCase('titleContextPlugin', {
+buster.testCase('similarTitlePlugin', {
   'should return the same value as Stringsimilarity compare method': function () {
     this.stub(stringSimilarity, 'compareTwoStrings').returns(1.0)
     let file = {
@@ -12,7 +12,7 @@ buster.testCase('titleContextPlugin', {
       title: 'sealed'
     }
 
-    let result = titleContextPlugin(file, task)
+    let result = similarTitlePlugin(file, task)
     buster.assert.near(result, 1.0, 1e-3)
   },
 
@@ -25,7 +25,7 @@ buster.testCase('titleContextPlugin', {
       title: 'sealed'
     }
 
-    titleContextPlugin(file, task)
+    similarTitlePlugin(file, task)
     buster.assert.called(compare)
   },
 
@@ -38,7 +38,7 @@ buster.testCase('titleContextPlugin', {
       title: 'sealed'
     }
 
-    titleContextPlugin(file, task)
+    similarTitlePlugin(file, task)
     buster.assert.calledWith(compare, 'healed', 'sealed')
   }
 })
