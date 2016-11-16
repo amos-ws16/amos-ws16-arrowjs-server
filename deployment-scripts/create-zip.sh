@@ -1,7 +1,7 @@
 #!/bin/bash
 mkdir deployment-build
 mkdir deployment-build/temp
-cp -R bin deployment-scripts lib test .eslintignore .eslintrc appspec.yml LICENSE.md package.json README.md deployment-build/temp/
+cp -R $(git ls-tree --name-only HEAD) deployment-build/temp/
 cd deployment-build/temp
 zip -r ../latest.zip ./
 cd ../..
