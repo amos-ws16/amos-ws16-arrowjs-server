@@ -6,7 +6,7 @@ All notable changes to this project will be documented in this file.
 ### Added
 - [Changelog](https://github.com/amos-ws16/amos-ws16-arrowjs/blob/master/CHANGELOG.md)
 - [ScoreManager](https://github.com/amos-ws16/amos-ws16-arrowjs/blob/master/lib/score-aggregator.js) and [ScoreAggregator](https://github.com/amos-ws16/amos-ws16-arrowjs/blob/master/lib/score-aggregator.js)
-- Automatic deployment with TravisCI ([Documentation](https://github.com/amos-ws16/amos-ws16-arrowjs/blob/master/docs/aws-codedeploy.md))
+- Automatic deployment with TravisCI ([documentation](https://github.com/amos-ws16/amos-ws16-arrowjs/blob/master/docs/aws-codedeploy.md))
 - [Example](https://github.com/amos-ws16/amos-ws16-arrowjs/pull/14) of testing with stubs ([Documentation](https://github.com/amos-ws16/amos-ws16-arrowjs/blob/master/docs/development-guide.md#mockingstubbing-dependencies-in-tests))
 - Scoring Plugins:
   - by [Time](https://github.com/amos-ws16/amos-ws16-arrowjs/blob/master/lib/plugins/close-time-plugin.js)
