@@ -7,15 +7,17 @@ All fields are optional unless specified as required.
 
 ```json
 {
-  "chat": {
-    "to be defined later": "..."
-  },
   "file": {
     "name": "(required) string ",
     "filetype": "(required) string png/jpeg",
     "timestamp": "(required) number",
     "user": "(required) id string",
-    "description": "string that was sent with the upload"
+    "description": "string that was sent with the upload",
+    "context": {
+      "chat": "...",
+      "more stuff": "...",
+      "to be defined later": "..."
+    }
   },
   "tasks": [
     {
