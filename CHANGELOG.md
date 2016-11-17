@@ -1,7 +1,9 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
-## [Unreleased](https://github.com/amos-ws16/amos-ws16-arrowjs/compare/sprint-03-release...dev)
+## [Unrelease](https://github.com/amos-ws16/amos-ws16-arrowjs/compare/sprint-04-release...dev)
+
+## [1.1.0]https://github.com/amos-ws16/amos-ws16-arrowjs/releases/tag/sprint-04-release) - 2016-11-17
 
 ### Added
 - [Changelog](https://github.com/amos-ws16/amos-ws16-arrowjs/blob/master/CHANGELOG.md)
@@ -14,10 +16,6 @@ All notable changes to this project will be documented in this file.
 
 ### Changed
 - Converted initial draft of title comparison into a [plugin](https://github.com/amos-ws16/amos-ws16-arrowjs/pull/18) for the ScoreManager
-
-### Fixed
-
-### Removed
 
 ## [1.0.0](https://github.com/amos-ws16/amos-ws16-arrowjs/releases/tag/sprint-03-release) - 2016-11-10
 
