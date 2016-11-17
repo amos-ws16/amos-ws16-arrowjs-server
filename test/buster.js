@@ -7,7 +7,7 @@ config['My tests'] = {
     'lib/**/*.js'
   ],
   tests: [
-    'test/*-test.js'
+    'test/**/*-test.js'
   ]
 }
 
