@@ -1,6 +1,6 @@
 {
   "name": "arrow",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Description that needs to be changed some time soon",
   "license": "AGPL-3.0",
   "repository": "https://github.com/amos-ws16/amos-ws16-arrowjs",
@@ -14,6 +14,7 @@
     "eslint-plugin-standard": "^2.0.1",
     "istanbul": "^0.4.5",
     "nyc": "^8.4.0",
+    "string-similarity": "^1.1.0",
     "supertest": "^2.0.1"
   },
   "scripts": {
@@ -25,6 +26,7 @@
     "coveralls": "npm run cover && nyc report --reporter=text-lcov | coveralls"
   },
   "dependencies": {
+    "body-parser": "^1.15.2",
     "express": "^4.14.0"
   }
 }
