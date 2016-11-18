@@ -1,7 +1,7 @@
 const ScoreManager = require('../lib/score-manager')
 const aggregator = require('../lib/score-aggregator')
-const closeTimePlugin = require('../lib/plugins/close-time-plugin')
-const similarTitlePlugin = require('../lib/plugins/similar-title-plugin')
+// const closeTimePlugin = require('../lib/plugins/close-time-plugin')
+// const similarTitlePlugin = require('../lib/plugins/similar-title-plugin')
 
 /**
  * Returns a new ScoreManager where the default plugins
@@ -9,8 +9,8 @@ const similarTitlePlugin = require('../lib/plugins/similar-title-plugin')
  */
 function makeScoreManager () {
   let manager = new ScoreManager(new aggregator.Mean())
-  manager.registerPlugin('similar-title', similarTitlePlugin)
-  manager.registerPlugin('close-time', closeTimePlugin)
+  // manager.registerPlugin('similar-title', similarTitlePlugin)
+  // manager.registerPlugin('close-time', closeTimePlugin)
   return manager
 }
 

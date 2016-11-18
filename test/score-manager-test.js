@@ -160,6 +160,49 @@ buster.testCase('Score Manager with aggregator', {
   }
 })
 
+buster.testCase('=> Score Manager Configuration', {
+  setUp: function () {
+    this.stubPlugin = this.stub()
+    let config = {
+      plugins: {
+        'plugin-a': {
+          score: this.stubPlugin,
+          inputs: ['x.y.z', 'a.b[].c']
+        }
+      }
+    }
+    this.manager = new ScoreManager(config)
+  },
+
+  'should call plugin with inputs defined by path': function () {
+    let blob = {
+      x: { y: { z: 'foo' } },
+      a: { b: [
+        { c: 'bar' },
+        { c: 'baz' }
+      ] }
+    }
+
+    this.manager.scoreWith('plugin-a', blob)
+
+    buster.assert.calledWith(this.stubPlugin, 'foo', [ 'bar', 'baz' ])
+  },
+
+  'should call plugin with inputs defined by path 2': function () {
+    let blob = {
+      x: { y: { z: 'hello' } },
+      a: { b: [
+        { c: 'world' },
+        { c: 'goodbye' }
+      ] }
+    }
+
+    this.manager.scoreWith('plugin-a', blob)
+
+    buster.assert.calledWith(this.stubPlugin, 'hello', [ 'world', 'goodbye' ])
+  }
+})
+
 buster.testCase('Score Manager Integration', {
   'should be able to use sameTitlePlugin': function () {
     let manager = new ScoreManager(new aggregator.Largest())
@@ -178,3 +221,4 @@ buster.testCase('Score Manager Integration', {
     buster.assert.near(result[1].score, 0.0, 1e-3)
   }
 })
+
