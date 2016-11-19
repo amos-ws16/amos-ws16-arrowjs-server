@@ -51,5 +51,31 @@ buster.testCase('extractObject', {
     let fileName = extractObject(obj, 'file.name')
     buster.assert.equals(chats, [ 'hello', 'world' ])
     buster.assert.equals(fileName, 'foo.txt')
+  },
+
+  'should throw an exception when property does not exist': () => {
+    buster.assert.exception(() => extractObject({}, 'foo'))
+  },
+
+  'should throw an exception when array is excepted but not found': () => {
+    buster.assert.exception(() => extractObject({ foo: 'Hello' }, 'foo[]'))
+  },
+
+  'should throw an exception when no array is excepted but was found': () => {
+    buster.assert.exception(() => extractObject({ foo: ['Hello', 'World'] }, 'foo'))
+  },
+
+  'should throw an exception when array property is expected but not found': () => {
+    buster.assert.exception(() => extractObject({ foo: ['Hello'] }, 'foo[].bar'))
+  },
+
+  'should throw an exception when more than one array is defined in path': () => {
+    let obj = {
+      foo: [
+        { bar: [{ baz: 1 }, { baz: 2 }] },
+        { bar: [{ baz: 3 }, { baz: 4 }] }
+      ]
+    }
+    buster.assert.exception(() => extractObject(obj, 'foo[].bar[].baz'))
   }
 })
