@@ -14,7 +14,9 @@ buster.testCase('ScoreManager with configuration', {
             score: this.stubPlugin,
             inputs: ['x.y.z', 'a.b[].c']
           }
-        }
+        },
+        // Not used.
+        aggregator: { combine: this.stub() }
       }
       this.manager = new ScoreManager(config)
     },
@@ -63,6 +65,71 @@ buster.testCase('ScoreManager with configuration', {
       let result = this.manager.scoreWith('plugin-a', blob)
 
       buster.assert.equals(result, [0.123, 0.456])
+    },
+
+    'should throw error when plugin does not exist': function () {
+      buster.assert.exception(() => {
+        this.manager.scoreWith('nonexistent-plugin', {})
+      })
+    },
+
+    'should rethrow a wrapped error when extractObject throws': function () {
+      buster.assert.exception(() => this.manager.scoreWith('plugin-a', {}))
+    }
+  },
+
+  'construction failures': {
+    setUp: function () {
+      this.stubAggregator = { combine: this.stub() }
+      this.stubPlugin = { score: this.stub(), inputs: ['', ''] }
+    },
+
+    'should throw error when config was not used': function () {
+      buster.assert.exception(() => new ScoreManager(undefined))
+    },
+
+    'should throw error when config has no plugins': function () {
+      // Valid aggregator but no plugins.
+      let config = { aggregator: this.stubAggregator }
+      buster.assert.exception(() => new ScoreManager(config))
+    },
+
+    'should throw error when config has no aggregator': function () {
+      // Valid plugin configuration but no aggregator.
+      let config = { plugins: { 'plugin-a': this.stubPlugin } }
+      buster.assert.exception(() => new ScoreManager(config))
+    },
+
+    'should throw error when config\'s aggregator has no combine property': function () {
+      let config = {
+        plugins: { 'plugin-a': this.stubPlugin },
+        aggregator: {}
+      }
+      buster.assert.exception(() => new ScoreManager(config))
+    },
+
+    'should throw error when plugin was defined without score function': function () {
+      let config = {
+        plugins: { 'plugin-a': { inputs: ['', ''] } },
+        aggregator: this.stubAggregator
+      }
+      buster.assert.exception(() => new ScoreManager(config))
+    },
+
+    'should throw error when plugin was defined without inputs field': function () {
+      let config = {
+        plugins: { 'plugin-a': { score: this.stub() } },
+        aggregator: this.stubAggregator
+      }
+      buster.assert.exception(() => new ScoreManager(config))
+    },
+
+    'should throw error when plugin inputs field is not an array of length 2': function () {
+      let config = {
+        plugins: { 'plugin-a': { score: this.stub(), inputs: 'not an array' } },
+        aggregator: this.stubAggregator
+      }
+      buster.assert.exception(() => new ScoreManager(config))
     }
   },
 
