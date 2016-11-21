@@ -1,5 +1,5 @@
 const aggregator = require('../lib/score-aggregator')
-const closeTimePlugin = require('../lib/plugins/close-time-plugin')
+const closeTimestampPlugin = require('../lib/plugins/close-timestamp-plugin')
 const similarTitlePlugin = require('../lib/plugins/similar-title-plugin')
 
 const config = {}
@@ -12,8 +12,8 @@ config.scoreManager = {
       inputs: ['file', 'tasks[]']
     },
     'close-time': {
-      score: closeTimePlugin,
-      inputs: ['file', 'tasks[]']
+      score: closeTimestampPlugin,
+      inputs: ['file.timestamp', 'tasks[].timestamp']
     }
   }
 }
