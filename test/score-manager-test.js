@@ -1,5 +1,5 @@
 const buster = require('buster')
-const ScoreManager = require('../lib/score-manager')
+const scoreManager = require('../lib/score-manager')
 const aggregator = require('../lib/score-aggregator')
 
 const sameTitlePlugin = require('../lib/plugins/same-title-plugin')
@@ -18,7 +18,7 @@ buster.testCase('ScoreManager with configuration', {
         // Not used.
         aggregator: { combine: this.stub() }
       }
-      this.manager = new ScoreManager(config)
+      this.manager = scoreManager.create(config)
     },
 
     'should call plugin with inputs defined by path': function () {
@@ -85,19 +85,19 @@ buster.testCase('ScoreManager with configuration', {
     },
 
     'should throw error when config was not used': function () {
-      buster.assert.exception(() => new ScoreManager(undefined))
+      buster.assert.exception(() => scoreManager.create(undefined))
     },
 
     'should throw error when config has no plugins': function () {
       // Valid aggregator but no plugins.
       let config = { aggregator: this.stubAggregator }
-      buster.assert.exception(() => new ScoreManager(config))
+      buster.assert.exception(() => scoreManager.create(config))
     },
 
     'should throw error when config has no aggregator': function () {
       // Valid plugin configuration but no aggregator.
       let config = { plugins: { 'plugin-a': this.stubPlugin } }
-      buster.assert.exception(() => new ScoreManager(config))
+      buster.assert.exception(() => scoreManager.create(config))
     },
 
     'should throw error when config\'s aggregator has no combine property': function () {
@@ -105,7 +105,7 @@ buster.testCase('ScoreManager with configuration', {
         plugins: { 'plugin-a': this.stubPlugin },
         aggregator: {}
       }
-      buster.assert.exception(() => new ScoreManager(config))
+      buster.assert.exception(() => scoreManager.create(config))
     },
 
     'should throw error when plugin was defined without score function': function () {
@@ -113,7 +113,7 @@ buster.testCase('ScoreManager with configuration', {
         plugins: { 'plugin-a': { inputs: ['', ''] } },
         aggregator: this.stubAggregator
       }
-      buster.assert.exception(() => new ScoreManager(config))
+      buster.assert.exception(() => scoreManager.create(config))
     },
 
     'should throw error when plugin was defined without inputs field': function () {
@@ -121,7 +121,7 @@ buster.testCase('ScoreManager with configuration', {
         plugins: { 'plugin-a': { score: this.stub() } },
         aggregator: this.stubAggregator
       }
-      buster.assert.exception(() => new ScoreManager(config))
+      buster.assert.exception(() => scoreManager.create(config))
     },
 
     'should throw error when plugin inputs field is not an array of length 2': function () {
@@ -129,7 +129,7 @@ buster.testCase('ScoreManager with configuration', {
         plugins: { 'plugin-a': { score: this.stub(), inputs: 'not an array' } },
         aggregator: this.stubAggregator
       }
-      buster.assert.exception(() => new ScoreManager(config))
+      buster.assert.exception(() => scoreManager.create(config))
     }
   },
 
@@ -151,7 +151,7 @@ buster.testCase('ScoreManager with configuration', {
           }
         }
       }
-      this.manager = new ScoreManager(config)
+      this.manager = scoreManager.create(config)
     },
 
     'should use the config provided aggregator': function () {
@@ -187,7 +187,7 @@ buster.testCase('ScoreManager Integration', {
         }
       }
     }
-    let manager = new ScoreManager(config)
+    let manager = scoreManager.create(config)
 
     let blob = {
       file: { title: 'location.png' },
