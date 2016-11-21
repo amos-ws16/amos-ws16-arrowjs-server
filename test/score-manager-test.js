@@ -164,7 +164,7 @@ buster.testCase('Score Manager with aggregator', {
       let aggregator = { combine: this.stub().returns(1.0) }
       let manager = new ScoreManager(aggregator)
       let plugA = () => 1.0
-      let plugB = () => { throw new Error('failure') }
+      let plugB = () => { throw new Error() }
       manager.registerPlugin('plugin-a', plugA)
       manager.registerPlugin('plugin-b', plugB)
 
@@ -174,8 +174,26 @@ buster.testCase('Score Manager with aggregator', {
       }
 
       let result = manager.score(blob)
-      buster.assert.equals(result,
-        [{ score: 1.0, scores: {'plugin-a': 1.0, 'plugin-b': 'failure'} }])
+
+      buster.assert.match(result[0].scores['plugin-b'], /failure/)
+    },
+
+    'should be caught and returned as error message with description': function () {
+      let aggregator = { combine: this.stub().returns(1.0) }
+      let manager = new ScoreManager(aggregator)
+      let plugA = () => 1.0
+      let plugC = () => { throw new Error('this is the error description') }
+      manager.registerPlugin('plugin-a', plugA)
+      manager.registerPlugin('plugin-c', plugC)
+
+      let blob = {
+        file: {},
+        tasks: [{}]
+      }
+
+      let result = manager.score(blob)
+
+      buster.assert.match(result[0].scores['plugin-c'], /this is the error description/)
     }
   }
 })
