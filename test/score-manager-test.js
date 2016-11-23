@@ -11,7 +11,7 @@ buster.testCase('ScoreManager with configuration', {
       let config = {
         plugins: {
           'plugin-a': {
-            score: this.stubPlugin,
+            use: this.stubPlugin,
             inputs: ['x.y.z', 'a.b[].c']
           }
         },
@@ -81,7 +81,7 @@ buster.testCase('ScoreManager with configuration', {
   'construction failures': {
     setUp: function () {
       this.stubAggregator = { combine: this.stub() }
-      this.stubPlugin = { score: this.stub(), inputs: ['', ''] }
+      this.stubPlugin = { use: this.stub(), inputs: ['', ''] }
     },
 
     'should throw error when config was not used': function () {
@@ -118,7 +118,7 @@ buster.testCase('ScoreManager with configuration', {
 
     'should throw error when plugin was defined without inputs field': function () {
       let config = {
-        plugins: { 'plugin-a': { score: this.stub() } },
+        plugins: { 'plugin-a': { use: this.stub() } },
         aggregator: this.stubAggregator
       }
       buster.assert.exception(() => scoreManager.create(config))
@@ -126,7 +126,7 @@ buster.testCase('ScoreManager with configuration', {
 
     'should throw error when plugin inputs field is not an array of length 2': function () {
       let config = {
-        plugins: { 'plugin-a': { score: this.stub(), inputs: 'not an array' } },
+        plugins: { 'plugin-a': { use: this.stub(), inputs: 'not an array' } },
         aggregator: this.stubAggregator
       }
       buster.assert.exception(() => scoreManager.create(config))
@@ -142,11 +142,11 @@ buster.testCase('ScoreManager with configuration', {
         aggregator: { combine: this.stubAggregator },
         plugins: {
           'plugin-a': {
-            score: this.stubPluginA,
+            use: this.stubPluginA,
             inputs: ['x', 'y[]']
           },
           'plugin-b': {
-            score: this.stubPluginB,
+            use: this.stubPluginB,
             inputs: ['x', 'y[]']
           }
         }
@@ -182,7 +182,7 @@ buster.testCase('ScoreManager Integration', {
       aggregator: new aggregator.Largest(),
       plugins: {
         'same-title': {
-          score: sameTitlePlugin,
+          use: sameTitlePlugin,
           inputs: ['file', 'tasks[]']
         }
       }

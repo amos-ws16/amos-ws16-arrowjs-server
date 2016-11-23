@@ -8,11 +8,11 @@ config.scoreManager = {
   aggregator: new aggregator.Mean(),
   plugins: {
     'similar-title': {
-      score: similarTitlePlugin,
+      use: similarTitlePlugin,
       inputs: ['file', 'tasks[]']
     },
     'close-time': {
-      score: closeTimestampPlugin,
+      use: closeTimestampPlugin,
       inputs: ['file.timestamp', 'tasks[].timestamp']
     }
   }
