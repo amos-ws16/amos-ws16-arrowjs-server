@@ -55,11 +55,11 @@ Unter der EC2-Instanz in der AWS Console unter Description muss bei IAM role etw
     --application-name APP
     --s3-location bucket=amos-deploy-dev,key=deployment,bundleType=zip,eTAG=<ETAG>
     --deployment-group-name amos-deployment-group
-    
-  * APP: amos-master | amos-dev  
-  
-  
-  
+
+  * APP: amos-app-master | amos-app-dev  
+
+
+
 ## Integration mit Travis:
 Die Integration mit Travis umfasst mehrere Dateien, die je nach branch unterschiedliche Konfigurationen aufruft:
 * .travis.yml: Deployment-Konfiguration für travis
@@ -70,7 +70,7 @@ Die Integration mit Travis umfasst mehrere Dateien, die je nach branch unterschi
 Die Integration funktioniert automatisch für alle Änderungen auf dem dev und master branch. Die erreichbaren Welcome-Endpunkte sind:
 * dev: http://ec2-52-212-74-103.eu-west-1.compute.amazonaws.com:3000/api/welcome
 * master: http://ec2-52-212-74-103.eu-west-1.compute.amazonaws.com:4000/api/welcome
-  
+
 Bei einer Änderung der branches oder weiteren Einschränkungen müssen folgende Dateien angepasst werden:
 * .travis.yml (branch-Spezifizikation unter deploy.codedeploy)
 * deployment-scripts/before-deploy.sh

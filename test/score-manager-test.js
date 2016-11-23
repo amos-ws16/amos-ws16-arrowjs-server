@@ -202,6 +202,54 @@ buster.testCase('ScoreManager with configuration', {
       let scores = manager.score({ x: {}, y: [0] })
       buster.assert.equals(scores, [{ 'total': 0.8, 'plugin-a': 0.5, 'plugin-b': 0.8 }])
     }
+  },
+
+  'plugin failures': {
+    'should be caught and returned as a special value': function () {
+      let aggregator = { combine: this.stub().returns(1.0) }
+      let plugA = () => 1.0
+      let plugB = () => { throw new Error() }
+
+      let manager = scoreManager.create({
+        aggregator,
+        plugins: {
+          'plugin-a': { use: plugA, inputs: ['file', 'tasks[]'] },
+          'plugin-b': { use: plugB, inputs: ['file', 'tasks[]'] }
+        }
+      })
+
+      let blob = {
+        file: {},
+        tasks: [{}]
+      }
+
+      let result = manager.score(blob)
+
+      buster.assert.match(result[0]['plugin-b'], /failure/)
+    },
+
+    'should be caught and returned as error message with description': function () {
+      let aggregator = { combine: this.stub().returns(1.0) }
+      let plugA = () => 1.0
+      let plugB = () => { throw new Error('this is the error description') }
+
+      let manager = scoreManager.create({
+        aggregator,
+        plugins: {
+          'plugin-a': { use: plugA, inputs: ['file', 'tasks[]'] },
+          'plugin-c': { use: plugB, inputs: ['file', 'tasks[]'] }
+        }
+      })
+
+      let blob = {
+        file: {},
+        tasks: [{}]
+      }
+
+      let result = manager.score(blob)
+
+      buster.assert.match(result[0]['plugin-c'], /this is the error description/)
+    }
   }
 })
 
