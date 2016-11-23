@@ -173,6 +173,35 @@ buster.testCase('ScoreManager with configuration', {
 
       buster.assert.equals(scores, [{ 'total': 0.1, 'plugin-a': 0.5, 'plugin-b': 0.8 }])
     }
+  },
+
+  'score using string aggregator': {
+    setUp: function () {
+      this.stubPluginA = this.stub()
+      this.stubPluginB = this.stub()
+      this.config = {
+        plugins: {
+          'plugin-a': {
+            use: this.stubPluginA,
+            inputs: ['x', 'y[]']
+          },
+          'plugin-b': {
+            use: this.stubPluginB,
+            inputs: ['x', 'y[]']
+          }
+        }
+      }
+    },
+
+    'should dynamically assign aggregator function from string': function () {
+      this.stubPluginA.returns(0.5)
+      this.stubPluginB.returns(0.8)
+      this.config.aggregator = 'Largest'
+      let manager = scoreManager.create(this.config)
+
+      let scores = manager.score({ x: {}, y: [0] })
+      buster.assert.equals(scores, [{ 'total': 0.8, 'plugin-a': 0.5, 'plugin-b': 0.8 }])
+    }
   }
 })
 
