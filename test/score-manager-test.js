@@ -2,10 +2,6 @@ const buster = require('buster')
 const ScoreManager = require('../lib/score-manager')
 const aggregator = require('../lib/score-aggregator')
 const sameTitlePlugin = require('../lib/plugins/same-title-plugin')
-const fileTitleTaskDescriptionContex = require('../lib/plugins/file-title-task-description-context-plugin.js')
-const fileTitleTaskDescriptionSimiliarity = require('../lib/plugins/file-title-task-description-plugin.js')
-const fileDescriptionTaskDescriptionContex = require('../lib/plugins/file-description-task-description-context-plugin.js')
-const fileDescriptionTaskDescriptionSimiliarity = require('../lib/plugins/file-description-task-description-plugin.js')
 
 buster.testCase('Score Manager', {
   setUp: function () {
@@ -180,73 +176,5 @@ buster.testCase('Score Manager Integration', {
     let result = manager.score(blob)
     buster.assert.near(result[0].score, 1.0, 1e-3)
     buster.assert.near(result[1].score, 0.0, 1e-3)
-  },
-
-  'should be able to use file-title-task-description-context-plugin': function () {
-    let manager = new ScoreManager(new aggregator.Largest())
-    manager.registerPlugin('file-title-task-description-context', fileTitleTaskDescriptionContex)
-
-    let blob = {
-      file: { title: 'location.png' },
-      tasks: [
-        { description: 'location' },
-        { description: 'something_else' }
-      ]
-    }
-
-    let result = manager.score(blob)
-    buster.assert.near(result[0].score, 1.0, 0)
-    buster.assert.near(result[1].score, 0.0, 0)
-  },
-
-  'should be able to use file-title-task-description-plugin': function () {
-    let manager = new ScoreManager(new aggregator.Largest())
-    manager.registerPlugin('file-title-task-description', fileTitleTaskDescriptionSimiliarity)
-
-    let blob = {
-      file: { title: 'location.png' },
-      tasks: [
-        { description: 'location' },
-        { description: 'something_else' }
-      ]
-    }
-
-    let result = manager.score(blob)
-    buster.assert.near(result[0].score, 1.0, 0)
-    buster.assert.near(result[1].score, 0.0, 0)
-  },
-
-  'should be able to use file-description-task-description-context-plugin': function () {
-    let manager = new ScoreManager(new aggregator.Largest())
-    manager.registerPlugin('file-description-task-description-context', fileDescriptionTaskDescriptionContex)
-
-    let blob = {
-      file: { description: 'location' },
-      tasks: [
-        { description: 'location' },
-        { description: 'something_else' }
-      ]
-    }
-
-    let result = manager.score(blob)
-    buster.assert.near(result[0].score, 1.0, 0)
-    buster.assert.near(result[1].score, 0.0, 0)
-  },
-
-  'should be able to use file-description-task-description-plugin': function () {
-    let manager = new ScoreManager(new aggregator.Largest())
-    manager.registerPlugin('file-description-task-description', fileDescriptionTaskDescriptionSimiliarity)
-
-    let blob = {
-      file: { description: 'location' },
-      tasks: [
-        { description: 'location' },
-        { description: 'something_else' }
-      ]
-    }
-
-    let result = manager.score(blob)
-    buster.assert.near(result[0].score, 1.0, 0)
-    buster.assert.near(result[1].score, 0.0, 0)
   }
 })
