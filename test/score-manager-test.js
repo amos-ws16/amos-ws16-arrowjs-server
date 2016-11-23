@@ -200,6 +200,33 @@ buster.testCase('ScoreManager Integration', {
     let result = manager.score(blob)
     buster.assert.near(result[0].total, 1.0, 1e-3)
     buster.assert.near(result[1].total, 0.0, 1e-3)
+  },
+
+  'dynamic plugin loading': {
+    'should load plugin given by string from plugin directory': function () {
+      let config = {
+        aggregator: new aggregator.Largest(),
+        plugins: {
+          'same-title': {
+            use: 'same-title-plugin',
+            inputs: ['file', 'tasks[]']
+          }
+        }
+      }
+      let manager = scoreManager.create(config)
+
+      let blob = {
+        file: { title: 'location.png' },
+        tasks: [
+          { title: 'location' },
+          { title: 'something_else' }
+        ]
+      }
+
+      let result = manager.score(blob)
+      buster.assert.near(result[0].total, 1.0, 1e-3)
+      buster.assert.near(result[1].total, 0.0, 1e-3)
+    }
   }
 })
 
