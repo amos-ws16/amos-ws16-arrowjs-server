@@ -50,6 +50,13 @@ buster.testCase('Input Scorer', {
     let task = { timestamp: taskTimestamp }
     let result = plugin(file, task)
     buster.assert.equals(result, 0.25)
+  },
+
+  'should throw \'no timestamp exception\' if no timestamp is present in file': function () {
+    const taskTimestamp = uploadTimestamp
+    let file = { }
+    let task = { timestamp: taskTimestamp }
+    buster.assert.exception(() => plugin(file, task))
   }
 
 })
