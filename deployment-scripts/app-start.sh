@@ -1,4 +1,6 @@
 #!/bin/bash
+my_dir="$(dirname "$0")"
+source $my_dir/config.cfg
+
 echo "start amos app"
-cd /home/ubuntu/amos-dev
-nohup npm run dev >/dev/null 2>&1 &
+$START_CMD
