@@ -1,9 +1,17 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
-## [Unrelease](https://github.com/amos-ws16/amos-ws16-arrowjs/compare/sprint-04-release...dev)
+## [Unreleased](https://github.com/amos-ws16/amos-ws16-arrowjs/compare/sprint-05-release...dev)
 
-## [1.1.0]https://github.com/amos-ws16/amos-ws16-arrowjs/releases/tag/sprint-04-release) - 2016-11-17
+## [1.2.0](https://github.com/amos-ws16/amos-ws16-arrowjs/releases/tag/sprint-05-release) - 2016-11-24
+
+### Added
+- Error detection and graceful failure in Plugins and reporting to user ([PR](https://github.com/amos-ws16/amos-ws16-arrowjs/pull/25))
+- Documentation of REST [input schema](https://github.com/amos-ws16/amos-ws16-arrowjs/blob/master/docs/rest-api.md)
+- Validation of successful deployment ([PR](https://github.com/amos-ws16/amos-ws16-arrowjs/pull/26))
+- Scoring Plugin by [similar context](https://github.com/amos-ws16/amos-ws16-arrowjs/blob/master/lib/plugins/similar-context-plugin.js)
+
+## [1.1.0](https://github.com/amos-ws16/amos-ws16-arrowjs/releases/tag/sprint-04-release) - 2016-11-17
 
 ### Added
 - [Changelog](https://github.com/amos-ws16/amos-ws16-arrowjs/blob/master/CHANGELOG.md)
