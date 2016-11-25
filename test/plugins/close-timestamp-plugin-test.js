@@ -5,6 +5,11 @@ const timedifferenceLimit = 600
 const uploadTimestamp = 1478886423.003
 
 buster.testCase('Input Scorer', {
+  'should use time limit from param if set': function () {
+    const taskTimestamp = uploadTimestamp - 1234 / 2
+    let result = plugin(uploadTimestamp, taskTimestamp, { 'time-limit': 1234 })
+    buster.assert.equals(result, 0.5)
+  },
   'should return 1.0 when timing matches exactly': function () {
     let result = plugin(uploadTimestamp, uploadTimestamp)
     buster.assert.equals(result, 1.0)
