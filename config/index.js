@@ -1,6 +1,4 @@
 const aggregator = require('../lib/score-aggregator')
-const closeTimestampPlugin = require('../lib/plugins/close-timestamp-plugin')
-const similarTitlePlugin = require('../lib/plugins/similar-title-plugin')
 
 const config = {}
 
@@ -8,12 +6,13 @@ config.scoreManager = {
   aggregator: new aggregator.Mean(),
   plugins: {
     'similar-title': {
-      use: similarTitlePlugin,
+      use: 'similar-title-plugin',
       inputs: ['file', 'tasks[]']
     },
     'close-time': {
-      use: closeTimestampPlugin,
-      inputs: ['file.timestamp', 'tasks[].timestamp']
+      use: 'close-timestamp-plugin',
+      inputs: ['file.created_at', 'tasks[].created_at'],
+      params: { 'time-limit': 1234 }
     }
   }
 }

@@ -304,6 +304,29 @@ buster.testCase('ScoreManager Integration', {
       buster.assert.near(result[0].total, 1.0, 1e-3)
       buster.assert.near(result[1].total, 0.0, 1e-3)
     }
+  },
+
+  'plugin parameters': {
+    'should be passed as third argument': function () {
+      let pluginA = this.stub()
+      let config = {
+        aggregator: { combine: this.stub() },
+        plugins: {
+          'plugin-a': {
+            use: pluginA,
+            inputs: ['x', 'y[]'],
+            params: { 'my-special-arg': 100 }
+          }
+        }
+      }
+      let manager = scoreManager.create(config)
+      let blob = {
+        x: { xkey: 'xvalue' },
+        y: [{ ykey: 'yvalue' }]
+      }
+      manager.score(blob)
+      buster.assert.calledWith(pluginA, { xkey: 'xvalue' }, { ykey: 'yvalue' }, { 'my-special-arg': 100 })
+    }
   }
 })
 
