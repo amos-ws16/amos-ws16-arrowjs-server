@@ -10,7 +10,7 @@ let task1 = {
 
 let task2 = {
   name: 'find a pot full of gold',
-  timestamp: 1479934172,
+  timestamp: 1479935104,
   duedate: 1479936172,
   user: 'maria',
   assignees: ['nicole', 'nikolaus', 'rainer']
@@ -18,8 +18,8 @@ let task2 = {
 
 let task3 = {
   name: 'find the end of the rainbow',
-  timestamp: 1479933943,
-  duedate: 1479934104,
+  timestamp: 1479936104,
+  duedate: 1479937104,
   user: 'paul',
   assignees: ['peter', 'christian'],
   description: 'there is a pot of gold!',
@@ -28,7 +28,7 @@ let task3 = {
 
 let task4 = {
   name: 'grow a mustage',
-  timestamp: 1479934999,
+  timestamp: 1479937104,
   duedate: 1482438999,
   user: 'cleo',
   assignees: ['ronald', 'donald'],
@@ -37,7 +37,7 @@ let task4 = {
 
 let task5 = {
   name: 'learn swimming',
-  timestamp: 1479934104,
+  timestamp: 1479938104,
   duedate: 1479944104,
   user: 'andreas',
   description: 'try not to sink like a stone'
@@ -45,24 +45,24 @@ let task5 = {
 
 let task6 = {
   name: 'brick a phone',
-  timestamp: 1479935633,
-  duedate: 1479936633,
+  timestamp: 1479939104,
+  duedate: 1479946633,
   user: 'luise',
   location: 'at home'
 }
 
 let task7 = {
   name: 'recover deleted photos',
-  timestamp: 1479934104,
-  duedate: 1479934204,
+  timestamp: 1479940104,
+  duedate: 1479944204,
   user: 'walter',
   assignees: ['stephanie', 'kathrin']
 }
 
 let task8 = {
   name: 'quit phone contract',
-  timestamp: 1479932198,
-  duedate: 1479938123,
+  timestamp: 1479941104,
+  duedate: 1479942123,
   user: 'jana',
   assignees: ['tim', 'johann']
 }
@@ -78,40 +78,40 @@ let testCase1 = {
 }
 
 let testCase2 = {
-  tasks: [task1, task2, task3, task5],
+  tasks: [task2, task1, task3, task5],
   file: {
     name: 'find pot',
     filetype: 'gold',
-    timestamp: 1479934234,
+    timestamp: 1479934634,
     user: 'timmi',
     description: 'A pot of gold is often found near a rainbow.'
   }
 }
 
 let testCase3 = {
-  tasks: [task1, task2, task3, task4, task5, task6],
+  tasks: [task4, task2, task3, task1, task5, task6],
   file: {
     name: 'facelift',
     filetype: 'png',
-    timestamp: 1479935012,
+    timestamp: 1479937012,
     user: 'robert',
     description: 'Some say its a beard, but it is a mustage!'
   }
 }
 
 let testCase4 = {
-  tasks: [task1, task2, task3, task4, task5, task6, task7],
+  tasks: [task5, task2, task3, task4, task1, task6, task7],
   file: {
     name: 'swimmers',
     filetype: 'jped',
-    timestamp: 1479936210,
+    timestamp: 1479938210,
     user: 'swimming pool',
     description: 'speedos are my favourite swimmers'
   }
 }
 
 let testCase5 = {
-  tasks: [task1, task2, task3],
+  tasks: [task2, task1, task3],
   file: {
     name: 'goldie',
     filetype: 'png',
@@ -122,11 +122,11 @@ let testCase5 = {
 }
 
 let testCase6 = {
-  tasks: [task1, task2, task3, task4, task5, task6, task7],
+  tasks: [task7, task2, task3, task4, task5, task6, task1],
   file: {
     name: 'recovery suite',
     filetype: 'exe',
-    timestamp: 1479934254,
+    timestamp: 1479941254,
     user: 'pete'
   }
 }
@@ -147,27 +147,27 @@ let testCase8 = {
   file: {
     name: 'break phone',
     filetype: 'pdf',
-    timestamp: 1479935842,
+    timestamp: 1479939442,
     user: 'timo'
   }
 }
 
 let testCase9 = {
-  tasks: [task1, task2, task3, task4, task5],
+  tasks: [task8, task2, task3, task4, task5, task6],
   file: {
     name: 'phone company',
     filetype: 'txt',
-    timestamp: 1479932258,
+    timestamp: 1479941258,
     user: 'gert'
   }
 }
 
 let testCase10 = {
-  tasks: [task1, task2, task3, task4, task5, task6, task7, task8],
+  tasks: [task7, task2, task3, task4, task5, task6, task1, task8],
   file: {
     name: '',
     filetype: '',
-    timestamp: 1479934110,
+    timestamp: 1479940110,
     user: 'claire',
     description: 'hope this helps'
   }
