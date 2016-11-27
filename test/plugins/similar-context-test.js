@@ -16,7 +16,7 @@ buster.testCase('similar-context-plugin', {
     let sString2 = 'President Obama woke up Monday facing a Congressional defeat that many in both parties believed could hobble his presidency.'
     let keywordExtraction = { extractKeywords: true }
     let result = plugin(sString1, sString2, keywordExtraction)
-    buster.assert.near(0.0, result, 1e-3)
+    buster.assert.equals(0.0, result)
   },
 
   'test4 - without Keywordsextraction: should return 1.0 when both strings matches': function () {
@@ -32,7 +32,7 @@ buster.testCase('similar-context-plugin', {
     let sString2 = 'President Obama woke up Monday facing a Congressional defeat that many in both parties believed could hobble his presidency.'
     let keywordExtraction = { extractKeywords: false }
     let result = plugin(sString1, sString2, keywordExtraction)
-    buster.assert.near(0.0, result, 1e-3)
+    buster.assert.equals(0.0, result)
   },
 
   'test6 - without Keywordsextraction: should return the same value as Stringsimilarity compare method': function () {
