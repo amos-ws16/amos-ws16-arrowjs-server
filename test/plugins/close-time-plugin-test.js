@@ -1,5 +1,5 @@
 const buster = require('buster')
-const plugin = require('../../lib/plugins/close-timestamp-plugin.js')
+const plugin = require('../../lib/plugins/close-time-plugin.js')
 
 const timedifferenceLimit = 600
 const uploadTimestamp = 1478886423.003
