@@ -9,10 +9,14 @@ config.scoreManager = {
       use: 'similar-title-plugin',
       inputs: ['file', 'tasks[]']
     },
-    'close-time': {
-      use: 'close-timestamp-plugin',
+    'context-file-timestamp-tasks-timestamp': {
+      use: 'similar-context-plugin',
+      inputs: ['file.created_at', 'tasks[].created_at']
+    },
+    'context-file-timestamp-tasks-timestamp-long': {
+      use: 'similar-context-plugin',
       inputs: ['file.created_at', 'tasks[].created_at'],
-      params: { 'time-limit': 1234 }
+      params: { 'time-limit': 3000 }
     }
   }
 }
