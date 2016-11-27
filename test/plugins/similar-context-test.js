@@ -66,11 +66,17 @@ buster.testCase('similar-context-plugin', {
     buster.assert.exception(() => plugin(sString))
   },
 
-  'test10 - should throw an error if no strings are passed for comparison': function () {
+  'test10 - should throw an error if a string is empty': function () {
+    let sString1 = 'test'
+    let sString2 = ''
+    buster.assert.exception(() => plugin(sString1, sString2))
+  },
+
+  'test11 - should throw an error if no strings are passed for comparison': function () {
     buster.assert.exception(() => plugin())
   },
 
-  'test11 - should throw an error if the last parameter - extractKeywords - has a non boolean attribute - extractKeywords': function () {
+  'test12 - should throw an error if the last parameter - extractKeywords - has a non boolean attribute - extractKeywords': function () {
     let sString1 = 'test'
     let sString2 = 'test'
     let keywordExtraction = { extractKeywords: 'test' }

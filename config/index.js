@@ -13,6 +13,36 @@ config.scoreManager = {
       use: 'close-timestamp-plugin',
       inputs: ['file.created_at', 'tasks[].created_at'],
       params: { 'time-limit': 1234 }
+    },
+    'context-file-title-task-description': {
+      use: 'similar-context-plugin',
+      inputs: ['file.name', 'tasks[].description'],
+      params: { 'extractKeywords': true }
+    },
+    'context-file-description-task-title': {
+      use: 'similar-context-plugin',
+      inputs: ['file.description', 'tasks[].name'],
+      params: { 'extractKeywords': true }
+    },
+    'context-file-description-task-description': {
+      use: 'similar-context-plugin',
+      inputs: ['file.description', 'tasks[].description'],
+      params: { 'extractKeywords': true }
+    },
+    'similar-file-title-task-description': {
+      use: 'similar-context-plugin',
+      inputs: ['file.name', 'tasks[].description'],
+      params: { 'extractKeywords': false }
+    },
+    'similar-file-description-task-title': {
+      use: 'similar-context-plugin',
+      inputs: ['file.description', 'tasks[].name'],
+      params: { 'extractKeywords': false }
+    },
+    'similar-file-description-task-description': {
+      use: 'similar-context-plugin',
+      inputs: ['file.description', 'tasks[].description'],
+      params: { 'extractKeywords': false }
     }
   }
 }
