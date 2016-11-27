@@ -1,7 +1,7 @@
 
 let task1 = {
   name: 'create test cases',
-  timestamp: 1479391500, // 17.11.2016 @ 14:00:00
+  created_at: 1479391500, // 17.11.2016 @ 14:00:00
   due_date: 1479942000, // 24.11.2016 @ 12:00:00
   user: 'simonschwan',
   assignees: [ 'simonschwan', 'fabian', 'jan.huenges', 'kevstar', 'nguyen.duc0912', 'olli', 'yves' ],
@@ -11,7 +11,7 @@ let task1 = {
 
 let task2 = {
   name: 'organize final celebration',
-  timestamp: 1476705900, // 17.10.2016 @ 14:05:00
+  created_at: 1476705900, // 17.10.2016 @ 14:05:00
   due_date: 1486724400, // 10.02.2017 @ 12:00:00
   user: 'simonschwan',
   assignees: [ 'simonschwan', 'fabian', 'jan.huenges', 'kevstar', 'nguyen.duc0912', 'olli', 'yves' ],
@@ -21,7 +21,7 @@ let task2 = {
 
 let task3 = {
   name: 'move server to eu-west2',
-  timestamp: 1479392700, // 17.11.2016 @ 15:25:00
+  created_at: 1479392700, // 17.11.2016 @ 15:25:00
   due_date: 1480330800, // 28.11.2016 @ 12:00:00
   user: 'simonschwan',
   assignees: [ 'simonschwan' ],
@@ -31,7 +31,7 @@ let task3 = {
 
 let task4 = {
   name: 'write test with created examples',
-  timestamp: 1480061580, // 25.11.2016 @ 09:13:00
+  created_at: 1480061580, // 25.11.2016 @ 09:13:00
   due_date: 1480590000, // 01.12.2016 @ 12:00:00
   user: 'olli',
   assignees: [ 'olli' ],
@@ -41,7 +41,7 @@ let task4 = {
 
 let task5 = {
   name: 'review offer',
-  timestamp: 1479899520, // 23.11.2016 @ 12:12:00
+  created_at: 1479899520, // 23.11.2016 @ 12:12:00
   due_date: 1479918600, // 23.11.2016 @ 17:30:00
   user: 'fabian',
   assignees: [ 'fabian' ],
@@ -51,7 +51,7 @@ let task5 = {
 
 let task6 = {
   name: 'buy coffey and mate',
-  timestamp: 1479921803, // 23.11.2016 @ 18:23:23
+  created_at: 1479921803, // 23.11.2016 @ 18:23:23
   due_date: 1479987000, // 24.11.2016 @ 12:30:00
   user: 'fabian',
   assignees: [ 'fabian' ],
@@ -61,7 +61,7 @@ let task6 = {
 
 let task7 = {
   name: 'create better test data',
-  timestamp: 1480076420, // 25.11.2016 @ 13:20:20
+  created_at: 1480076420, // 25.11.2016 @ 13:20:20
   due_date: 1483225200, // 01.01.2017 @ 00:00:00
   user: 'simonschwan',
   assignees: [ 'simonschwan', 'fabian', 'jan.huenges', 'kevstar', 'nguyen.duc0912', 'olli', 'yves' ],
@@ -71,7 +71,7 @@ let task7 = {
 
 let task8 = {
   name: 'plan christmas celebration',
-  timestamp: 1481439780, // 11.12.2016 @ 08:03:00
+  created_at: 1481439780, // 11.12.2016 @ 08:03:00
   due_date: 1482080400, // 18.12.2016 @ 18:00:00
   user: 'yves',
   assignees: [ 'yves' ],
@@ -84,7 +84,7 @@ let testCase1 = {
   file: {
     name: 'test-cases',
     filetype: 'js',
-    timestamp: 1479897600, // 23.11.2016 @ 11:40:00
+    created_at: 1479897600, // 23.11.2016 @ 11:40:00
     user: 'simonschwan',
     description: 'This file includes all test scenarios we developed to test our application'
   }
@@ -95,7 +95,7 @@ let testCase2 = {
   file: {
     name: 'schleusenkrug',
     filetype: 'jpeg',
-    timestamp: 1485205200, // 23.01.2017 @ 22:00:00
+    created_at: 1485205200, // 23.01.2017 @ 22:00:00
     user: 'simonschwan',
     description: 'I found a location for our product release party. What do you think?'
   }
@@ -106,7 +106,7 @@ let testCase3 = {
   file: {
     name: 'pubkey',
     filetype: 'crt',
-    timestamp: 944908800, // 11/23/2016 @ 11:40:00
+    created_at: 944908800, // 11/23/2016 @ 11:40:00
     user: 'simonschwan',
     description: 'Our new ssh key to connect to the new EC2 deployment instance'
   }
@@ -117,7 +117,7 @@ let testCase4 = {
   file: {
     name: 'annoyed-donald',
     filetype: 'jpeg',
-    timestamp: 1480061700, // 25.11.2016 @ 09:15:00
+    created_at: 1480061700, // 25.11.2016 @ 09:15:00
     user: 'simonschwan',
     description: 'This picture shows how annoying it was to create the test cases last week. Hopefully the tests will work fine!'
   }
@@ -129,7 +129,7 @@ let testCase5 = {
   file: {
     name: 'offer_ibm_14346134356',
     filetype: 'pdf',
-    timestamp: 1479899700, // 23.11.2016 @ 12:15:00
+    created_at: 1479899700, // 23.11.2016 @ 12:15:00
     user: 'simonschwan',
     description: 'Offer with new IBM Thinkpads'
   }
@@ -140,7 +140,7 @@ let testCase6 = {
   file: {
     name: 'offer_lenovo_14346134356',
     filetype: 'pdf',
-    timestamp: 1479899820, // 23.11.2016 @ 12:17:00
+    created_at: 1479899820, // 23.11.2016 @ 12:17:00
     user: 'simonschwan',
     description: 'Offer with new Lenovo Laptops'
   }
@@ -151,7 +151,7 @@ let testCase7 = {
   file: {
     name: 'ibm-thinkpad',
     filetype: 'jpeg',
-    timestamp: 1479899760, // 23.11.2016 @ 12:16:00
+    created_at: 1479899760, // 23.11.2016 @ 12:16:00
     user: 'simonschwan',
     description: 'no description'
   }
@@ -162,7 +162,7 @@ let testCase8 = {
   file: {
     name: 'jacobs-kroenung',
     filetype: 'jpeg',
-    timestamp: 1479942000, // 24.11.2016 @ 00:00:00
+    created_at: 1479942000, // 24.11.2016 @ 00:00:00
     user: 'simonschwan',
     description: 'These are my favourite coffey beans (fyi).'
   }
@@ -173,7 +173,7 @@ let testCase9 = {
   file: {
     name: 'new_possible_test_set',
     filetype: 'js',
-    timestamp: 1482606000, // 24.12.2016 @ 20:00:00
+    created_at: 1482606000, // 24.12.2016 @ 20:00:00
     user: 'jan.huenges',
     description: 'This is a more reliable and professional test set with which we can verify our system'
   }
@@ -184,7 +184,7 @@ let testCase10 = {
   file: {
     name: 'santa_clause',
     filetype: 'jpeg',
-    timestamp: 1482080400, // 18.12.2016 @ 18:00:00
+    created_at: 1482080400, // 18.12.2016 @ 18:00:00
     user: 'yves',
     description: 'no description'
   }

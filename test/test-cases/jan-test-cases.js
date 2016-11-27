@@ -1,7 +1,7 @@
 
 let task1 = {
   name: 'Hunt dinner',
-  timestamp: 1479916800,
+  created_at: 1479916800,
   duedate: 1480003200,
   user: 'jan',
   assignees: ['jan', 'yves'],
@@ -10,7 +10,7 @@ let task1 = {
 
 let task2 = {
   name: 'Go home, you are drunk!',
-  timestamp: 1479744000,
+  created_at: 1479744000,
   duedate: 1480435200,
   user: 'jan',
   assignees: ['yves'],
@@ -19,7 +19,7 @@ let task2 = {
 
 let task3 = {
   name: 'Get something to drink',
-  timestamp: 1479744000,
+  created_at: 1479744000,
   duedate: 1480435200,
   user: 'jan',
   assignees: ['olli', 'simon'],
@@ -28,7 +28,7 @@ let task3 = {
 
 let task4 = {
   name: 'Do laundry',
-  timestamp: 1482422400,
+  created_at: 1482422400,
   duedate: 1482433200,
   user: 'jan',
   assignees: ['peter', 'georg'],
@@ -37,28 +37,28 @@ let task4 = {
 
 let task5 = {
   name: 'Find the hotel mercure',
-  timestamp: 1482422400,
+  created_at: 1482422400,
   duedate: 1482433200,
   user: 'jan'
 }
 
 let task6 = {
   name: 'Find a bed an breakfast in London',
-  timestamp: 1480359600,
+  created_at: 1480359600,
   duedate: 1480446000,
   user: 'jan'
 }
 
 let task7 = {
   name: 'Gibberish',
-  timestamp: 1472151600,
+  created_at: 1472151600,
   duedate: 1480446000,
   user: 'jan'
 }
 
 let task8 = {
   name: 'Go to bed!',
-  timestamp: 1479841200,
+  created_at: 1479841200,
   duedate: 1479844800,
   user: 'john',
   assignees: ['john']
@@ -69,7 +69,7 @@ let testCase1 = {
   file: {
     name: 'hunt, pray, love',
     filetype: 'txt',
-    timestamp: 1479916850,
+    created_at: 1479916850,
     user: 'jan'
   }
 }
@@ -79,7 +79,7 @@ let testCase2 = {
   file: {
     name: 'Map of Berlin',
     filetype: 'jpg',
-    timestamp: 1479916800,
+    created_at: 1479916800,
     user: 'jan'
   }
 }
@@ -89,7 +89,7 @@ let testCase3 = {
   file: {
     name: 'Rivers, lakes and more',
     filetype: 'jpg',
-    timestamp: 1479916800,
+    created_at: 1479916800,
     user: 'jan',
     description: 'Rivers to get water'
   }
@@ -100,7 +100,7 @@ let testCase4 = {
   file: {
     name: 'How to do laundry 101',
     filetype: 'avi',
-    timestamp: 1482422400,
+    created_at: 1482422400,
     user: 'jan',
     description: 'An easy manual for doing laundry!'
   }
@@ -111,7 +111,7 @@ let testCase5 = {
   file: {
     name: 'hotel-mercure',
     filetype: 'jpg',
-    timestamp: 1479754800,
+    created_at: 1479754800,
     user: 'jan'
   }
 }
@@ -121,7 +121,7 @@ let testCase6 = {
   file: {
     name: 'bed and breakfasts in London',
     filetype: 'svg',
-    timestamp: 1345921200,
+    created_at: 1345921200,
     user: 'jan'
   }
 }
@@ -131,7 +131,7 @@ let testCase7 = {
   file: {
     name: 'Random-file',
     filetype: 'exe',
-    timestamp: 1480273200,
+    created_at: 1480273200,
     user: 'jan'
   }
 }
@@ -141,7 +141,7 @@ let testCase8 = {
   file: {
     name: 'sleep is good',
     filetype: 'docx',
-    timestamp: 1479841320,
+    created_at: 1479841320,
     user: 'john'
   }
 }
@@ -151,7 +151,7 @@ let testCase9 = {
   file: {
     name: 'asdf',
     filetype: 'mov',
-    timestamp: 1479916800,
+    created_at: 1479916800,
     user: 'jan'
   }
 }
@@ -161,7 +161,7 @@ let testCase10 = {
   file: {
     name: 'Berlin Berlin!',
     filetype: 'pdf',
-    timestamp: 1479754920,
+    created_at: 1479754920,
     user: 'jan',
     description: 'Berlin is not as nice as Potsdam!'
   }
