@@ -43,6 +43,32 @@ buster.testCase('Input Scorer', {
     const taskTimestamp = uploadTimestamp + 3 * timedifferenceLimit / 4
     let result = plugin(uploadTimestamp, taskTimestamp)
     buster.assert.equals(result, 0.25)
+  },
+
+  'should return an error because the second timestamp is not a timestamp': function () {
+    const sString = 'random string'
+    /* let result = plugin(uploadTimestamp, sString)
+    buster.assert.equals(result, `${sString} is not a valid Integer.`) */
+    buster.assert.exception(() => plugin(uploadTimestamp, sString))
+  },
+
+  'should return an error because the first timestamp is not a timestamp': function () {
+    const sString = 'random string'
+    /* let result = plugin(sString, uploadTimestamp)
+    buster.assert.equals(result, `${sString} is not a valid Integer.`) */
+    buster.assert.exception(() => plugin(sString, uploadTimestamp))
+  },
+
+  'should return an error because the first timestamp is undefined': function () {
+    /* let result = plugin(undefined, uploadTimestamp)
+    buster.assert.equals(result, `Two Timestamps as input are needed.`) */
+    buster.assert.exception(() => plugin(undefined, uploadTimestamp))
+  },
+
+  'should return an error because the second timestamp is undefined': function () {
+    /* let result = plugin(uploadTimestamp, undefined)
+    buster.assert.equals(result, `Two Timestamps as input are needed.`) */
+    buster.assert.exception(() => plugin(uploadTimestamp, undefined))
   }
 
 })

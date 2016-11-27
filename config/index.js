@@ -10,11 +10,11 @@ config.scoreManager = {
       inputs: ['file', 'tasks[]']
     },
     'context-file-timestamp-tasks-timestamp': {
-      use: 'similar-context-plugin',
+      use: 'close-timestamp-plugin',
       inputs: ['file.created_at', 'tasks[].created_at']
     },
     'context-file-timestamp-tasks-timestamp-long': {
-      use: 'similar-context-plugin',
+      use: 'close-timestamp-plugin',
       inputs: ['file.created_at', 'tasks[].created_at'],
       params: { 'time-limit': 3000 }
     }
