@@ -6,54 +6,52 @@ buster.testCase('similar-context-plugin', {
   'test1 - with Keywordsextraction: should return 1.0 when both strings matches': function () {
     let sString1 = 'president obama woke monday facing congressional defeat parties believed hobble presidency'
     let sString2 = 'President Obama woke up Monday facing a Congressional defeat that many in both parties believed could hobble his presidency.'
-    let result = plugin(sString1, sString2, true)
+    let keywordExtraction = { extractKeywords: true }
+    let result = plugin(sString1, sString2, keywordExtraction)
     buster.assert.near(1.0, result, 0)
   },
 
   'test2 - with Keywordsextraction: should return 0.0 when both strings dont match at all': function () {
     let sString1 = '123 3415i 02387564'
     let sString2 = 'President Obama woke up Monday facing a Congressional defeat that many in both parties believed could hobble his presidency.'
-    let result = plugin(sString1, sString2, true)
+    let keywordExtraction = { extractKeywords: true }
+    let result = plugin(sString1, sString2, keywordExtraction)
     buster.assert.near(0.0, result, 0)
   },
 
   'test4 - without Keywordsextraction: should return 1.0 when both strings matches': function () {
     let sString1 = 'president obama'
     let sString2 = 'president obama'
-    let result = plugin(sString1, sString2, false)
+    let keywordExtraction = { extractKeywords: false }
+    let result = plugin(sString1, sString2, keywordExtraction)
     buster.assert.near(1.0, result, 0)
   },
 
   'test5 - without Keywordsextraction: should return 0.0 both strings dont match at all': function () {
     let sString1 = '123 3415i 02387564'
     let sString2 = 'President Obama woke up Monday facing a Congressional defeat that many in both parties believed could hobble his presidency.'
-    let result = plugin(sString1, sString2, false)
+    let keywordExtraction = { extractKeywords: false }
+    let result = plugin(sString1, sString2, keywordExtraction)
     buster.assert.near(0.0, result, 0)
   },
 
   'test6 - without Keywordsextraction: should return the same value as Stringsimilarity compare method': function () {
     this.stub(stringSimilarity, 'compareTwoStrings').returns(1.0)
-    let file = {
-      title: 'healed.jpeg'
-    }
-    let task = {
-      title: 'sealed'
-    }
+    let sString1 = 'healed.jpeg'
+    let sString2 = 'sealed'
+    let keywordExtraction = { extractKeywords: false }
 
-    let result = plugin(file.title, task.title, false)
+    let result = plugin(sString1, sString2, keywordExtraction)
     buster.assert.near(result, 1.0, 1e-3)
   },
 
   'test7 - should call Stringsimilarity compare method': function () {
     let compare = this.stub(stringSimilarity, 'compareTwoStrings')
-    let file = {
-      title: 'healed.jpeg'
-    }
-    let task = {
-      title: 'sealed'
-    }
+    let sString1 = 'healed.jpeg'
+    let sString2 = 'sealed'
+    let keywordExtraction = { extractKeywords: false }
 
-    plugin(file.title, task.title)
+    plugin(sString1, sString2, keywordExtraction)
     buster.assert.called(compare)
   },
 
@@ -72,11 +70,11 @@ buster.testCase('similar-context-plugin', {
     buster.assert.exception(() => plugin())
   },
 
-  'test11 - should throw an error if the last parameter - extractKeywords - is not a boolean': function () {
+  'test11 - should throw an error if the last parameter - extractKeywords - has a non boolean attribute - extractKeywords': function () {
     let sString1 = 'test'
     let sString2 = 'test'
-    let extract = 'test'
-    buster.assert.exception(() => plugin(sString1, sString2, extract))
+    let keywordExtraction = { extractKeywords: 'test' }
+    buster.assert.exception(() => plugin(sString1, sString2, keywordExtraction))
   }
 
 })
