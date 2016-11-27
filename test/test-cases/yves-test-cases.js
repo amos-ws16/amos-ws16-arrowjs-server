@@ -173,7 +173,7 @@ let testCase10 = {
   }
 }
 
-module.exports = {
+let testCases = [
   testCase1,
   testCase2,
   testCase3,
@@ -184,4 +184,8 @@ module.exports = {
   testCase8,
   testCase9,
   testCase10
+]
+
+module.exports = {
+  testCases
 }
