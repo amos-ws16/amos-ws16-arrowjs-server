@@ -7,11 +7,10 @@ All fields are optional unless specified as required.
 
 ```json
 {
-  "content": {
     "file": {
       "title": "(required) string ",
       "type": "(required) string png/jpeg",
-      "created_on": "(required) number",
+      "created_at": "(required) unix timestamp",
       "user": "(required) id string",
       "description": "string that was sent with the upload",
       "context": {
@@ -23,25 +22,16 @@ All fields are optional unless specified as required.
     "tasks": [
       {
         "title": "(required) string",
-        "created_on": "(required) number",
-        "due_date": "number",
+        "created_at": "(required) unix timestamp",
+        "due_date": "unix timestamp",
         "created_by": "(required) id string",
         "last_updated_by": "id string",
-        "last_updated_on": "number",
+        "last_updated_at": "unix timestamp",
         "assignees": ["userid1", "userid2", "..."],
         "description": "string",
         "location": "..."
     },
     "..."]
-  },
-  "metadata": {
-    "plugins" : [
-      {
-        "name": "(required) string",
-        "wheight": "(required) float"
-      }
-    ]
-  }
 }
 
 ```
