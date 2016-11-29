@@ -7,30 +7,33 @@ All fields are optional unless specified as required.
 
 ```json
 {
-  "file": {
-    "name": "(required) string ",
-    "filetype": "(required) string png/jpeg",
-    "timestamp": "(required) number",
-    "user": "(required) id string",
-    "description": "string that was sent with the upload",
-    "context": {
-      "chat": "...",
-      "more stuff": "...",
-      "to be defined later": "..."
-    }
-  },
-  "tasks": [
-    {
-      "name": "(required) string",
-      "timestamp": "(required) number",
-      "due_date": "number",
+    "file": {
+      "title": "(required) string ",
+      "type": "(required) string png/jpeg",
+      "created_at": "(required) unix timestamp",
       "user": "(required) id string",
-      "assignees": ["userid1", "userid2", "..."],
-      "description": "string",
-      "location": "..."
-  },
-  "..."]
+      "description": "string that was sent with the upload",
+      "context": {
+        "chat": "...",
+        "more stuff": "...",
+        "to be defined later": "..."
+      }
+    },
+    "tasks": [
+      {
+        "title": "(required) string",
+        "created_at": "(required) unix timestamp",
+        "due_date": "unix timestamp",
+        "created_by": "(required) id string",
+        "last_updated_by": "id string",
+        "last_updated_at": "unix timestamp",
+        "assignees": ["userid1", "userid2", "..."],
+        "description": "string",
+        "location": "..."
+    },
+    "..."]
 }
+
 ```
 
 ## Output Schema
