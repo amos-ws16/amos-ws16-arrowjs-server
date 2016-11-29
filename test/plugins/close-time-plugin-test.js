@@ -47,28 +47,30 @@ buster.testCase('Input Scorer', {
 
   'should return an error because the second timestamp is not a timestamp': function () {
     const sString = 'random string'
-    /* let result = plugin(uploadTimestamp, sString)
-    buster.assert.equals(result, `${sString} is not a valid Integer.`) */
     buster.assert.exception(() => plugin(uploadTimestamp, sString))
   },
 
   'should return an error because the first timestamp is not a timestamp': function () {
     const sString = 'random string'
-    /* let result = plugin(sString, uploadTimestamp)
-    buster.assert.equals(result, `${sString} is not a valid Integer.`) */
     buster.assert.exception(() => plugin(sString, uploadTimestamp))
   },
 
   'should return an error because the first timestamp is undefined': function () {
-    /* let result = plugin(undefined, uploadTimestamp)
-    buster.assert.equals(result, `Two Timestamps as input are needed.`) */
     buster.assert.exception(() => plugin(undefined, uploadTimestamp))
   },
 
   'should return an error because the second timestamp is undefined': function () {
-    /* let result = plugin(uploadTimestamp, undefined)
-    buster.assert.equals(result, `Two Timestamps as input are needed.`) */
     buster.assert.exception(() => plugin(uploadTimestamp, undefined))
+  },
+
+  'should return 0.5 because parameter time-limit is undefined, so it becomes default value': function () {
+    const taskTimestamp = uploadTimestamp - timedifferenceLimit / 2
+    let result = plugin(uploadTimestamp, taskTimestamp, { 'time-limit': undefined })
+    buster.assert.equals(result, 0.5)
+  },
+
+  'should return an error because parameter time-limit is not an integer but a string': function () {
+    buster.assert.exception(() => plugin(uploadTimestamp, uploadTimestamp, { 'time-limit': 'hello' }))
   }
 
 })
