@@ -256,6 +256,29 @@ buster.testCase('ScoreManager with configuration', {
       let result = manager.score(blob)
 
       buster.assert.match(result[0]['plugin-c'], /this is the error description/)
+    },
+
+    'should only pass successful scores to the aggregator': function () {
+      let aggregator = { combine: this.stub() }
+      let plugA = () => 1.0
+      let plugB = () => { throw new Error('this is the error description') }
+
+      let manager = scoreManager.create({
+        aggregator,
+        plugins: {
+          'plugin-a': { use: plugA, inputs: ['file', 'tasks[]'] },
+          'plugin-b': { use: plugB, inputs: ['file', 'tasks[]'] }
+        }
+      })
+
+      let blob = {
+        file: {},
+        tasks: [{}]
+      }
+
+      manager.score(blob)
+
+      buster.assert.calledWith(aggregator.combine, {'plugin-a': 1.0})
     }
   }
 })
