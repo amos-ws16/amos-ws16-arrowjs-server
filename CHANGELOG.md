@@ -3,6 +3,15 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased](https://github.com/amos-ws16/amos-ws16-arrowjs/compare/sprint-05-release...dev)
 
+## Added
+- Default [configuration](https://github.com/amos-ws16/amos-ws16-arrowjs/blob/master/config/index.js)
+- [Exclude plugins](https://github.com/amos-ws16/amos-ws16-arrowjs/pull/37) from the scoreing if they throw an exception
+- [Getting started](https://github.com/amos-ws16/amos-ws16-arrowjs/pull/37)
+
+
+## Changed
+- Adjuste the [input schema](https://github.com/amos-ws16/amos-ws16-arrowjs/blob/master/docs/rest-api.md) of the API
+
 ## [1.2.0](https://github.com/amos-ws16/amos-ws16-arrowjs/releases/tag/sprint-05-release) - 2016-11-24
 
 ### Added
