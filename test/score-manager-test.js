@@ -297,7 +297,7 @@ buster.testCase('ScoreManager Integration', {
     let manager = scoreManager.create(config)
 
     let blob = {
-      file: { title: 'location.png' },
+      file: { title: 'location' },
       tasks: [
         { title: 'location' },
         { title: '12345' }
@@ -323,7 +323,7 @@ buster.testCase('ScoreManager Integration', {
       let manager = scoreManager.create(config)
 
       let blob = {
-        file: { title: 'location.png' },
+        file: { title: 'location' },
         tasks: [
           { title: 'location' },
           { title: '12345' }
