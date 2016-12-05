@@ -19,24 +19,24 @@ config.scoreManager = {
       inputs: ['file.name', 'tasks[].name'],
       params: { 'fileType': 'file.type' }
     },
-// timestamp comparison defaults to 600 sec
+    // timestamp comparison defaults to 600 sec
     'context-file-timestamp-tasks-timestamp': {
-      use: 'close-timestamp-plugin',
+      use: 'close-time-plugin',
       inputs: ['file.created_at', 'tasks[].created_at']
     },
     'context-file-timestamp-tasks-timestamp-long': {
-      use: 'close-timestamp-plugin',
+      use: 'close-time-plugin',
       inputs: ['file.created_at', 'tasks[].created_at'],
       params: { 'time-limit': 3000 }
     },
     'context-file-title-task-description': {
       use: 'similar-context-plugin',
-      inputs: ['file.name', 'tasks[].description'],
+      inputs: ['file.title', 'tasks[].description'],
       params: { 'extractKeywords': true }
     },
     'context-file-description-task-title': {
       use: 'similar-context-plugin',
-      inputs: ['file.description', 'tasks[].name'],
+      inputs: ['file.description', 'tasks[].title'],
       params: { 'extractKeywords': true }
     },
     'context-file-description-task-description': {
@@ -46,12 +46,12 @@ config.scoreManager = {
     },
     'similar-file-title-task-description': {
       use: 'similar-context-plugin',
-      inputs: ['file.name', 'tasks[].description'],
+      inputs: ['file.title', 'tasks[].description'],
       params: { 'extractKeywords': false }
     },
     'similar-file-description-task-title': {
       use: 'similar-context-plugin',
-      inputs: ['file.description', 'tasks[].name'],
+      inputs: ['file.description', 'tasks[].title'],
       params: { 'extractKeywords': false }
     },
     'similar-file-description-task-description': {
