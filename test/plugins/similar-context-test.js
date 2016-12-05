@@ -84,30 +84,18 @@ buster.testCase('similar-context-plugin', {
   },
 
   'should return 0.0 when there is no match at all ignoring the file extension': function () {
-    let file = { title: '123.jpeg' }
+    let file = { title: '123' }
     let task = { title: 'location' }
-    let fileType = { fileType: 'jpeg' }
 
-    let result = plugin(file.title, task.title, fileType)
+    let result = plugin(file.title, task.title)
     buster.assert.equals(result, 0.0)
   },
 
   'should return 1.0 when there is a total match ignoring the file extension': function () {
-    let file = { title: 'location.png' }
+    let file = { title: 'location' }
     let task = { title: 'location' }
-    let fileType = { fileType: 'png' }
 
-    let result = plugin(file.title, task.title, fileType)
-    buster.assert.equals(result, 1.0)
-  },
-  
-  'should return 1.0 when there is a total match ignoring the file extension': function () {
-    let file = { title: 'location.png' }
-    let task = { title: 'location' }
-    let fileType = { fileType: 'png' }
-
-    let result = plugin(file.title, task.title, fileType)
+    let result = plugin(file.title, task.title)
     buster.assert.equals(result, 1.0)
   }
-
 })

@@ -16,8 +16,7 @@ config.scoreManager = {
     // similar-title-plugin pulls file.name from file and tasks[].name from tasks[] itself
     'similar-file-title-task-title': {
       use: 'similar-context-plugin',
-      inputs: ['file.name', 'tasks[].name'],
-      params: { 'fileType': 'file.type' }
+      inputs: ['file.name', 'tasks[].name']
     },
     // timestamp comparison defaults to 600 sec
     'context-file-timestamp-tasks-timestamp': {
