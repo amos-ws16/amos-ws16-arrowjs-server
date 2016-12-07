@@ -40,12 +40,13 @@ All data is received as a JSON object that are based on the following scheme:
 }
 ```
 
-The fields marked with �(required)� are necessary for the comparison. If one or more of these fields are missing the API will return an exception.
+The fields marked with '(required)' are necessary for the comparison. If one or more of these fields are missing the API will return an exception.
 
 ## 4.	Functions
 
 There are three important concepts that facilitate assigning a score to tasks representing the degree to which they match an uploaded file and its metadata: The Score Manager, one or more Plugins and an Aggregator.
 A Plugin is a function that takes two arguments - a file object that contains meta data, for example the filename, size, time of upload and/or the file contents, and a task object that contains meta data related to the task, for example the task name. It returns a floating point numeric score in the range 0.0 to 1.0 which describes the degree in which the file and the task are correlated in the aspect that this plugin is focused on. There are 4 Plugins available:
+
 1.	The same-title Plugin:
 This plugin checks if the title of the file object is equal to the title of the task. If the titles are the same this plugin will return 1.0 otherwise the result would be 0.0.
 
@@ -95,6 +96,7 @@ Request:
 ## 6.	Configuration
 
 The Basic-Configuration of this API makes 5 different comparisons:
+
 1.	Similar Title:
 Compares the title of the file with all task titles
 
