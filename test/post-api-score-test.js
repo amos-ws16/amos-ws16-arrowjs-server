@@ -1,7 +1,7 @@
 const buster = require('buster')
 const VError = require('verror').VError
 const postApiScore = require('../lib/post-api-score')
-const scoreManager = require('arrow/lib/score-manager')
+const scoreManager = require('arrow')
 const config = require('arrow/config')
 const InvalidInputError = require('arrow/lib/invalid-input-error')
 
