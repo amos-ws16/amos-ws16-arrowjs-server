@@ -1,9 +1,9 @@
 const buster = require('buster')
 const VError = require('verror').VError
-const postApiScore = require('../../lib/server/post-api-score')
-const scoreManager = require('../../lib/score-manager')
-const config = require('../../config')
-const InvalidInputError = require('../../lib/invalid-input-error')
+const postApiScore = require('../lib/post-api-score')
+const scoreManager = require('arrow/lib/score-manager')
+const config = require('arrow/config')
+const InvalidInputError = require('arrow/lib/invalid-input-error')
 
 buster.testCase('postApiScore', {
   setUp: function () {
