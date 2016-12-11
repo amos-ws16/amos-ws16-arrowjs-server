@@ -1,4 +1,4 @@
-# Arrow.js - the correlation engine
+# Arrow.js Server - the correlation engine 
 
 [![Build Status](https://travis-ci.org/amos-ws16/amos-ws16-arrowjs-server.svg?branch=master)](https://travis-ci.org/amos-ws16/amos-ws16-arrowjs-server?branch=master) [![Coverage Status](https://coveralls.io/repos/github/amos-ws16/amos-ws16-arrowjs-server/badge.svg?branch=master)](https://coveralls.io/github/amos-ws16/amos-ws16-arrowjs-server?branch=master)
 @`master`
