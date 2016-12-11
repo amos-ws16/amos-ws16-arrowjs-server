@@ -9,7 +9,7 @@
 [![Standard - JavaScript Style Guide](https://cdn.rawgit.com/feross/standard/master/badge.svg)](https://github.com/feross/standard)
 
 
-Check out the [development guide](docs/development-guide.md).
+Check out the [Engine Repository](https://github.com/amos-ws16/amos-ws16-arrowjs) for the User Guide and other documents.
 
 ## Repository Branches
   + `master`: only tagged releases, i.e. `sprint-xx-release`,
