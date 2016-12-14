@@ -2,7 +2,7 @@ const buster = require('buster')
 const request = require('supertest')
 const fs = require('fs')
 const Table = require('cli-table')
-const app = require('../../lib/server')
+const app = require('../../lib')
 
 let allTestCases = {}
 // allTestCases get loaded
