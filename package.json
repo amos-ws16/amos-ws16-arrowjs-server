@@ -30,6 +30,6 @@
     "body-parser": "^1.15.2",
     "express": "^4.14.0",
     "verror": "^1.9.0",
-    "arrow": "amos-ws16/amos-ws16-arrowjs.git#dev"
+    "arrow": "amos-ws16/amos-ws16-arrowjs.git#master"
   }
 }
