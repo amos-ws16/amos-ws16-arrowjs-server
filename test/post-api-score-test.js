@@ -1,9 +1,9 @@
 const buster = require('buster')
 const VError = require('verror').VError
-const postApiScore = require('../../lib/server/post-api-score')
-const scoreManager = require('../../lib/score-manager')
-const config = require('../../config')
-const InvalidInputError = require('../../lib/invalid-input-error')
+const postApiScore = require('../lib/post-api-score')
+const scoreManager = require('arrow')
+const config = require('arrow/config/default')
+const InvalidInputError = require('arrow/lib/invalid-input-error')
 
 buster.testCase('postApiScore', {
   setUp: function () {
@@ -21,7 +21,7 @@ buster.testCase('postApiScore', {
 
   'should pass default config when request has no config': function () {
     postApiScore(this.req, this.res)
-    buster.assert.calledWith(this.create, config.scoreManager)
+    buster.assert.calledWith(this.create, config)
   },
 
   'should pass request config when available': function () {

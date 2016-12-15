@@ -1,6 +1,6 @@
 const buster = require('buster')
 const request = require('supertest')
-const app = require('../lib/server')
+const app = require('../lib')
 
 buster.testCase('GET /api/welcome', {
   'should return a welcome message': (done) => {
@@ -10,6 +10,42 @@ buster.testCase('GET /api/welcome', {
       .end(done((err, res) => {
         buster.refute(err)
         buster.assert.match(res.text, /Welcome/)
+      }))
+  }
+})
+
+buster.testCase('GET /api/welcome', {
+  'should return a link to changelog in message': (done) => {
+    request(app)
+      .get('/api/welcome')
+      .expect(200)
+      .end(done((err, res) => {
+        buster.refute(err)
+        buster.assert.match(res.text, /Changelog/)
+      }))
+  }
+})
+
+buster.testCase('GET /api/welcome', {
+  'should return a link to user guide': (done) => {
+    request(app)
+      .get('/api/welcome')
+      .expect(200)
+      .end(done((err, res) => {
+        buster.refute(err)
+        buster.assert.match(res.text, /User Guide/)
+      }))
+  }
+})
+
+buster.testCase('GET /api/welcome', {
+  'should return version': (done) => {
+    request(app)
+      .get('/api/welcome')
+      .expect(200)
+      .end(done((err, res) => {
+        buster.refute(err)
+        buster.assert.match(res.text, /Version/)
       }))
   }
 })
