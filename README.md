@@ -1,4 +1,4 @@
-# Arrow.js Server - the correlation engine 
+# Arrow.js Server - the correlation engine
 
 [![Build Status](https://travis-ci.org/amos-ws16/amos-ws16-arrowjs-server.svg?branch=master)](https://travis-ci.org/amos-ws16/amos-ws16-arrowjs-server?branch=master) [![Coverage Status](https://coveralls.io/repos/github/amos-ws16/amos-ws16-arrowjs-server/badge.svg?branch=master)](https://coveralls.io/github/amos-ws16/amos-ws16-arrowjs-server?branch=master)
 @`master`
@@ -8,8 +8,11 @@
 
 [![Standard - JavaScript Style Guide](https://cdn.rawgit.com/feross/standard/master/badge.svg)](https://github.com/feross/standard)
 
+This repository contains an example implementation of the [Arrow.js Engine](https://github.com/amos-ws16/amos-ws16-arrowjs) and provides an API.
 
-Check out the [Engine Repository](https://github.com/amos-ws16/amos-ws16-arrowjs) for the User Guide and other documents.
+## Usage
+
+Check out the [user guide](docs/user-guide.md) for information on how to use the Arrow.js API.
 
 ## Repository Branches
   + `master`: only tagged releases, i.e. `sprint-xx-release`,
