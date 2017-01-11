@@ -3,6 +3,7 @@ const request = require('supertest')
 const fs = require('fs')
 const Table = require('cli-table')
 const app = require('../../lib')
+const os = require('os')
 
 let allTestCases = {}
 // allTestCases get loaded
@@ -15,6 +16,7 @@ var table = new Table({
   style: {head: ['green'], border: ['grey']}
 })
 
+var dataToWrite = '' + 'TestCase file;größter Score;Index;Teilscores;größter Teilscore;kleinster Teilscore\n'
 for (let key in allTestCases) {
   var testCases = allTestCases[key]
   length += testCases.length
@@ -74,9 +76,14 @@ for (let key in allTestCases) {
         table.push([key, biggestAScore, biggestAIndex, numberOfPartialScores,
           (biggestPartialScore.score + '  (' + biggestPartialScore.key + ')'),
           (smallestPartialScore.score + '  (' + smallestPartialScore.key + ')')])
+
+        dataToWrite = '' + dataToWrite + key + ';' + biggestAScore + ';' + biggestAIndex + ';' + numberOfPartialScores +
+          (biggestPartialScore.score + '  (' + biggestPartialScore.key + ')') + ';' +
+          (smallestPartialScore.score + '  (' + smallestPartialScore.key + ')') + os.EOL
       })
   }
 }
+
 // Timeout needed because supertest runs tests asynchronously and nesting callbacks for 60 tests wouldn't be feasible.
 // No better workaround found than waiting 3 seconds until hopefully all asynchronous tests have run through.
 setTimeout(function () {
@@ -86,6 +93,15 @@ setTimeout(function () {
   console.log('Hits: ' + hitCounter)
   console.log((hitRate * 100) + '% wurden korrekt bewertet.')
   console.log('______________________________________')
+
+  // Write outputs to .csv
+  fs.writeFile('scoretest.csv', dataToWrite, 'utf8', function (err) {
+    if (err) {
+      console.log('Some error occured - file either not saved or corrupted file saved.')
+    } else {
+      console.log('It\'s saved!')
+    }
+  })
 }, 3000)
 
 /**
