@@ -13,7 +13,6 @@ buster.testCase('postApiScore', {
     this.req = { body: {} }
     this.res = { send: this.stub(), json: this.stub() }
   },
-
   'should use scoreManager\'s create function': function () {
     postApiScore(this.req, this.res)
     buster.assert.called(this.create)
