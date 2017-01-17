@@ -27,25 +27,46 @@ buster.testCase('database-library-test', {
       })
     })
   },
-  tearDown: function () {
+  tearDown: function (done) {
     mongoose.disconnect()
+    var db = mongoose.connection
+    db.once('close', done(() => {}))
   },
-  'user-exists': function (done) {
-    dbLib.findUser('realuser', 'secret', done((err, doc) => {
-      if (err) {
-        console.log(err)
-        buster.assert(false)
-      }
-      buster.assert.defined(doc)
+  'test-user-is-valid': function (done) {
+    dbLib.isUserValid('realuser', 'secret', done((valid) => {
+      buster.assert(valid)
     }))
   },
-  'user-does-not-exist': function (done) {
-    dbLib.findUser('nouser', 'doesnt matter', done((err, doc) => {
-      if (err) {
-        console.log(err)
-        buster.assert(false)
-      }
-      buster.assert.isNull(doc)
+  'test-user-is-not-valid': function (done) {
+    dbLib.isUserValid('nouser', 'secret', done((valid) => {
+      buster.assert(!valid)
+    }))
+  },
+  'test-user-is-not-valid-if-error': function () {
+    // TODO: How to check this
+    /* mongoose.disconnect()
+    dbLib.isUserValid(null, null, done((valid) => {
+      buster.assert(!valid)
+    })) */
+    buster.assert(true)
+  },
+  'create new token for authentication': function (done) {
+    dbLib.createToken('abcdefg', done((created) => {
+      buster.assert(created)
+    }))
+  },
+  'check valid token check': function (done) {
+    var tokenId = '123asd123'
+    dbLib.createToken(tokenId, () => {
+      dbLib.isTokenValid(tokenId, done((valid) => {
+        buster.assert(valid)
+      }))
+    })
+  },
+  'check invalid token': function (done) {
+    var neverUsedTokenId = 'blub'
+    dbLib.isTokenValid(neverUsedTokenId, done((valid) => {
+      buster.assert(!valid)
     }))
   }
 })
@@ -54,24 +75,11 @@ buster.testCase('database-library-test', {
  * Test cases which check the connection to the databases
  */
 buster.testCase('database-connection-test', {
-  'test-connection-to-dev-db': function (done) {
-    mongoose.connect(dbConfig.dev)
+  'test-connection-to-test-db': function (done) {
+    mongoose.connect(dbConfig.test)
     var db = mongoose.connection
 
-    db.on('error', done(() => {
-      buster.assert(false)
-    }))
-
-    db.once('open', done(() => {
-      buster.assert(true)
-      mongoose.disconnect()
-    }))
-  },
-  'test-connection-to-prod-db': function (done) {
-    mongoose.connect(dbConfig.prod)
-    var db = mongoose.connection
-
-    db.on('error', done(() => {
+    db.once('error', done(() => {
       buster.assert(false)
     }))
 
@@ -84,11 +92,28 @@ buster.testCase('database-connection-test', {
       // console.log('this tells me that i am DISCONNECTED from buster')
     }))
   },
-  'test-connection-to-test-db': function (done) {
-    mongoose.connect(dbConfig.test)
+  'test-connection-to-dev-db': function (done) {
+    mongoose.connect(dbConfig.dev)
     var db = mongoose.connection
 
-    db.on('error', done(() => {
+    db.once('error', done(() => {
+      buster.assert(false)
+    }))
+
+    db.once('open', () => {
+      buster.assert(true)
+      mongoose.disconnect()
+    })
+
+    db.once('close', done(() => {
+      // console.log('this tells me that i am DISCONNECTED from buster')
+    }))
+  },
+  'test-connection-to-prod-db': function (done) {
+    mongoose.connect(dbConfig.prod)
+    var db = mongoose.connection
+
+    db.once('error', done(() => {
       buster.assert(false)
     }))
 
