@@ -42,13 +42,6 @@ buster.testCase('database-library-test', {
       buster.assert(!valid)
     }))
   },
-  'test-user-is-not-valid-if-error': function () {
-    // TODO: How to check this
-    /* dbLib.isUserValid(null, null, done((valid) => {
-      buster.assert(!valid)
-    })) */
-    buster.assert(true)
-  },
   'create new token for authentication': function (done) {
     dbLib.createToken('abcdefg', done((created) => {
       buster.assert(created)
