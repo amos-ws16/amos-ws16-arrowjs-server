@@ -68,6 +68,30 @@ buster.testCase('database-library-test', {
     dbLib.isTokenValid(neverUsedTokenId, done((valid) => {
       buster.assert(!valid)
     }))
+  },
+  'add a request and its response to the DB and receive an id': function (done) {
+    var request = { blub: 'some undefined json' }
+    var response = { arr: [], blub: 'other json' }
+    dbLib.addRequest(request, response, done((id) => {
+      buster.refute.equals(null, id)
+    }))
+  },
+  'add feedback to the request': function (done) {
+    var request = { blub: 'some undefined json' }
+    var response = { arr: [], blub: 'other json' }
+    var feedback = { abc: 'this is arbitrary feedback' }
+    dbLib.addRequest(request, response, (id) => {
+      dbLib.addFeedback(id, feedback, done((doc) => {
+        buster.assert.equals(doc.feedback, feedback)
+      }))
+    })
+  },
+  'add feedback to a request that does not exist': function (done) {
+    var id = '587d91a0bfff306e0cf88dc0'
+    var feedback = { abc: 'this is arbitrary feedback' }
+    dbLib.addFeedback(id, feedback, done((doc) => {
+      buster.assert.equals(null, doc)
+    }))
   }
 })
 
