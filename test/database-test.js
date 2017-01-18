@@ -6,6 +6,49 @@ var dbConfig = require('../../db-config.js')
 var db = null
 
 /**
+ * Test cases which check the connection to the databases
+ */
+buster.testCase('database-connection-test', {
+  tearDown: function (done) {
+    db.close()
+    db.on('disconnected', done(() => {}))
+  },
+  'test-connection-to-test-db': function (done) {
+    db = mongoose.createConnection(dbConfig.test)
+
+    db.on('error', done(() => {
+      buster.assert(false)
+    }))
+
+    db.on('connected', done(() => {
+      buster.assert(true)
+    }))
+  },
+  'test-connection-to-dev-db': function (done) {
+    db = mongoose.createConnection(dbConfig.dev)
+
+    db.on('error', done(() => {
+      buster.assert(false)
+    }))
+
+    db.on('connected', done(() => {
+      buster.assert(true)
+    }))
+  },
+  'test-connection-to-prod-db': function (done) {
+    db = mongoose.createConnection(dbConfig.prod)
+
+    db.on('error', done(() => {
+      buster.assert(false)
+    }))
+
+    db.on('connected', done(() => {
+      buster.assert(true)
+    }))
+  }
+})
+
+/**
  * Test cases which check the functionality of the database library.
  */
 buster.testCase('database-library-test', {
@@ -83,49 +126,6 @@ buster.testCase('database-library-test', {
     var feedback = { abc: 'this is arbitrary feedback' }
     dbLib.addFeedback(id, feedback, done((doc) => {
       buster.assert.equals(null, doc)
-    }))
-  }
-})
-
-/**
- * Test cases which check the connection to the databases
- */
-buster.testCase('database-connection-test', {
-  tearDown: function (done) {
-    db.close()
-    db.on('disconnected', done(() => {}))
-  },
-  'test-connection-to-test-db': function (done) {
-    db = mongoose.createConnection(dbConfig.test)
-
-    db.on('error', done(() => {
-      buster.assert(false)
-    }))
-
-    db.on('connected', done(() => {
-      buster.assert(true)
-    }))
-  },
-  'test-connection-to-dev-db': function (done) {
-    db = mongoose.createConnection(dbConfig.dev)
-
-    db.on('error', done(() => {
-      buster.assert(false)
-    }))
-
-    db.on('connected', done(() => {
-      buster.assert(true)
-    }))
-  },
-  'test-connection-to-prod-db': function (done) {
-    db = mongoose.createConnection(dbConfig.prod)
-
-    db.on('error', done(() => {
-      buster.assert(false)
-    }))
-
-    db.on('connected', done(() => {
-      buster.assert(true)
     }))
   }
 })
