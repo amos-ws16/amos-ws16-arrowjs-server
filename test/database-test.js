@@ -62,17 +62,29 @@ buster.testCase('database-library-test', {
     }))
   },
   'add a request and its response to the DB and receive an id': function (done) {
-    var request = { blub: 'some undefined json' }
-    var response = { arr: [], blub: 'other json' }
-    dbLib.addRequest(request, response, done((id) => {
+    var config = {blub: 'some undefined json'}
+    var file = {blub: 'some undefined json'}
+    var tasks = [{blub: 'some undefined json'}, {blub: 'some undefined json'}]
+    var success = {blub: 'some undefined json'}
+    var result = {blub: 'some undefined json'}
+    dbLib.addRequest(config, file, tasks, success, result, done((id) => {
       buster.refute.equals(null, id)
     }))
   },
+  'try to find non-existent request': function (done) {
+    var id = '587d91a0bfff306e0cf88dc0'
+    dbLib.findRequest(id, done((doc) => {
+      buster.assert.equals([], doc)
+    }))
+  },
   'add feedback to the request': function (done) {
-    var request = { blub: 'some undefined json' }
-    var response = { arr: [], blub: 'other json' }
+    var config = {blub: 'some undefined json'}
+    var file = {blub: 'some undefined json'}
+    var tasks = [{blub: 'some undefined json'}, {blub: 'some undefined json'}]
+    var success = {blub: 'some undefined json'}
+    var result = {blub: 'some undefined json'}
     var feedback = { abc: 'this is arbitrary feedback' }
-    dbLib.addRequest(request, response, (id) => {
+    dbLib.addRequest(config, file, tasks, success, result, (id) => {
       dbLib.addFeedback(id, feedback, done((doc) => {
         buster.assert.equals(doc.feedback, feedback)
       }))
