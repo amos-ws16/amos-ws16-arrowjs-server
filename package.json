@@ -27,9 +27,10 @@
     "scoretest": "node ./test/test-cases/test-cases-test.js && node ./test/test-cases/test-cases-run.js"
   },
   "dependencies": {
+    "arrow": "amos-ws16/amos-ws16-arrowjs.git#dev",
     "body-parser": "^1.15.2",
     "express": "^4.14.0",
-    "verror": "^1.9.0",
-    "arrow": "amos-ws16/amos-ws16-arrowjs.git#dev"
+    "mongoose": "^4.7.7",
+    "verror": "^1.9.0"
   }
 }
