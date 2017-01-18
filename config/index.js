@@ -5,4 +5,6 @@ config.token = {
   expiresInMinutes: 1440 // 24 hours
 }
 
+config.database = 'mongodb://127.0.0.1:27017/token'
+
 module.exports = config

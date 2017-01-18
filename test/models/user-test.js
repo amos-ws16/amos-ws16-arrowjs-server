@@ -27,5 +27,13 @@ buster.testCase('User model', {
       buster.assert.isNull(err)
       done()
     })
+  },
+
+  'should be valid if username, password and isAdmin are given': function (done) {
+    let user = new User({ name: 'alice', password: '123', isAdmin: true })
+    user.validate((err) => {
+      buster.assert.isNull(err)
+      done()
+    })
   }
 })
