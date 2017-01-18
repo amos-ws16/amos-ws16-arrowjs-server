@@ -1,6 +1,8 @@
 const buster = require('buster')
 const request = require('supertest')
 const app = require('../../lib')
+var dbLib = require('../../lib/database')
+var dbConfig = require('../../../db-config.js')
 
 const testCasesDuc = require('./duc-test-cases.js').testCases
 const testCasesFabian = require('./fabian-test-cases').testCases
@@ -10,22 +12,34 @@ const testCasesYves = require('./yves-test-cases').testCases
 
 buster.testCase('Automated Test Cases', {
   setUp: function () {
-    this.timeout = 1000
+    // Initialize database
+    var db = null
+    if (process.env.NODE_ENV === 'production') {
+      db = dbLib.connect(dbConfig.prod)
+    } else {
+      db = dbLib.connect(dbConfig.dev)
+    }
+    db.on('connected', () => {
+      console.log('connected')
+    })
+    this.timeout = 25000
   },
 
   'Ducs test cases should not throw an error': (done) => {
-    for (let index in testCasesDuc) {
-      let testCase = testCasesDuc[index]
+    setTimeout(function () {
+      for (let index in testCasesDuc) {
+        let testCase = testCasesDuc[index]
 
-      request(app)
-        .post('/api/score')
-        .send(testCase)
-        .expect('Content-Type', /json/)
-        .expect(200)
-        .end(done((err, res) => {
-          buster.refute(err)
-        }))
-    }
+        request(app)
+          .post('/api/score')
+          .send(testCase)
+          .expect('Content-Type', /json/)
+          .expect(200)
+          .end(done((err, res) => {
+            buster.refute(err)
+          }))
+      }
+    }, 200)
   },
 
   'Fabians test cases should not throw an error': (done) => {
