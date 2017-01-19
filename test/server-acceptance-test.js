@@ -11,10 +11,7 @@ buster.testCase('GET /api/welcome', {
         buster.refute(err)
         buster.assert.match(res.text, /Welcome/)
       }))
-  }
-})
-
-buster.testCase('GET /api/welcome', {
+  },
   'should return a link to changelog in message': (done) => {
     request(app)
       .get('/api/welcome')
@@ -23,10 +20,7 @@ buster.testCase('GET /api/welcome', {
         buster.refute(err)
         buster.assert.match(res.text, /Changelog/)
       }))
-  }
-})
-
-buster.testCase('GET /api/welcome', {
+  },
   'should return a link to user guide': (done) => {
     request(app)
       .get('/api/welcome')
@@ -35,10 +29,7 @@ buster.testCase('GET /api/welcome', {
         buster.refute(err)
         buster.assert.match(res.text, /User Guide/)
       }))
-  }
-})
-
-buster.testCase('GET /api/welcome', {
+  },
   'should return version': (done) => {
     request(app)
       .get('/api/welcome')
@@ -47,10 +38,7 @@ buster.testCase('GET /api/welcome', {
         buster.refute(err)
         buster.assert.match(res.text, /Version/)
       }))
-  }
-})
-
-buster.testCase('GET /api/auth', {
+  },
   'should return an auth token': (done) => {
     request(app)
       .get('/api/auth')
@@ -64,11 +52,7 @@ buster.testCase('GET /api/auth', {
         // Any string is fine for now.
         buster.assert.isString(message.token)
       }))
-  }
-})
-
-buster.testCase('POST /api/score', {
-  // TODO: needs to be adapted to new API
+  },
   '//should pass data to score manager': (done) => {
     let blob = {
       file: { title: 'location.png' },
@@ -77,7 +61,6 @@ buster.testCase('POST /api/score', {
         { title: 'something_else' }
       ]
     }
-
     request(app)
       .post('/api/score')
       .send(blob)

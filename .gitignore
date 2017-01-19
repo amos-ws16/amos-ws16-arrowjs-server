@@ -3,3 +3,5 @@ coverage/
 node_modules/
 .gitconfig
 scoretest.csv
+db/
+npm-debug.log
