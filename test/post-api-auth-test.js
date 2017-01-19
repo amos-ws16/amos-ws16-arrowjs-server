@@ -81,7 +81,7 @@ buster.testCase('postApiAuth', {
       const body = { name: 'bob', password: 'crucifix' }
       postApiAuth({ body }, this.res)
 
-      buster.assert.calledWith(signStub, body, config.token.secret, { expiresInMinutes: config.token.expiresInMinutes })
+      buster.assert.calledWith(signStub, body, config.token.secret, { expiresIn: config.token.expiresInMinutes * 60 })
     }
   }
 })
