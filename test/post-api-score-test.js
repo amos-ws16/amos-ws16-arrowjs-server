@@ -1,14 +1,27 @@
 const buster = require('buster')
-// const VError = require('verror').VError
+const VError = require('verror').VError
 const postApiScore = require('../lib/post-api-score')
 const scoreManager = require('arrow')
 const config = require('arrow/config/default')
-// const InvalidInputError = require('arrow/lib/invalid-input-error')
+const InvalidInputError = require('arrow/lib/invalid-input-error')
+const dbLib = require('../lib/database')
+var dbConfig = require('../../db-config.js')
+const sinon = require('sinon')
 
 buster.testCase('postApiScore', {
   setUp: function () {
     this.fakeScoreManager = { score: this.stub() }
     this.create = this.stub(scoreManager, 'create').returns(this.fakeScoreManager)
+
+    var db = null
+    if (process.env.NODE_ENV === 'production') {
+      db = dbLib.connect(dbConfig.prod)
+    } else {
+      db = dbLib.connect(dbConfig.dev)
+    }
+    db.on('connected', () => {
+      console.log('connected')
+    })
 
     this.req = { body: {} }
     this.res = { send: this.stub(), json: this.stub() }
@@ -27,34 +40,60 @@ buster.testCase('postApiScore', {
     this.req.body.config = {}
     postApiScore(this.req, this.res)
     buster.assert.calledWith(this.create, {})
-  }
+  },
 
-  /* 'should wrap result in object with success flag set to true': function () {
+  /* 'should return failure code on empty request': function (done) {
+    this.req.body.config = {}
     this.fakeScoreManager.score.returns('my result')
-    postApiScore(this.req, this.res)
-    console.log('this.res')
-    console.log(this.req.body)
-    buster.assert.calledWith(this.res.json, { success: true, result: 'my result' })
+    postApiScore(this.req, this.res, () => {
+      buster.assert.calledWith(this.res.json, sinon.match.has('success', true))
+      buster.assert.calledWith(this.res.json, sinon.match.has('message'))
+      done()
+    })
   }, */
 
-  /* 'should pass along error message on input error': function () {
+  'should wrap result in object with success flag set to true': function (done) {
+    this.fakeScoreManager.score.returns('my result')
+    postApiScore(this.req, this.res, () => {
+      // console.log('this.res')
+      // console.log(this.req.body)
+      // buster.assert.calledWith(this.res.json, { success: true, result: 'my result' })
+      buster.assert.calledWith(this.res.json, sinon.match.has('success', true))
+      buster.assert.calledWith(this.res.json, sinon.match.has('result', 'my result'))
+      done()
+    })
+  },
+
+  'should pass along error message on input error': function (done) {
     this.fakeScoreManager.score.throws(new InvalidInputError('There was a problem'))
-    postApiScore(this.req, this.res)
-    buster.assert.calledWith(this.res.json, { success: false, error: 'There was a problem' })
-  }, */
+    postApiScore(this.req, this.res, () => {
+      // buster.assert.calledWith(this.res.json, { success: false, error: 'There was a problem' })
+      buster.assert.calledWith(this.res.json, sinon.match.has('success', false))
+      buster.assert.calledWith(this.res.json, sinon.match.has('error', 'There was a problem'))
+      done()
+    })
+  },
 
-  /* 'should pass along error message on wrapped input error': function () {
+  'should pass along error message on wrapped input error': function (done) {
     this.fakeScoreManager.score.throws(
       new VError(
         new InvalidInputError('There was a specific problem'),
         'There was a general problem'))
-    postApiScore(this.req, this.res)
-    buster.assert.calledWith(this.res.json, { success: false, error: 'There was a general problem: There was a specific problem' })
-  }, */
+    postApiScore(this.req, this.res, () => {
+      // buster.assert.calledWith(this.res.json, { success: false, error: 'There was a general problem: There was a specific problem' })
+      buster.assert.calledWith(this.res.json, sinon.match.has('success', false))
+      buster.assert.calledWith(this.res.json, sinon.match.has('error', 'There was a general problem: There was a specific problem'))
+      done()
+    })
+  },
 
-  /* 'should signal an internal server error on error conditions other than input and rethrow exception': function () {
+  'should signal an internal server error on error conditions other than input and rethrow exception': function (done) {
     this.fakeScoreManager.score.throws(new Error('There was an internal problem'))
-    buster.assert.exception(() => postApiScore(this.req, this.res))
-    buster.assert.calledWith(this.res.json, { success: false, error: 'Internal Server Error' })
-  } */
+    buster.assert.exception(() => postApiScore(this.req, this.res, () => {
+      // buster.assert.calledWith(this.res.json, { success: false, error: 'Internal Server Error' })
+      buster.assert.calledWith(this.res.json, sinon.match.has('success', false))
+      buster.assert.calledWith(this.res.json, sinon.match.has('error', 'Internal Server Error'))
+      done()
+    }))
+  }
 })

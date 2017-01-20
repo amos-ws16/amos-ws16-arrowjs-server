@@ -22,7 +22,7 @@ buster.testCase('Automated Test Cases', {
     db.on('connected', () => {
       console.log('connected')
     })
-    this.timeout = 25000
+    this.timeout = 2500
   },
 
   'Ducs test cases should not throw an error': (done) => {
