@@ -11,7 +11,7 @@ const testCasesSimon = require('./simon-test-cases').testCases
 const testCasesYves = require('./yves-test-cases').testCases
 
 buster.testCase('Automated Test Cases', {
-  setUp: function () {
+  setUp: function (done) {
     // Initialize database
     var db = null
     if (process.env.NODE_ENV === 'production') {
@@ -21,6 +21,7 @@ buster.testCase('Automated Test Cases', {
     }
     db.on('connected', () => {
       console.log('connected')
+      if (done) done()
     })
     this.timeout = 2500
   },
