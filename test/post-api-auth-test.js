@@ -2,11 +2,9 @@ const buster = require('buster')
 const sinon = require('sinon')
 const postApiAuth = require('../lib/post-api-auth')
 
-const config = require('../config')
-
 // Classes to be stubbed
-const User = require('../lib/models/user')
-const jwt = require('jsonwebtoken')
+const auth = require('../lib/auth')
+const tokens = require('../lib/tokens')
 
 buster.testCase('postApiAuth', {
   setUp: function () {
@@ -16,72 +14,49 @@ buster.testCase('postApiAuth', {
 
   'invalid input': {
     'should return failure code on empty request': function () {
-      postApiAuth(this.req, this.res)
-      buster.assert.calledWith(this.res.json, sinon.match.has('success', false))
-      buster.assert.calledWith(this.res.json, sinon.match.has('message'))
+      return postApiAuth(this.req, this.res)
+        .then(() => {
+          buster.assert.calledWith(this.res.json, sinon.match.has('success', false))
+          buster.assert.calledWith(this.res.json, sinon.match.has('message'))
+        })
     },
 
-    'should return failure code when user does not exist': function () {
-      this.stub(User, 'findOne').yields(null, null)
-      const body = { name: 'idontexist', password: 'crucifix' }
-      postApiAuth({ body }, this.res)
-      buster.assert.calledWith(this.res.json, sinon.match.has('success', false))
-      buster.assert.calledWith(this.res.json, sinon.match.has('message'))
+    'should return failure code if password is missing': function () {
+      this.req.body = { name: 'bob' }
+      return postApiAuth(this.req, this.res)
+        .then(() => {
+          buster.assert.calledWith(this.res.json, sinon.match.has('success', false))
+          buster.assert.calledWith(this.res.json, sinon.match.has('message'))
+        })
     },
 
-    'should return failure code when password was not provided': function () {
-      this.stub(User, 'findOne').yields(null, null)
-      const body = { name: 'mrpasswordless' }
-      postApiAuth({ body }, this.res)
-      buster.assert.calledWith(this.res.json, sinon.match.has('success', false))
-      buster.assert.calledWith(this.res.json, sinon.match.has('message'))
+    'should return failure code if username is missing': function () {
+      this.req.body = { password: 'secret' }
+      return postApiAuth(this.req, this.res)
+        .then(() => {
+          buster.assert.calledWith(this.res.json, sinon.match.has('success', false))
+          buster.assert.calledWith(this.res.json, sinon.match.has('message'))
+        })
     },
 
-    'should return failure code when username and password do not match the db record': function () {
-      this.stub(User, 'findOne').yields(null, { name: 'bob', password: 'crucifix' })
-      const body = { name: 'bob', password: 'wrong' }
-      postApiAuth({ body }, this.res)
-      buster.assert.calledWith(this.res.json, sinon.match.has('success', false))
-      buster.assert.calledWith(this.res.json, sinon.match.has('message'))
+    'should return failure code if username and password cannot be authenticated': function () {
+      this.req.body = { name: 'bob', password: 'secret' }
+      this.stub(auth, 'authenticateUser').returns(Promise.resolve(null))
+      return postApiAuth(this.req, this.res)
+        .then(() => {
+          buster.assert.calledWith(this.res.json, sinon.match.has('success', false))
+          buster.assert.calledWith(this.res.json, sinon.match.has('message'))
+        })
     }
   },
 
-  'should catch db error': function () {
-    this.stub(User, 'findOne').yields('error occured', null)
-    const body = { name: 'bob', password: 'crucifix' }
-    postApiAuth({ body }, this.res)
-    buster.assert.calledWith(this.res.json, sinon.match.has('success', false))
-    buster.assert.calledWith(this.res.json, sinon.match.has('message'))
-  },
-
-  'valid input': {
-    'should pass username to model': function () {
-      let userStub = this.stub(User, 'findOne')
-
-      const body = { name: 'bob', password: 'crucifix' }
-      postApiAuth({ body }, this.res)
-
-      buster.assert.calledWith(userStub, { name: 'bob' })
-    },
-
-    'should succeed when username and password match db record': function () {
-      this.stub(User, 'findOne').yields(null, { name: 'bob', password: 'crucifix' })
-      this.stub(jwt, 'sign')
-
-      const body = { name: 'bob', password: 'crucifix' }
-      postApiAuth({ body }, this.res)
-
-      buster.assert.calledWith(this.res.json, sinon.match.has('success', true))
-    },
-
-    'should call json web token to generate token': function () {
-      this.stub(User, 'findOne').yields(null, { name: 'bob', password: 'crucifix' })
-      let signStub = this.stub(jwt, 'sign')
-
-      const body = { name: 'bob', password: 'crucifix' }
-      postApiAuth({ body }, this.res)
-
-      buster.assert.calledWith(signStub, body, config.token.secret, { expiresIn: config.token.expiresInMinutes * 60 })
-    }
+  'should pass the userId as data to token creation': function () {
+    this.req.body = { name: 'bob', password: 'secret' }
+    this.stub(auth, 'authenticateUser').returns(Promise.resolve(42))
+    const createToken = this.stub(tokens, 'createToken').returns(Promise.resolve(null))
+    return postApiAuth(this.req, this.res)
+      .then(() => {
+        buster.assert.calledWith(createToken, 42)
+      })
   }
 })
