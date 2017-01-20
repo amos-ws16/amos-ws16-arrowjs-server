@@ -1,6 +1,10 @@
 language: node_js
 node_js:
 - node
+services:
+- mongodb
+before_install:
+- ./scripts/integrate-mongo-travis.sh 
 after_success:
 - npm run coveralls
 before_deploy:

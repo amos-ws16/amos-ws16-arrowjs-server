@@ -9,6 +9,10 @@ const testCasesSimon = require('./simon-test-cases').testCases
 const testCasesYves = require('./yves-test-cases').testCases
 
 buster.testCase('Automated Test Cases', {
+  setUp: function () {
+    this.timeout = 1000
+  },
+
   'Ducs test cases should not throw an error': (done) => {
     for (let index in testCasesDuc) {
       let testCase = testCasesDuc[index]
