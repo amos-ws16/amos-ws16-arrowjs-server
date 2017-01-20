@@ -55,9 +55,6 @@ buster.testCase('postApiScore', {
   'should wrap result in object with success flag set to true': function (done) {
     this.fakeScoreManager.score.returns('my result')
     postApiScore(this.req, this.res, () => {
-      // console.log('this.res')
-      // console.log(this.req.body)
-      // buster.assert.calledWith(this.res.json, { success: true, result: 'my result' })
       buster.assert.calledWith(this.res.json, sinon.match.has('success', true))
       buster.assert.calledWith(this.res.json, sinon.match.has('result', 'my result'))
       done()
@@ -67,7 +64,6 @@ buster.testCase('postApiScore', {
   'should pass along error message on input error': function (done) {
     this.fakeScoreManager.score.throws(new InvalidInputError('There was a problem'))
     postApiScore(this.req, this.res, () => {
-      // buster.assert.calledWith(this.res.json, { success: false, error: 'There was a problem' })
       buster.assert.calledWith(this.res.json, sinon.match.has('success', false))
       buster.assert.calledWith(this.res.json, sinon.match.has('error', 'There was a problem'))
       done()
@@ -80,7 +76,6 @@ buster.testCase('postApiScore', {
         new InvalidInputError('There was a specific problem'),
         'There was a general problem'))
     postApiScore(this.req, this.res, () => {
-      // buster.assert.calledWith(this.res.json, { success: false, error: 'There was a general problem: There was a specific problem' })
       buster.assert.calledWith(this.res.json, sinon.match.has('success', false))
       buster.assert.calledWith(this.res.json, sinon.match.has('error', 'There was a general problem: There was a specific problem'))
       done()
@@ -90,7 +85,6 @@ buster.testCase('postApiScore', {
   'should signal an internal server error on error conditions other than input and rethrow exception': function (done) {
     this.fakeScoreManager.score.throws(new Error('There was an internal problem'))
     buster.assert.exception(() => postApiScore(this.req, this.res, () => {
-      // buster.assert.calledWith(this.res.json, { success: false, error: 'Internal Server Error' })
       buster.assert.calledWith(this.res.json, sinon.match.has('success', false))
       buster.assert.calledWith(this.res.json, sinon.match.has('error', 'Internal Server Error'))
       done()
