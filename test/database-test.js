@@ -61,13 +61,12 @@ buster.testCase('database-library-test', {
       buster.assert(!valid)
     }))
   },
-  '// add a request and its response to the DB and receive an id': function (done) {
+  'add a request and its response to the DB and receive an id': function (done) {
     // var config = {blub: 'some undefined json'}
     // var file = {blub: 'some undefined json'}
     // var tasks = [{blub: 'some undefined json'}, {blub: 'some undefined json'}]
     var request = {blub: 'some undefined json'}
     var result = {blub: 'some undefined json'}
-    console.log('.')
     dbLib.addRequest(request, result, done((id) => {
       buster.refute.equals(null, id)
     }))
@@ -78,14 +77,13 @@ buster.testCase('database-library-test', {
       buster.assert.equals([], doc)
     }))
   },
-  '// add feedback to the request': function (done) {
+  'add feedback to the request': function (done) {
     // var config = {blub: 'some undefined json'}
     // var file = {blub: 'some undefined json'}
     // var tasks = [{blub: 'some undefined json'}, {blub: 'some undefined json'}]
     var request = {blub: 'some undefined json'}
     var response = {blub: 'some undefined json'}
     var feedback = { abc: 'this is arbitrary feedback' }
-    console.log(',')
     dbLib.addRequest(request, response, (id) => {
       dbLib.addFeedback(id, feedback, done((doc) => {
         buster.assert.equals(doc.feedback, feedback)
