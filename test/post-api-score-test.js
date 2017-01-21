@@ -9,7 +9,7 @@ var dbConfig = require('../../db-config.js')
 const sinon = require('sinon')
 
 buster.testCase('postApiScore', {
-  setUp: function () {
+  setUp: function (done) {
     this.fakeScoreManager = { score: this.stub() }
     this.create = this.stub(scoreManager, 'create').returns(this.fakeScoreManager)
 
@@ -21,6 +21,7 @@ buster.testCase('postApiScore', {
     }
     db.on('connected', () => {
       console.log('connected')
+      done()
     })
 
     this.req = { body: {} }
