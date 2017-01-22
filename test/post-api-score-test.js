@@ -5,14 +5,17 @@ const scoreManager = require('arrow')
 const config = require('arrow/config/default')
 const InvalidInputError = require('arrow/lib/invalid-input-error')
 // const dbLib = require('../lib/database')
-// var dbConfig = require('../../db-config.js')
+var dbConfig = require('../../db-config.js')
+const mongoose = require('mongoose')
 const sinon = require('sinon')
-
+// const Request = require('../lib/models/Request')
+let initializedBool = false
 buster.testCase('postApiScore', {
   setUp: function (done) {
+    // this.save = this.stub(Request, 'save')
+    // this.save.returns(Promise.resolve(null))
     this.fakeScoreManager = { score: this.stub() }
     this.create = this.stub(scoreManager, 'create').returns(this.fakeScoreManager)
-
     /* var db = null
     if (process.env.NODE_ENV === 'production') {
       db = dbLib.connect(dbConfig.prod)
@@ -23,9 +26,37 @@ buster.testCase('postApiScore', {
       console.log('connected')
       done()
     }) */
-
+    // mongoose.Promise = global.Promise
+    this.timeout = 2500
     this.req = { body: {} }
     this.res = { send: this.stub(), json: this.stub() }
+    if (!initializedBool) {
+      const db = process.env.NODE_ENV === 'production' ? dbConfig.prod : dbConfig.dev
+      console.log('mongoose.connection.readyState')
+      console.log(mongoose.connection.readyState)
+      this.dbLink = mongoose.connect(db)
+      initializedBool = true
+      // this.dbLink.on('connected', () => {
+      mongoose.connection.on('open', () => {
+        console.log('established connection')
+        done()
+      })
+    } else {
+      done()
+    }
+  },
+  tearDown: function (done) {
+    // this.dbLink.close()
+    /* if (initialized) {
+      this.dbLink.disconnect(done())
+    } else {
+      done()
+    } */
+    /* this.dbLink.on('disconnected', () => {
+      console.log('closed connection')
+      done()
+    }) */
+    done()
   },
   'should use scoreManager\'s create function': function () {
     postApiScore(this.req, this.res)
