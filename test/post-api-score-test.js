@@ -4,8 +4,8 @@ const postApiScore = require('../lib/post-api-score')
 const scoreManager = require('arrow')
 const config = require('arrow/config/default')
 const InvalidInputError = require('arrow/lib/invalid-input-error')
-const dbLib = require('../lib/database')
-var dbConfig = require('../../db-config.js')
+// const dbLib = require('../lib/database')
+// var dbConfig = require('../../db-config.js')
 const sinon = require('sinon')
 
 buster.testCase('postApiScore', {
@@ -13,7 +13,7 @@ buster.testCase('postApiScore', {
     this.fakeScoreManager = { score: this.stub() }
     this.create = this.stub(scoreManager, 'create').returns(this.fakeScoreManager)
 
-    var db = null
+    /* var db = null
     if (process.env.NODE_ENV === 'production') {
       db = dbLib.connect(dbConfig.prod)
     } else {
@@ -22,7 +22,7 @@ buster.testCase('postApiScore', {
     db.on('connected', () => {
       console.log('connected')
       done()
-    })
+    }) */
 
     this.req = { body: {} }
     this.res = { send: this.stub(), json: this.stub() }
