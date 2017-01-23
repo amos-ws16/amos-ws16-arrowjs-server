@@ -54,6 +54,7 @@ buster.testCase('postApiScore', {
     postApiScore(this.req, this.res, () => {
       buster.assert.calledWith(this.res.json, sinon.match.has('success', true))
       buster.assert.calledWith(this.res.json, sinon.match.has('result', 'my result'))
+      buster.assert.calledWith(this.res.json, sinon.match.has('uid', '123'))
       done()
     })
   },
@@ -63,6 +64,7 @@ buster.testCase('postApiScore', {
     postApiScore(this.req, this.res, () => {
       buster.assert.calledWith(this.res.json, sinon.match.has('success', false))
       buster.assert.calledWith(this.res.json, sinon.match.has('error', 'There was a problem'))
+      buster.assert.calledWith(this.res.json, sinon.match.has('uid', '123'))
       done()
     })
   },
@@ -75,6 +77,7 @@ buster.testCase('postApiScore', {
     postApiScore(this.req, this.res, () => {
       buster.assert.calledWith(this.res.json, sinon.match.has('success', false))
       buster.assert.calledWith(this.res.json, sinon.match.has('error', 'There was a general problem: There was a specific problem'))
+      buster.assert.calledWith(this.res.json, sinon.match.has('uid', '123'))
       done()
     })
   },
@@ -84,6 +87,7 @@ buster.testCase('postApiScore', {
     buster.assert.exception(() => postApiScore(this.req, this.res, () => {
       buster.assert.calledWith(this.res.json, sinon.match.has('success', false))
       buster.assert.calledWith(this.res.json, sinon.match.has('error', 'Internal Server Error'))
+      buster.assert.calledWith(this.res.json, sinon.match.has('uid', '123'))
       done()
     }))
   }
