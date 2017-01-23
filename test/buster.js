@@ -1,11 +1,19 @@
 var config = module.exports
 
-config['My tests'] = {
+config['Unit Tests'] = {
   rootPath: '../',
   environment: 'node', // or 'browser'
   tests: [
     'test/**/*-test.js',
-    '!test/test-cases/*.js'
+    '!test/test-cases/*.js',
+    '!test/end-to-end/*.js'
   ]
 }
 
+config['E2E Tests'] = {
+  rootPath: '../',
+  environment: 'node', // or 'browser'
+  tests: [
+    'test/end-to-end/*.js'
+  ]
+}

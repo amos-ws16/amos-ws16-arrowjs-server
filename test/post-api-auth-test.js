@@ -58,5 +58,15 @@ buster.testCase('postApiAuth', {
       .then(() => {
         buster.assert.calledWith(createToken, 42)
       })
+  },
+
+  'should return token in response': function () {
+    this.req.body = { name: 'bob', password: 'secret' }
+    this.stub(auth, 'authenticateUser').returns(Promise.resolve(42))
+    this.stub(tokens, 'createToken').returns(Promise.resolve('1234'))
+    return postApiAuth(this.req, this.res)
+      .then(() => {
+        buster.assert.calledWith(this.res.json, sinon.match.has('token', '1234'))
+      })
   }
 })

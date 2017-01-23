@@ -21,10 +21,11 @@
     "eslintfix": "eslint --fix **/*.js",
     "dev": "cross-env NODE_ENV=development node ./bin/start-server.js",
     "start": "cross-env NODE_ENV=production node ./bin/start-server.js",
-    "test": "eslint . && buster-test",
+    "test": "eslint . && buster-test -g Unit",
     "cover": "cross-env NODE_ENV=test nyc --reporter=lcov --reporter=text buster-test",
     "coveralls": "npm run cover && nyc report --reporter=text-lcov | coveralls",
-    "scoretest": "node ./test/test-cases/test-cases-test.js && node ./test/test-cases/test-cases-run.js"
+    "scoretest": "node ./test/test-cases/test-cases-test.js && node ./test/test-cases/test-cases-run.js",
+    "e2e-test": "eslint . && buster-test -g E2E"
   },
   "dependencies": {
     "arrow": "amos-ws16/amos-ws16-arrowjs.git#dev",
