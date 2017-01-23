@@ -1,0 +1,21 @@
+# Get the token
+POST http://localhost:3000/api/auth
+Content-Type: application/json
+
+{ "name": "admin", "password": "blub" }
+
+# Use the token
+POST http://localhost:3000/api/score
+Content-Type: application/json
+
+{
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjowLCJpYXQiOjE0ODQ5NDgyMzd9.MTsAUh0XdihuyV3sbF5UzO2U2ugZMpSLQSywx0IxFgg",
+  "file": {
+    "title": "hello"
+  },
+  "tasks": [
+    { "title": "world" },
+    { "title": "hallo" },
+    { "title": "helau" }
+  ]
+}
