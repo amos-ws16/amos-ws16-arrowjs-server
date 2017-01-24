@@ -22,7 +22,7 @@ deploy:
     local-dir: deployment-build
     on:
       all_branches: true
-      condition: $TRAVIS_BRANCH = deployment-fix || $TRAVIS_BRANCH = master
+      condition: $TRAVIS_BRANCH = dev || $TRAVIS_BRANCH = master
   - provider: codedeploy
     access_key_id:
       secure: Yazy6j1OVxhrGC4mONSpSZFCXCiVB6YD6yhtZdNghTaNtz6z1aATrU6h0iRXAJXzt7B5H5PX09j0WQxS7Ds4b1bI3FNhmOQXFfrwBOeu/pZCzjSs2H+kVZzC5b7K+RLcF6oHQKPOEZQZH5z7sykwYxY+i/rVqBjsvCtfROkKQwlufUjtJ01RqrLh83aEsyFhDyuPf/sI9XuxrHOcgMUUbamr/WE0fG8fii0zdA3S1lGT4C2M0yD/FM9++vrO0rosSUo79qDJsIDmr40d/T+cq2T2QcmpoKfGMSdyeSRkZ2kAhH0g8KVBPnACmkrVfzxISmLHwYEI9Un/mNBQF/0fu0zBDmvn1R3u1nIqcwoXu3vQbzEfrnYzyP0PQe4W2/XX4eDbJhdNbNHoJ/M3Ig8z234QSp/EDR/5aEjAepGJCA81eX/FsTyO6l2np4b/G1/oxb7RFHlMZRN+CvMt3F2U9OjD7OCv2SXpGX4c96oPQlIPCX3SxRwcZdfPzHI2H4nVk6K/6zQIPAGqLrIqb053voTiTCu63jbPsekt6RIBMuFXxJXlupQgcNCjPxyb6Ehykm4N3iKShVyr6hAzCtseePfMnXXyKU9DjGpUhphYfKZ3YLkREvqSEqQYXVoyt4mYfUYeB74m+F7D9Z2giYF/GLbxlZsPEYboKrR2SSjXNTA=
@@ -35,7 +35,7 @@ deploy:
     region: eu-west-1
     wait-until-deployed: true
     on:
-      branch: deployment-fix
+      branch: dev
   - provider: codedeploy
     access_key_id:
       secure: Yazy6j1OVxhrGC4mONSpSZFCXCiVB6YD6yhtZdNghTaNtz6z1aATrU6h0iRXAJXzt7B5H5PX09j0WQxS7Ds4b1bI3FNhmOQXFfrwBOeu/pZCzjSs2H+kVZzC5b7K+RLcF6oHQKPOEZQZH5z7sykwYxY+i/rVqBjsvCtfROkKQwlufUjtJ01RqrLh83aEsyFhDyuPf/sI9XuxrHOcgMUUbamr/WE0fG8fii0zdA3S1lGT4C2M0yD/FM9++vrO0rosSUo79qDJsIDmr40d/T+cq2T2QcmpoKfGMSdyeSRkZ2kAhH0g8KVBPnACmkrVfzxISmLHwYEI9Un/mNBQF/0fu0zBDmvn1R3u1nIqcwoXu3vQbzEfrnYzyP0PQe4W2/XX4eDbJhdNbNHoJ/M3Ig8z234QSp/EDR/5aEjAepGJCA81eX/FsTyO6l2np4b/G1/oxb7RFHlMZRN+CvMt3F2U9OjD7OCv2SXpGX4c96oPQlIPCX3SxRwcZdfPzHI2H4nVk6K/6zQIPAGqLrIqb053voTiTCu63jbPsekt6RIBMuFXxJXlupQgcNCjPxyb6Ehykm4N3iKShVyr6hAzCtseePfMnXXyKU9DjGpUhphYfKZ3YLkREvqSEqQYXVoyt4mYfUYeB74m+F7D9Z2giYF/GLbxlZsPEYboKrR2SSjXNTA=
