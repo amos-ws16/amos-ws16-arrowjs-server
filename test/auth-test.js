@@ -2,6 +2,7 @@ const buster = require('buster')
 
 const auth = require('../lib/auth')
 const User = require('../lib/models/user')
+const config = require('../config')
 
 buster.testCase('auth', {
   setUp: function () {
@@ -41,7 +42,7 @@ buster.testCase('auth', {
   },
 
   'should return userId = 0 when username is admin and password matches ARROW_ADMIN_PASSWORD environment variable': function () {
-    return auth.authenticateUser('admin', 'admin password').then((userId) => {
+    return auth.authenticateUser('admin', config.adminPassword).then((userId) => {
       buster.assert.same(userId, 0)
     })
   },
