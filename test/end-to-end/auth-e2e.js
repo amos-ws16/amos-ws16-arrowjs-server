@@ -2,8 +2,9 @@ const buster = require('buster')
 const request = require('supertest')
 const mongoose = require('mongoose')
 
-const testDb = require('../../../db-config').test
+const config = require('../../config')
 const app = require('../../lib')
+const generateDatabaseUri = require('../../lib/database').generateUri
 
 mongoose.Promise = global.Promise
 
@@ -18,7 +19,7 @@ buster.testCase('E2E: Authentication', {
       ]
     }
 
-    this.dbLink = mongoose.createConnection(testDb)
+    this.dbLink = mongoose.createConnection(generateDatabaseUri(config.database))
     this.dbLink.once('open', () => {
       done()
     })
@@ -31,11 +32,9 @@ buster.testCase('E2E: Authentication', {
   },
 
   'should respond with valid token when given correct username and password': function () {
-    process.env.ARROW_ADMIN_PASSWORD = '1234'
-
     return request(app)
       .post('/api/auth')
-      .send({ name: 'admin', password: '1234' })
+      .send({ name: 'admin', password: config.adminPassword })
       .expect('Content-Type', /json/)
       .expect(200)
       .then(res => {
