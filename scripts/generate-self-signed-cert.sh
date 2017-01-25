@@ -1,4 +1,4 @@
-#!/usr/bin/bash
+#!/usr/bin/env sh
 # Generate a self signed SSL certificate for use in node
 # Following the instructions here:
 # https://docs.nodejitsu.com/articles/HTTP/servers/how-to-create-a-HTTPS-server/
