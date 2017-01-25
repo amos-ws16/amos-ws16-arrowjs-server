@@ -11,10 +11,8 @@ buster.testCase('GET /api/welcome', {
         buster.refute(err)
         buster.assert.match(res.text, /Welcome/)
       }))
-  }
-})
+  },
 
-buster.testCase('GET /api/welcome', {
   'should return a link to changelog in message': (done) => {
     request(app)
       .get('/api/welcome')
@@ -23,10 +21,8 @@ buster.testCase('GET /api/welcome', {
         buster.refute(err)
         buster.assert.match(res.text, /Changelog/)
       }))
-  }
-})
+  },
 
-buster.testCase('GET /api/welcome', {
   'should return a link to user guide': (done) => {
     request(app)
       .get('/api/welcome')
@@ -35,10 +31,8 @@ buster.testCase('GET /api/welcome', {
         buster.refute(err)
         buster.assert.match(res.text, /User Guide/)
       }))
-  }
-})
+  },
 
-buster.testCase('GET /api/welcome', {
   'should return version': (done) => {
     request(app)
       .get('/api/welcome')
@@ -46,23 +40,6 @@ buster.testCase('GET /api/welcome', {
       .end(done((err, res) => {
         buster.refute(err)
         buster.assert.match(res.text, /Version/)
-      }))
-  }
-})
-
-buster.testCase('GET /api/auth', {
-  'should return an auth token': (done) => {
-    request(app)
-      .get('/api/auth')
-      .expect('Content-Type', /json/)
-      .expect(200)
-      .end(done((err, res) => {
-        buster.refute(err)
-
-        const message = res.body
-        buster.assert(message.success)
-        // Any string is fine for now.
-        buster.assert.isString(message.token)
       }))
   }
 })
