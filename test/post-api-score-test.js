@@ -39,16 +39,6 @@ buster.testCase('postApiScore', {
     buster.assert.calledWith(this.create, {})
   },
 
-  /* 'should return failure code on empty request': function (done) {
-    this.req.body.config = {}
-    this.fakeScoreManager.score.returns('my result')
-    postApiScore(this.req, this.res, () => {
-      buster.assert.calledWith(this.res.json, sinon.match.has('success', true))
-      buster.assert.calledWith(this.res.json, sinon.match.has('message'))
-      done()
-    })
-  }, */
-
   'should wrap result in object with success flag set to true': function (done) {
     this.fakeScoreManager.score.returns('my result')
     postApiScore(this.req, this.res, () => {
