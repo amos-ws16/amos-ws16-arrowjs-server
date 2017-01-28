@@ -5,17 +5,10 @@
 
 keyfile=key.pem
 certfile=cert.pem
-passphrase="SOMEPASSPHRASE"
 
 # Old generation of keys
-# openssl genrsa -out "$keyfile"
-# openssl req -new -key "$keyfile" -out csr.pem
-# openssl x509 -req -days 9999 -in csr.pem -signkey "$keyfile" -out "$certfile"
-
-openssl genrsa -passout pass:$passphrase -out key.pass.pem 2048
-openssl rsa -passin pass:x -in key.pass.pem -out "$keyfile"
-rm key.pass.pem
+openssl genrsa -out "$keyfile" 2048
 openssl req -new -key "$keyfile" -out csr.pem
-openssl x509 -req -days 365 -in csr.pem -signkey "$keyfile" -out "$certfile"
+openssl x509 -req -days 9999 -in csr.pem -signkey "$keyfile" -out "$certfile"
 
 rm csr.pem
