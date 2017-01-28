@@ -29,4 +29,3 @@ if (process.env.NODE_ENV === 'development') {
     console.log(`Server started on Port: ${port} (https, production mode)`)
   })
 }
-
