@@ -13,9 +13,9 @@ passphrase="SOMEPASSPHRASE"
 # openssl x509 -req -days 9999 -in csr.pem -signkey "$keyfile" -out "$certfile"
 
 openssl genrsa -passout pass:$passphrase -out key.pass.pem 2048
-openssl rsa -passin pass:x -in key.pass.pem -out key.pem
+openssl rsa -passin pass:x -in key.pass.pem -out "$keyfile"
 rm key.pass.pem
-openssl req -new -key key.pem -out csr.pem
-openssl x509 -req -days 365 -in csr.pem -signkey key.pem -out cert.pem
+openssl req -new -key "$keyfile" -out csr.pem
+openssl x509 -req -days 365 -in csr.pem -signkey "$keyfile" -out "$certfile"
 
 rm csr.pem
