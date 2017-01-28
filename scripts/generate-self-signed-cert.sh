@@ -6,7 +6,6 @@
 keyfile=key.pem
 certfile=cert.pem
 
-# Old generation of keys
 openssl genrsa -out "$keyfile" 2048
 openssl req -new -key "$keyfile" -out csr.pem
 openssl x509 -req -days 9999 -in csr.pem -signkey "$keyfile" -out "$certfile"
