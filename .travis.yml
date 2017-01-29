@@ -4,7 +4,7 @@ node_js:
 services:
 - mongodb
 before_install:
-- ./scripts/integrate-mongo-travis.sh 
+- ./scripts/integrate-mongo-travis.sh
 after_success:
 - npm run coveralls
 before_deploy:

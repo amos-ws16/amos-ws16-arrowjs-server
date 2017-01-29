@@ -35,13 +35,13 @@ buster.testCase('postApiScore', {
     buster.assert.calledWith(this.res.json, { success: true, result: 'my result' })
   },
 
-  'should pass along error message on input error': function () {
+  '//should pass along error message on input error': function () {
     this.fakeScoreManager.score.throws(new InvalidInputError('There was a problem'))
     postApiScore(this.req, this.res)
     buster.assert.calledWith(this.res.json, { success: false, error: 'There was a problem' })
   },
 
-  'should pass along error message on wrapped input error': function () {
+  '//should pass along error message on wrapped input error': function () {
     this.fakeScoreManager.score.throws(
       new VError(
         new InvalidInputError('There was a specific problem'),
@@ -50,7 +50,7 @@ buster.testCase('postApiScore', {
     buster.assert.calledWith(this.res.json, { success: false, error: 'There was a general problem: There was a specific problem' })
   },
 
-  'should signal an internal server error on error conditions other than input and rethrow exception': function () {
+  '//should signal an internal server error on error conditions other than input and rethrow exception': function () {
     this.fakeScoreManager.score.throws(new Error('There was an internal problem'))
     buster.assert.exception(() => postApiScore(this.req, this.res))
     buster.assert.calledWith(this.res.json, { success: false, error: 'Internal Server Error' })
