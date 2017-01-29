@@ -1,6 +1,7 @@
 const buster = require('buster')
 const request = require('supertest')
-const app = require('../lib')
+const config = require('../config')()
+const app = require('../lib')(config)
 
 buster.testCase('GET /api/welcome', {
   'should return a welcome message': (done) => {
