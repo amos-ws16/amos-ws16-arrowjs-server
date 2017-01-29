@@ -2,7 +2,7 @@ const buster = require('buster')
 const request = require('supertest')
 const mongoose = require('mongoose')
 
-const config = require('../../config')
+const config = require('../../config')()
 const app = require('../../lib')
 const generateDatabaseUri = require('../../lib/database').generateUri
 

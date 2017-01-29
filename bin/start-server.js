@@ -3,7 +3,7 @@
 const mongoose = require('mongoose')
 
 const server = require('../lib')
-const config = require('../config')
+const config = require('../config')()
 const database = require('../lib/database')
 
 const cliPort = process.argv.length > 2 && process.argv[2] || undefined

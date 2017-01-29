@@ -2,7 +2,7 @@ const buster = require('buster')
 
 const auth = require('../lib/auth')
 const User = require('../lib/models/user')
-const config = require('../config')
+const config = require('../config')()
 
 buster.testCase('auth', {
   setUp: function () {

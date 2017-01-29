@@ -1,7 +1,7 @@
 const buster = require('buster')
 
 const tokens = require('../lib/tokens')
-const config = require('../config')
+const config = require('../config')()
 const jwt = require('jsonwebtoken')
 
 buster.testCase('tokens', {
