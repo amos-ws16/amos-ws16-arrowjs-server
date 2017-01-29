@@ -3,7 +3,7 @@ const request = require('supertest')
 const mongoose = require('mongoose')
 
 const config = require('../../config')()
-const app = require('../../lib')
+const app = require('../../lib')(config)
 const generateDatabaseUri = require('../../lib/database').generateUri
 
 mongoose.Promise = global.Promise
