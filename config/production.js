@@ -6,6 +6,7 @@ const config = {
   database: {
     host: env.ARROW_DATABASE_HOST,
     port: env.ARROW_DATABASE_PORT,
+    dbName: env.ARROW_DATABASE_DBNAME,
     user: env.ARROW_DATABASE_USER,
     password: env.ARROW_DATABASE_PASSWORD
   },
