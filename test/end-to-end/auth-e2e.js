@@ -2,8 +2,8 @@ const buster = require('buster')
 const request = require('supertest')
 const mongoose = require('mongoose')
 
-const config = require('../../config')()
-const app = require('../../lib')(config)
+const makeConfig = require('../../config')
+const makeApp = require('../../lib')
 const generateDatabaseUri = require('../../lib/database').generateUri
 
 mongoose.Promise = global.Promise
@@ -19,7 +19,12 @@ buster.testCase('E2E: Authentication', {
       ]
     }
 
-    this.dbLink = mongoose.createConnection(generateDatabaseUri(config.database))
+    // FIXME: somehow the test runner does not correctly set NODE_ENV to test
+    process.env.NODE_ENV = 'test'
+
+    this.config = makeConfig()
+
+    this.dbLink = mongoose.createConnection(generateDatabaseUri(this.config.database))
     this.dbLink.once('open', () => {
       done()
     })
@@ -32,9 +37,11 @@ buster.testCase('E2E: Authentication', {
   },
 
   'should respond with valid token when given correct username and password': function () {
+    this.config.adminPassword = 'adminPassword'
+    const app = makeApp(this.config)
     return request(app)
       .post('/api/auth')
-      .send({ name: 'admin', password: config.adminPassword })
+      .send({ name: 'admin', password: 'adminPassword' })
       .expect('Content-Type', /json/)
       .expect(200)
       .then(res => {
@@ -57,6 +64,7 @@ buster.testCase('E2E: Authentication', {
   },
 
   'should return forbidden code when trying to access route without token': function () {
+    const app = makeApp(this.config)
     return request(app)
       .post('/api/score')
       .send(this.requestWithoutToken)
@@ -68,7 +76,8 @@ buster.testCase('E2E: Authentication', {
   },
 
   'should return forbidden code when trying to login with wrong password': function () {
-    process.env.ARROW_ADMIN_PASSWORD = '1234'
+    this.config.adminPassword = '1234'
+    const app = makeApp(this.config)
     return request(app)
       .post('/api/score')
       .send({ name: 'admin', password: 'wrong' })

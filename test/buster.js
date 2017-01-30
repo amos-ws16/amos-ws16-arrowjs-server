@@ -1,8 +1,12 @@
 var config = module.exports
 
-config['Unit Tests'] = {
+config['shared'] = {
   rootPath: '../',
-  environment: 'node', // or 'browser'
+  environment: 'node' // or 'browser'
+}
+
+config['Unit Tests'] = {
+  extends: 'shared',
   tests: [
     'test/**/*-test.js',
     '!test/test-cases/*.js',
@@ -11,9 +15,18 @@ config['Unit Tests'] = {
 }
 
 config['E2E Tests'] = {
-  rootPath: '../',
-  environment: 'node', // or 'browser'
+  extends: 'shared',
   tests: [
     'test/end-to-end/*.js'
   ]
 }
+
+config['All Tests'] = {
+  extends: 'shared',
+  tests: [
+    'test/**/*-test.js',
+    'test/**/*-e2e.js',
+    '!test/test-cases/*.js'
+  ]
+}
+

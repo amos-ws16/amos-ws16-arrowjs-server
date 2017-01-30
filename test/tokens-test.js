@@ -1,7 +1,6 @@
 const buster = require('buster')
 
 const tokens = require('../lib/tokens')
-const config = require('../config')()
 const jwt = require('jsonwebtoken')
 
 buster.testCase('tokens', {
@@ -15,8 +14,8 @@ buster.testCase('tokens', {
     },
 
     'should call jwt sign to create token': function () {
-      return tokens.createToken(this.userId).then(() => {
-        buster.assert.calledWith(this.sign, { data: this.userId }, config.token.secret, { expiresIn: config.token.expiresIn })
+      return tokens.createToken(this.userId, 'secret', '1h').then(() => {
+        buster.assert.calledWith(this.sign, { data: this.userId }, 'secret', { expiresIn: '1h' })
       })
     },
 
@@ -42,8 +41,8 @@ buster.testCase('tokens', {
     },
 
     'should call jwt verify to validate the token': function () {
-      return tokens.verifyToken(this.tokenString).then(() => {
-        buster.assert.calledWith(this.verify, this.tokenString, config.token.secret)
+      return tokens.verifyToken(this.tokenString, 'secret').then(() => {
+        buster.assert.calledWith(this.verify, this.tokenString)
       })
     },
 
