@@ -22,16 +22,23 @@ $ export ARROW_DATABASE_PASSWORD=dbpassword    # optional, default no password
 The server needs a database connection to run, so the database configured in the previous section must be running before starting the REST server.
 
 ## 3. Start the server
+
+You can start the server from the command line with:
 ```
 $ npm start
 ```
-It is also possible to specify the port of the server on the command line which will override the environment variable `PORT`, for example to start on port 3000:
-```
-$ npm start -- 3000
-```
+This will use the port that was configured in the environment variable to listen for SSL encrypted connections.
+
+*Note*: Make sure to place your SSL key as `key.pem` and your certificate as
+        `cert.pem` in the `cert/` directory if you want to use encryption! You
+        can generate a self-signed certificate using
+        `scripts/generate-self-signed-cert.sh`.
+
+To start the server without encryption enabled use the development mode by
+running `npm run dev`.
+
 
 The server is now listening for connections on port 3000 and the administrator can get an authentication token using the login `admin` and password provided through `ARROW_ADMIN_PASSWORD` by posting to `/api/auth`:
 ```
 curl -X POST -H 'Content-Type: application/json' -d '{ "name": "admin", "password": "foobar" }' http://hostname:3000/api/auth
 ```
-

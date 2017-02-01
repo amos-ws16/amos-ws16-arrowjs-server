@@ -36,6 +36,7 @@ buster.testCase('E2E: Authentication', {
 
     this.config = makeConfig()
 
+    this.timeout = 500
     mongoose.connect(generateDatabaseUri(this.config.database))
       .then(() => {
         return setUpUsers()
