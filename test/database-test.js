@@ -72,29 +72,26 @@ buster.testCase('database', {
 
   'connect': {
     setUp: function () {
-      this.onceStub = this.stub()
-      this.connectStub = this.stub(mongoose, 'createConnection').returns({ once: this.onceStub })
+      this.connectStub = this.stub(mongoose, 'connect')
     },
 
     'should call mongoose with uri': function () {
-      this.onceStub.withArgs('open').yields()
+      this.connectStub.returns(Promise.resolve())
       return database.connect({ host: 'abc', dbName: 'd' }).then(() => {
         buster.assert.calledWith(this.connectStub, 'mongodb://abc:27017/d')
       })
     },
 
-    'should wait for connection to open using once handler and return after it yields': function () {
-      this.onceStub.withArgs('open').yields('special thing')
+    'should wait for connection to open and return the same promise': function () {
+      this.connectStub.returns(Promise.resolve('special thing'))
       return database.connect({ host: 'abc', dbName: 'd' }).then((something) => {
-        buster.assert.calledWith(this.onceStub, 'open')
         buster.assert.equals(something, 'special thing')
       })
     },
 
     'should reject if there is an error on the connection': function () {
-      this.onceStub.withArgs('error').yields('error thing')
+      this.connectStub.returns(Promise.reject('error thing'))
       return database.connect({ host: 'abc', dbName: 'd' }).catch((something) => {
-        buster.assert.calledWith(this.onceStub, 'error')
         buster.assert.equals(something, 'error thing')
       })
     }
