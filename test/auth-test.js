@@ -41,7 +41,7 @@ buster.testCase('auth', {
   },
 
   'should return userId = 0 when username is admin and password matches ARROW_ADMIN_PASSWORD environment variable': function () {
-    return auth.authenticateUser('admin', 'admin password').then((userId) => {
+    return auth.authenticateUser('admin', 'adminPassword', 'adminPassword').then((userId) => {
       buster.assert.same(userId, 0)
     })
   },

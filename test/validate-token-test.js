@@ -5,14 +5,14 @@ const tokens = require('../lib/tokens')
 
 buster.testCase('validateToken', {
   setUp: function () {
+    this.req = { config: { token: { secret: 'secret' } }, body: {} }
     this.res = { send: this.stub(), json: this.stub(), status: this.stub() }
     this.res.status.returns(this.res)
     this.next = this.stub()
   },
 
   'should fail when no token was provided': function () {
-    const body = {}
-    return validateToken({ body }, this.res, this.next)
+    return validateToken(this.req, this.res, this.next)
       .then(() => {
         buster.assert.calledWith(this.res.json, sinon.match.has('success', false))
         buster.assert.calledWith(this.res.json, sinon.match.has('message'))
@@ -20,8 +20,7 @@ buster.testCase('validateToken', {
   },
 
   'should set response code to forbidden 403 when no token was provided': function () {
-    const body = {}
-    return validateToken({ body }, this.res, this.next)
+    return validateToken(this.req, this.res, this.next)
       .then(() => {
         buster.assert.calledWith(this.res.status, 403)
       })
@@ -30,20 +29,18 @@ buster.testCase('validateToken', {
   'should pass token to verifyToken if it was sent': function () {
     let verifyStub = this.stub(tokens, 'verifyToken').returns(Promise.resolve(null))
 
-    const body = { token: 'atoken' }
-    let req = { body }
-    return validateToken(req, this.res, this.next)
+    this.req.body = { token: 'atoken' }
+    return validateToken(this.req, this.res, this.next)
       .then(() => {
-        buster.assert.calledWith(verifyStub, 'atoken')
+        buster.assert.calledWith(verifyStub, 'atoken', 'secret')
       })
   },
 
   'should call next if token is verified successfully': function () {
     this.stub(tokens, 'verifyToken').returns(Promise.resolve(123))
 
-    const body = { token: 'atoken' }
-    let req = { body }
-    return validateToken(req, this.res, this.next)
+    this.req.body = { token: 'atoken' }
+    return validateToken(this.req, this.res, this.next)
       .then(() => {
         buster.assert.called(this.next)
       })
@@ -52,9 +49,8 @@ buster.testCase('validateToken', {
   'should return failure code when validation failed': function () {
     this.stub(tokens, 'verifyToken').returns(Promise.reject('error'))
 
-    const body = { token: 'atoken' }
-    let req = { body }
-    return validateToken(req, this.res, this.next)
+    this.req.body = { token: 'atoken' }
+    return validateToken(this.req, this.res, this.next)
       .then(() => {
         buster.assert.calledWith(this.res.json, sinon.match.has('success', false))
         buster.assert.calledWith(this.res.json, sinon.match.has('message'))
@@ -64,9 +60,8 @@ buster.testCase('validateToken', {
   'should not call next when validation failed': function () {
     this.stub(tokens, 'verifyToken').returns(Promise.reject('error'))
 
-    const body = { token: 'atoken' }
-    let req = { body }
-    return validateToken(req, this.res, this.next)
+    this.req.body = { token: 'atoken' }
+    return validateToken(this.req, this.res, this.next)
       .then(() => {
         buster.refute.called(this.next)
       })
@@ -75,9 +70,8 @@ buster.testCase('validateToken', {
   'should return error message when validation failed': function () {
     this.stub(tokens, 'verifyToken').returns(Promise.reject('error'))
 
-    const body = { token: 'atoken' }
-    let req = { body }
-    return validateToken(req, this.res, this.next)
+    this.req.body = { token: 'atoken' }
+    return validateToken(this.req, this.res, this.next)
       .then(() => {
         buster.assert.calledWith(this.res.json, sinon.match.has('message', sinon.match(/[iI]nvalid [tT]oken/)))
       })
@@ -86,11 +80,10 @@ buster.testCase('validateToken', {
   'should save decoded token in request object': function () {
     this.stub(tokens, 'verifyToken').returns(Promise.resolve(123))
 
-    const body = { token: 'atoken' }
-    let req = { body }
-    return validateToken(req, this.res, this.next)
+    this.req.body = { token: 'atoken' }
+    return validateToken(this.req, this.res, this.next)
       .then(() => {
-        buster.assert.equals(req.userId, 123)
+        buster.assert.equals(this.req.userId, 123)
       })
   }
 })

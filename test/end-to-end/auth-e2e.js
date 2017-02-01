@@ -2,10 +2,23 @@ const buster = require('buster')
 const request = require('supertest')
 const mongoose = require('mongoose')
 
-const testDb = require('../../../db-config').test
-const app = require('../../lib')
+const makeConfig = require('../../config')
+const makeApp = require('../../lib')
+const generateDatabaseUri = require('../../lib/database').generateUri
+const User = require('../../lib/models/user')
 
 mongoose.Promise = global.Promise
+
+/** Provision the database with two users */
+function setUpUsers () {
+  return User.remove({})
+    .then(() => {
+      User.create([
+        { name: 'alice', password: 'alicepw', isAdmin: true },
+        { name: 'bob', password: 'bobpw', isAdmin: false }
+      ])
+    })
+}
 
 buster.testCase('E2E: Authentication', {
   setUp: function (done) {
@@ -18,24 +31,28 @@ buster.testCase('E2E: Authentication', {
       ]
     }
 
-    this.dbLink = mongoose.createConnection(testDb)
-    this.dbLink.once('open', () => {
-      done()
-    })
+    // FIXME: somehow the test runner does not correctly set NODE_ENV to test
+    process.env.NODE_ENV = 'test'
+
+    this.config = makeConfig()
+
+    this.timeout = 500
+    mongoose.connect(generateDatabaseUri(this.config.database))
+      .then(() => {
+        return setUpUsers()
+      })
+      .then(() => done())
   },
   tearDown: function (done) {
-    this.dbLink.close()
-    this.dbLink.once('close', () => {
-      done()
-    })
+    mongoose.connection.close(done)
   },
 
   'should respond with valid token when given correct username and password': function () {
-    process.env.ARROW_ADMIN_PASSWORD = '1234'
-
+    this.config.adminPassword = 'adminPassword'
+    const app = makeApp(this.config)
     return request(app)
       .post('/api/auth')
-      .send({ name: 'admin', password: '1234' })
+      .send({ name: 'admin', password: 'adminPassword' })
       .expect('Content-Type', /json/)
       .expect(200)
       .then(res => {
@@ -57,7 +74,25 @@ buster.testCase('E2E: Authentication', {
       })
   },
 
+  'should allow username and password saved in database': function () {
+    const app = makeApp(this.config)
+    return request(app)
+      .post('/api/auth')
+      .send({ name: 'alice', password: 'alicepw' })
+      .expect('Content-Type', /json/)
+      .expect(200)
+      .then(res => {
+        const body = res.body
+        buster.assert.isTrue(body.success)
+
+        const token = body.token
+        buster.assert.isString(token)
+        buster.assert.greater(token.length, 0)
+      })
+  },
+
   'should return forbidden code when trying to access route without token': function () {
+    const app = makeApp(this.config)
     return request(app)
       .post('/api/score')
       .send(this.requestWithoutToken)
@@ -69,7 +104,8 @@ buster.testCase('E2E: Authentication', {
   },
 
   'should return forbidden code when trying to login with wrong password': function () {
-    process.env.ARROW_ADMIN_PASSWORD = '1234'
+    this.config.adminPassword = '1234'
+    const app = makeApp(this.config)
     return request(app)
       .post('/api/score')
       .send({ name: 'admin', password: 'wrong' })
