@@ -8,7 +8,11 @@ const tokens = require('../lib/tokens')
 
 buster.testCase('postApiAuth', {
   setUp: function () {
-    this.req = { body: {} }
+    const config = {
+      token: { secret: 'secret', expiresIn: '1h' },
+      adminPassword: 'adminPassword'
+    }
+    this.req = { config, body: {} }
     this.res = { send: this.stub(), json: this.stub() }
   },
 
@@ -51,12 +55,22 @@ buster.testCase('postApiAuth', {
   },
 
   'should pass the userId as data to token creation': function () {
-    this.req.body = { name: 'bob', password: 'secret' }
+    this.req.body = { name: 'bob', password: 'password' }
     this.stub(auth, 'authenticateUser').returns(Promise.resolve(42))
     const createToken = this.stub(tokens, 'createToken').returns(Promise.resolve(null))
     return postApiAuth(this.req, this.res)
       .then(() => {
-        buster.assert.calledWith(createToken, 42)
+        buster.assert.calledWith(createToken, 42, 'secret', '1h')
+      })
+  },
+
+  'should pass username and password and the config\'s adminPassword to authenticateUser': function () {
+    this.req.body = { name: 'bob', password: 'password' }
+    const authenticateUser = this.stub(auth, 'authenticateUser').returns(Promise.resolve(42))
+    this.stub(tokens, 'createToken').returns(Promise.resolve(null))
+    return postApiAuth(this.req, this.res)
+      .then(() => {
+        buster.assert.calledWith(authenticateUser, 'bob', 'password', 'adminPassword')
       })
   },
 

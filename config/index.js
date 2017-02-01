@@ -1,10 +1,7 @@
-const config = {}
+const _ = require('lodash')
+const defaults = require('./default')
 
-config.token = {
-  secret: '8cd96c8697d12daf4dfd135aec01fd63ee058ab4',
-  expiresInMinutes: 1440 // 24 hours
+module.exports = () => {
+  const env = process.env.NODE_ENV || 'development'
+  return _.merge({}, defaults, require(`./${env}`))
 }
-
-config.database = 'mongodb://127.0.0.1:27017/token'
-
-module.exports = config
