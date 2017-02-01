@@ -151,7 +151,10 @@ function getAllTestCases () {
   return testCasesSet
 }
 
-// TODO: Dokumentation
+/**
+  * First calls the setup-method and when the setup is completely done,
+  * the actual test-cases method gets called.
+**/
 settingUp((token) => {
   runTestCases(token, () => {
     console.log('all test-cases done.')
