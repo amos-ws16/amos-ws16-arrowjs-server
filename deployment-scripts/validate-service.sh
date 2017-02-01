@@ -5,7 +5,7 @@ source $my_dir/config.cfg
 echo "validate that amos server is running ..."
 
 sleep 10
-output="$(curl -k -I -sS --request GET http://localhost:${AMOS_PORT}/api/welcome)"
+output="$(curl -k -I -sS --request GET ${URL}:${AMOS_PORT}/api/welcome)"
 
 if [[ ${output[0]} == "HTTP/1.1 200 OK"* ]]
 then
