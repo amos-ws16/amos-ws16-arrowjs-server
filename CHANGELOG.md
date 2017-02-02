@@ -2,7 +2,7 @@
 All notable changes to this project will be documented in this file.
 
 
-## [Unreleased](https://github.com/amos-ws16/amos-ws16-arrowjs-server/compare/sprint-12-release...dev) - 2017-02-02
+## [1.0.3](https://github.com/amos-ws16/amos-ws16-arrowjs-server/compare/sprint-12-release...dev) - 2017-02-02
 ## Added
 - https encryption
 
