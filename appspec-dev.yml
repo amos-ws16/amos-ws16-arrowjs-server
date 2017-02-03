@@ -28,5 +28,5 @@ hooks:
       runas: ubuntu
   ValidateService:
     - location: deployment-scripts/validate-service.sh
-      timeout: 20
+      timeout: 40
       runas: ubuntu
