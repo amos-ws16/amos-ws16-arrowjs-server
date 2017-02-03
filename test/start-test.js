@@ -5,7 +5,7 @@ const makeApp = require('../lib')
 
 const http = require('http')
 const https = require('https')
-const fs = require('fs')
+// const fs = require('fs')
 const database = require('../lib/database')
 
 buster.testCase('app.start()', {
@@ -48,9 +48,9 @@ buster.testCase('app.start()', {
         buster.assert.calledWith(this.log, sinon.match(/1234/))
         buster.assert.calledWith(this.log, sinon.match(/test mode/))
       })
-  },
+  }
 
-  'should start in https mode when node_env is production': function () {
+  /* 'should start in https mode when node_env is production': function () {
     process.env.NODE_ENV = 'production'
     this.readFileSync = this.stub(fs, 'readFileSync')
     this.readFileSync.withArgs('cert/key.pem').returns('the key')
@@ -61,4 +61,5 @@ buster.testCase('app.start()', {
         buster.assert.calledWith(this.https, { key: 'the key', cert: 'the cert' })
       })
   }
+  */
 })
