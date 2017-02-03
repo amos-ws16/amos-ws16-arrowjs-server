@@ -12,13 +12,36 @@ This user guide explains how to use the Arrow.js API.
 
 ## 2. Usage
 
-## 2.1 Requests
+### 2.1 Authentication
+To use the Arrow.js API you will need to obtain a valid token to authenticate your requests (see 2.2 Requests section).
+To receive a token, a valid username and password are necessary which will be send to the endpoint:
+
+**https://ec2-52-212-74-103.eu-west-1.compute.amazonaws.com:4000/api/auth**
+
+Authentication-Requests:
+```javascript
+{
+	"name": "YOUR_USERNAME",
+	"password": "YOUR_PASSWORD"
+}
+```
+
+Response:
+```javascript
+{
+  "success": true,
+  "token": "YOUR_TOKEN_HERE"
+}
+```
+
+
+### 2.2 Requests
 
 The Arrow.js API is based on REST principles: data resources are accessed via standard HTTP requests in UTF-8 format to an API endpoint. The API is running on a server hosted by amazon AWS. To use this API you have to send a POST request to the following address:
 
-**http://ec2-52-212-74-103.eu-west-1.compute.amazonaws.com:4000/api/score**
+**https://ec2-52-212-74-103.eu-west-1.compute.amazonaws.com:4000/api/score**
 
-## 2.2 Input Scheme
+#### 2.2.1 Input Scheme
 
 All data is received as a JSON object that are based on the following scheme:
 
@@ -49,17 +72,19 @@ All data is received as a JSON object that are based on the following scheme:
 
 The fields marked with '(required)' are necessary for the comparison. If one or more of these fields are missing the API will return an exception.
 
-## 2.3 Configuration
+#### 2.2.2 Configuration
 
 For information on how to configure different parts of the API follow the [user guide](https://github.com/amos-ws16/amos-ws16-arrowjs/blob/master/docs/user-guide.md) of the Arrow.js Engine.
 
-## 2.4 Example Request
+#### 2.2.3 Example Request
 
 POST Request:
 
 ```json
 {
+    "token": "YOUR_TOKEN_HERE",
     "config": {
+        "idPath": "tasks[].id",
         "aggregator": {"mean": "*"},
         "plugins": {
             "context-file-description-task-description": {
