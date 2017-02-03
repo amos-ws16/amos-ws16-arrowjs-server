@@ -5,7 +5,6 @@ All notable changes to this project will be documented in this file.
 ## [1.0.3](https://github.com/amos-ws16/amos-ws16-arrowjs-server/compare/sprint-12-release...dev) - 2017-02-02
 ## Added
 - https encryption
-- feedback loop ( /api/feedback )
 
 ## [1.0.2](https://github.com/amos-ws16/amos-ws16-arrowjs-server/releases/tag/sprint-10-release) - 2016-12-15
 ## Added

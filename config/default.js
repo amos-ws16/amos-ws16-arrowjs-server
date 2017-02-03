@@ -12,7 +12,8 @@ const config = {
     password: ''
   },
   adminPassword: env.ARROW_ADMIN_PASSWORD,
-  port: env.ARROW_LISTEN_PORT || 3000
+  port: env.ARROW_LISTEN_PORT || 3000,
+  useHttps: false
 }
 
 module.exports = config
