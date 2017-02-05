@@ -1,0 +1,28 @@
+version: "2"
+services:
+  web:
+    environment:
+      - ARROW_LISTEN_PORT=3000
+      - ARROW_ADMIN_PASSWORD
+      - ARROW_TOKEN_SECRET
+      - ARROW_DATABASE_HOST=mongo
+      - ARROW_DATABASE_PORT=27017
+      - ARROW_DATABASE_USER
+      - ARROW_DATABASE_PASSWORD
+      - ARROW_DATABASE_DBNAME
+    build: .
+    ports:
+      - "3000:3000"
+    depends_on:
+      - mongo
+  mongo:
+    image: mongo
+    volumes_from:
+      - mongodata
+    depends_on:
+      - mongodata
+  mongodata:
+    image: tianon/true
+    volumes:
+      - /data/db
+
