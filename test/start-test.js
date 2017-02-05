@@ -11,6 +11,9 @@ const database = require('../lib/database')
 buster.testCase('app.start()', {
   setUp: function () {
     this.originalNodeEnv = process.env.NODE_ENV
+    // FIXME: somehow the test runner does not correctly set NODE_ENV to test
+    process.env.NODE_ENV = 'test'
+
     this.config = {
       database: 'database config',
       port: 1234

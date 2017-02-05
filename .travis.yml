@@ -1,15 +1,27 @@
+sudo: required
+
 language: node_js
+
 node_js:
-- node
+  - node
+
 services:
-- mongodb
-before_install:
-- ./scripts/integrate-mongo-travis.sh
+  - docker
+
+before_script:
+  - scripts/setup-docker-compose-test.sh
+  - docker-compose build
+
+script:
+  - docker-compose run web npm run all-tests
+
 after_success:
-- npm run coveralls
+  - docker-compose run web npm run coveralls
+
 before_deploy:
-- deployment-scripts/before-deploy.sh
-- deployment-scripts/create-zip.sh
+  - deployment-scripts/before-deploy.sh
+  - deployment-scripts/create-zip.sh
+
 deploy:
   - provider: s3
     access_key_id:
