@@ -39,5 +39,11 @@ buster.testCase('request-database test', {
     buster.assert.calledWith(this.create, sinon.match.has(
       'metaInfo', sinon.match.has('timestamp', sinon.match.number))
     )
+  },
+
+  'Should throw error, if there occurs an error while saving': function () {
+    this.create.yields('any error')
+    logging.addRequest('sample Request', 'sample Response', () => {})
+    buster.assert.exception(this.create)
   }
 })
