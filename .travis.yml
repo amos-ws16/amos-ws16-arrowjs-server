@@ -7,6 +7,7 @@ node_js:
 
 services:
   - docker
+  - mongodb
 
 before_script:
   - scripts/setup-docker-compose-test.sh
@@ -16,7 +17,8 @@ script:
   - docker-compose run web npm run all-tests
 
 after_success:
-  - docker-compose run web npm run coveralls
+  - scripts/revert-to-HEAD.sh
+  - npm run coveralls
 
 before_deploy:
   - deployment-scripts/before-deploy.sh
