@@ -2,7 +2,7 @@ const env = process.env
 const config = {
   token: {
     secret: env.ARROW_TOKEN_SECRET,
-    expiresIn: '24h'
+    expiresIn: '1y'
   },
   database: {
     host: 'localhost',
