@@ -8,7 +8,6 @@ const packageInfoEngine = require('../node_modules/arrow/package.json')
 
 buster.testCase('request-database test', {
   setUp: function (done) {
-    // this.save = sinon.stub(mongoose.Model.prototype, 'save')// Request.prototype, 'save')// this.stub(logging.addRequest.newRequest.save)
     this.create = this.stub(Request, 'create')
     done()
   },
@@ -43,7 +42,6 @@ buster.testCase('request-database test', {
 
   'Should throw error, if there occurs an error while saving': function () {
     this.create.yields('any error')
-    logging.addRequest('sample Request', 'sample Response', () => {})
-    buster.assert.exception(this.create)
+    buster.assert.exception(() => logging.addRequest('sample Request', 'sample Response', () => {}))
   }
 })
