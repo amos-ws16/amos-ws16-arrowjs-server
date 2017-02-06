@@ -1,9 +1,7 @@
 const buster = require('buster')
-const VError = require('verror').VError
 const postApiScore = require('../lib/post-api-score')
 const scoreManager = require('arrow')
 const config = require('arrow/config/default')
-const InvalidInputError = require('arrow/lib/invalid-input-error')
 
 const sinon = require('sinon')
 const logging = require('../lib/logging.js')
@@ -47,38 +45,5 @@ buster.testCase('postApiScore', {
       buster.assert.calledWith(this.res.json, sinon.match.has('uid', '123'))
       done()
     })
-  },
-
-  '//should pass along error message on input error': function (done) {
-    this.fakeScoreManager.score.throws(new InvalidInputError('There was a problem'))
-    postApiScore(this.req, this.res, () => {
-      buster.assert.calledWith(this.res.json, sinon.match.has('success', false))
-      buster.assert.calledWith(this.res.json, sinon.match.has('error', 'There was a problem'))
-      buster.assert.calledWith(this.res.json, sinon.match.has('uid', '123'))
-      done()
-    })
-  },
-
-  '//should pass along error message on wrapped input error': function (done) {
-    this.fakeScoreManager.score.throws(
-      new VError(
-        new InvalidInputError('There was a specific problem'),
-        'There was a general problem'))
-    postApiScore(this.req, this.res, () => {
-      buster.assert.calledWith(this.res.json, sinon.match.has('success', false))
-      buster.assert.calledWith(this.res.json, sinon.match.has('error', 'There was a general problem: There was a specific problem'))
-      buster.assert.calledWith(this.res.json, sinon.match.has('uid', '123'))
-      done()
-    })
-  },
-
-  '//should signal an internal server error on error conditions other than input and rethrow exception': function (done) {
-    this.fakeScoreManager.score.throws(new Error('There was an internal problem'))
-    buster.assert.exception(() => postApiScore(this.req, this.res, () => {
-      buster.assert.calledWith(this.res.json, sinon.match.has('success', false))
-      buster.assert.calledWith(this.res.json, sinon.match.has('error', 'Internal Server Error'))
-      buster.assert.calledWith(this.res.json, sinon.match.has('uid', '123'))
-      done()
-    }))
   }
 })
