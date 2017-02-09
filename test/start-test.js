@@ -5,12 +5,13 @@ const makeApp = require('../lib')
 
 const http = require('http')
 const https = require('https')
-// const fs = require('fs')
+const fs = require('fs')
 const database = require('../lib/database')
 
 buster.testCase('app.start()', {
   setUp: function () {
     this.originalNodeEnv = process.env.NODE_ENV
+    process.env.NODE_ENV = 'test'
     this.config = {
       database: 'database config',
       port: 1234
@@ -48,10 +49,10 @@ buster.testCase('app.start()', {
         buster.assert.calledWith(this.log, sinon.match(/1234/))
         buster.assert.calledWith(this.log, sinon.match(/test mode/))
       })
-  }
+  },
 
-  /* 'should start in https mode when node_env is production': function () {
-    process.env.NODE_ENV = 'production'
+  'should start in https mode when useHttps is set in config': function () {
+    this.config.useHttps = true
     this.readFileSync = this.stub(fs, 'readFileSync')
     this.readFileSync.withArgs('cert/key.pem').returns('the key')
     this.readFileSync.withArgs('cert/cert.pem').returns('the cert')
@@ -61,5 +62,4 @@ buster.testCase('app.start()', {
         buster.assert.calledWith(this.https, { key: 'the key', cert: 'the cert' })
       })
   }
-  */
 })

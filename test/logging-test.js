@@ -8,7 +8,6 @@ const packageInfoEngine = require('../node_modules/arrow/package.json')
 
 buster.testCase('request-database test', {
   setUp: function (done) {
-    // this.save = sinon.stub(mongoose.Model.prototype, 'save')// Request.prototype, 'save')// this.stub(logging.addRequest.newRequest.save)
     this.create = this.stub(Request, 'create')
     done()
   },
@@ -39,5 +38,10 @@ buster.testCase('request-database test', {
     buster.assert.calledWith(this.create, sinon.match.has(
       'metaInfo', sinon.match.has('timestamp', sinon.match.number))
     )
+  },
+
+  'Should throw error, if there occurs an error while saving': function () {
+    this.create.yields('any error')
+    buster.assert.exception(() => logging.addRequest('sample Request', 'sample Response', () => {}))
   }
 })
