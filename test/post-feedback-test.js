@@ -15,13 +15,6 @@ buster.testCase('postApiFeedback', {
     this.res = { send: this.stub(), json: this.stub() }
     done()
   },
-  // 'No input': {
-  //   'should return failure code on empty request': function () {
-  //     buster.assert.exception(function () {
-  //       postApiFeedback(this.req, this.res)
-  //     }, 'InvalidInputError')
-  //   }
-  // },
   'No input': {
     'should return failure code on empty request': function (done) {
       postApiFeedback(this.req, this.res, () => {
