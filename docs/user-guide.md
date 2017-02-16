@@ -16,7 +16,7 @@ This user guide explains how to use the Arrow.js API.
 To use the Arrow.js API you will need to obtain a valid token to authenticate your requests (see 2.2 Requests section).
 To receive a token, a valid username and password are necessary which will be send to the endpoint:
 
-**https://ec2-52-212-74-103.eu-west-1.compute.amazonaws.com:4000/api/auth**
+**http://ec2-52-212-74-103.eu-west-1.compute.amazonaws.com:4000/api/auth**
 
 Authentication-Requests:
 ```javascript
