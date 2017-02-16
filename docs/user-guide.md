@@ -39,7 +39,7 @@ Response:
 
 The Arrow.js API is based on REST principles: data resources are accessed via standard HTTP requests in UTF-8 format to an API endpoint. The API is running on a server hosted by amazon AWS. To use this API you have to send a POST request to the following address:
 
-**https://ec2-52-212-74-103.eu-west-1.compute.amazonaws.com:4000/api/score**
+**http://ec2-52-212-74-103.eu-west-1.compute.amazonaws.com:4000/api/score**
 
 #### 2.2.1 Input Scheme
 
